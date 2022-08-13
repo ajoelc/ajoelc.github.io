@@ -22,22 +22,22 @@
     <div class="container">
       <img id="logoLogin" src="img/login.png" alt="Logo de la página">
       <div class="container" id="contenedorLogin">
-          <h3 class="inputLogin">Inicio de sesión</h3>
+        <h3 class="inputLogin">Inicio de sesión</h3>
+        
+        <form action="#" onsubmit="return redirect();">
+          <div class="form-floating inputLogin">
+            <input placeholder="email@dominio.com" type="email" class="form-control" name="emailInicio" id="emailInicio" required>
+            <label for="emailInicio">Email</label>
+          </div>
           
-            
-            <div class="form-floating inputLogin">
-              <input placeholder="email@dominio.com" type="email" class="form-control" name="emailInicio" id="emailInicio" required>
-              <label for="emailInicio">Email</label>
-            </div>
-            
-            <div class="form-floating inputLogin">
-              <input placeholder="contraseña" type="password" class="form-control" id="contraInicio" required>
-              <label class="form-label" for="contraInicio">Contraseña</label>
-            </div>
-
-            <button type="submit" class="btn btn-primary mt-2 inputLogin" id="botonLogin">Ingresar</button>
-
-          
+          <div class="form-floating inputLogin">
+            <input placeholder="contraseña" type="password" class="form-control" id="contraInicio" required>
+            <label class="form-label" for="contraInicio">Contraseña</label>
+          </div>
+        
+          <button type="submit" class="btn btn-primary mt-2 inputLogin" id="botonLogin">Ingresar</button>
+        </form>  
+      </div>
     </div>
   </main>
   <footer class="text-muted">
