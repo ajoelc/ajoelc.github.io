@@ -33,12 +33,12 @@ function mostrarProductos(array){
 
 document.addEventListener("DOMContentLoaded",function(e){
     getJSONData(urlAutos).then(function(resultObj){
+        autos = resultObj.data;
         if(resultObj.status === "ok"){
-            autos = resultObj.data;
             mostrarProductos(autos);
         }
         else{
-            alert("Ha ocurrido un error ("+autos.data+")")
+            alert("Ha ocurrido un error ("+autos+")")
         }
     })
 })
