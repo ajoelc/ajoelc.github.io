@@ -2,8 +2,6 @@ const urlAutos = 'https://japceibal.github.io/emercado-api/cats_products/101.jso
 
 let autos = []
 
-autos = getJSONData(urlAutos);
-
 function mostrarProductos(array){
     let contenidoHTML = "";
     document.getElementById("categoria").innerHTML = `Aquí puedes encontrar todos nuestros productos de la categoría ` + array.catName
