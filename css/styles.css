@@ -218,5 +218,7 @@ h3.inputLogin{
 }
 
 .center{
+  display: block;
+  margin: 0px auto;
   text-align: center;
 }
