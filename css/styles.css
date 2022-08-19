@@ -192,10 +192,13 @@ a.custom-card:hover {
 /*LOGIN*/
 h3.inputLogin{
   text-align: center;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
 }
+
 .inputLogin{
   display: block;
-  margin: 0px auto;
+  margin: 5px auto;
   min-width: 200px;
   max-width: 300px;
 }
@@ -205,4 +208,15 @@ h3.inputLogin{
   margin: 0px auto;
   height: 150px;
   width: auto;
+}
+
+#sepLogin{
+  display: block;
+  margin: 30px auto;
+  margin-bottom: 10px;
+  width: 100px;
+}
+
+.center{
+  text-align: center;
 }
