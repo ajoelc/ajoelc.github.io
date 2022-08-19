@@ -18,6 +18,7 @@
 </head>
 
 <body>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <main class="mt-5">
     <div class="container">
       <img id="logoLogin" src="img/login.png" alt="Logo de la página">
@@ -36,6 +37,11 @@
           </div>
         
           <button type="submit" class="btn btn-primary mt-2 inputLogin" id="botonLogin">Ingresar</button>
+          <div id="g_id_onload"
+            data-client_id="962699925016-rc80qcj05auboi3vr4rif6iba6hvpqj4.apps.googleusercontent.com"
+            data-callback="redirect">
+          </div>
+          <div class="g_id_signin" data-type="standard"></div>
         </form>  
       </div>
     </div>
