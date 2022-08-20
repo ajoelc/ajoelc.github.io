@@ -32,6 +32,7 @@ function mostrarProductos(array){
 }
 
 document.addEventListener("DOMContentLoaded",function(e){
+    document.getElementById("usuario").innerHTML += localStorage.getItem('mail') + '!';
     getJSONData(urlAutos).then(function(resultObj){
         autos = resultObj.data;
         if(resultObj.status === "ok"){
