@@ -1,5 +1,11 @@
+function mostrarSaludo(){
+    let nombre = localStorage.getItem('nombre');
+    if(nombre) return nombre;
+    else return localStorage.getItem('mail')
+}
+
 document.addEventListener("DOMContentLoaded", function(){
-    document.getElementById("usuario").innerHTML = 'Hola, ' + localStorage.getItem('mail') + '!';
+    document.getElementById("usuario").innerHTML = 'Hola, ' + mostrarSaludo() + '!';
     document.getElementById("autos").addEventListener("click", function() {
         localStorage.setItem("catID", 101);
         window.location = "products.html"

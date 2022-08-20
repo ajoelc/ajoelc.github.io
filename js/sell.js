@@ -24,11 +24,17 @@ function updateTotalCosts(){
     totalCostHTML.innerHTML = totalCostToShow;
 }
 
+function mostrarSaludo(){
+    let nombre = localStorage.getItem('nombre');
+    if(nombre) return nombre;
+    else return localStorage.getItem('mail')
+}
+
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function(e){
-    document.getElementById("usuario").innerHTML = 'Hola, ' + localStorage.getItem('mail') + '!';
+    document.getElementById("usuario").innerHTML = 'Hola, ' + mostrarSaludo() + '!';
     document.getElementById("productCountInput").addEventListener("change", function(){
         productCount = this.value;
         updateTotalCosts();

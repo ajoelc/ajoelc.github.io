@@ -32,8 +32,14 @@ function mostrarProductos(array){
 
 }
 
+function mostrarSaludo(){
+    let nombre = localStorage.getItem('nombre');
+    if(nombre) return nombre;
+    else return localStorage.getItem('mail')
+}
+
 document.addEventListener("DOMContentLoaded",function(e){
-    document.getElementById("usuario").innerHTML = 'Hola, ' + localStorage.getItem('mail') + '!';
+    document.getElementById("usuario").innerHTML = 'Hola, ' + mostrarSaludo() + '!';
     getJSONData(url).then(function(resultObj){
         arrayProducts = resultObj.data;
         if(resultObj.status === "ok"){
