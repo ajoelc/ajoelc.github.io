@@ -1,6 +1,7 @@
-const urlAutos = 'https://japceibal.github.io/emercado-api/cats_products/101.json'
+let catID = localStorage.getItem('catID');
+const url = 'https://japceibal.github.io/emercado-api/cats_products/'+catID+'.json'
 
-let autos = []
+let arrayProducts = []
 
 function mostrarProductos(array){
     let contenidoHTML = "";
@@ -32,13 +33,14 @@ function mostrarProductos(array){
 }
 
 document.addEventListener("DOMContentLoaded",function(e){
-    getJSONData(urlAutos).then(function(resultObj){
-        autos = resultObj.data;
+    document.getElementById("usuario").innerHTML = 'Hola, ' + localStorage.getItem('mail') + '!';
+    getJSONData(url).then(function(resultObj){
+        arrayProducts = resultObj.data;
         if(resultObj.status === "ok"){
-            mostrarProductos(autos);
+            mostrarProductos(arrayProducts);
         }
         else{
-            alert("Ha ocurrido un error ("+autos+")")
+            alert("Ha ocurrido un error ("+arrayProducts+")")
         }
     })
 })
