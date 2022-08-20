@@ -222,3 +222,9 @@ h3.inputLogin{
   margin: 0px auto;
   text-align: center;
 }
+
+#usuario{
+  text-decoration: none;
+  color: rgba(249, 235, 209, 0.655);
+  margin: 6px auto;
+}
