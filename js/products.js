@@ -26,8 +26,8 @@ function mostrarProductos(array){
             </div>
         </div>
         `
-        document.getElementById("productos").innerHTML = contenidoHTML; 
     }
+    document.getElementById("productos").innerHTML = contenidoHTML; 
 
 }
 
