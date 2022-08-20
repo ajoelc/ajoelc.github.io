@@ -32,7 +32,7 @@ function mostrarProductos(array){
 }
 
 document.addEventListener("DOMContentLoaded",function(e){
-    document.getElementById("usuario").innerHTML = 'Hola,' + localStorage.getItem('mail') + '!';
+    document.getElementById("usuario").innerHTML = 'Hola, ' + localStorage.getItem('mail') + '!';
     getJSONData(urlAutos).then(function(resultObj){
         autos = resultObj.data;
         if(resultObj.status === "ok"){
