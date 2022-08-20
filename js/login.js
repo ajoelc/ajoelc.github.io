@@ -17,7 +17,7 @@ function parseJwt (token) {
 
 function redirectGoogle(response){
     const responsePayload = parseJwt(response.credential);
-    console.log('Full Name: ' + responsePayload.name);
-    console.log("Email: " + responsePayload.email);
+    localStorage.setItem('fullName',responsePayload.name);
+    localStorage.setItem('mail',responsePayload.email);
     window.location.href = "inicio.html";
 }
