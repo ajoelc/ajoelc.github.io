@@ -6,19 +6,10 @@ function redirect(){
     return false;
 }
 
-function parseJwt (token) {
-    var base64Url = token.split('.')[1];
-    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-
-    return JSON.parse(jsonPayload);
-};
-
 function redirectGoogle(response){
-    const responsePayload = parseJwt(response.credential);
-    localStorage.setItem('nombre',responsePayload.given_name);
-    localStorage.setItem('mail',responsePayload.email);
+    const infoUsuario = jwt_decode(response.credential);
+    localStorage.clear()
+    localStorage.setItem('nombre',infoUsuario.given_name);
+    localStorage.setItem('mail',infoUsuario.email);
     window.location.href = "inicio.html";
 }
