@@ -66,9 +66,16 @@ function showCategoriesList(){
             </div>
             `
         }
-
-        document.getElementById("cat-list-container").innerHTML = htmlContentToAppend;
     }
+    if(htmlContentToAppend == ''){
+        htmlContentToAppend =`
+        <div class="list-group-item container center">
+            <h4 id="textoNF">No se han encontrado productos con esas características</h4>
+            <img src="img/sad.png" class="center" id="notFound"></img>
+        </div>
+        `;
+    }
+    document.getElementById("cat-list-container").innerHTML = htmlContentToAppend;
 }
 
 function sortAndShowCategories(sortCriteria, categoriesArray){

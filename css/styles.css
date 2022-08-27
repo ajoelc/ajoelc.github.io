@@ -228,3 +228,19 @@ h3.inputLogin{
   color: rgba(249, 235, 209, 0.655);
   margin: 6px auto;
 }
+
+#notFound{
+  width: 10%;
+  height: auto;
+  margin-top: 40px;
+  margin-bottom: 50px;
+}
+
+#textoNF{
+  margin-top: 50px;
+  color: rgb(69, 69, 69);
+}
+
+.tituloSeccion{
+  text-transform: uppercase;
+}
