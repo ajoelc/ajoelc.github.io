@@ -66,9 +66,16 @@ function showCategoriesList(){
             </div>
             `
         }
-
-        document.getElementById("cat-list-container").innerHTML = htmlContentToAppend;
     }
+    if(htmlContentToAppend == ''){
+        htmlContentToAppend =`
+        <div class="list-group-item container center">
+            <h4 id="textoNF">No se han encontrado productos con esas características</h4>
+            <img src="img/sad.png" class="center" id="notFound"></img>
+        </div>
+        `;
+    }
+    document.getElementById("cat-list-container").innerHTML = htmlContentToAppend;
 }
 
 function sortAndShowCategories(sortCriteria, categoriesArray){
@@ -84,11 +91,17 @@ function sortAndShowCategories(sortCriteria, categoriesArray){
     showCategoriesList();
 }
 
+function mostrarSaludo(){
+    let nombre = localStorage.getItem('nombre');
+    if(nombre) return nombre;
+    else return localStorage.getItem('mail')
+}
+
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function(e){
-    document.getElementById("usuario").innerHTML = 'Hola, ' + localStorage.getItem('mail') + '!';
+    document.getElementById("usuario").innerHTML = 'Hola, ' + mostrarSaludo() + '!';
     getJSONData(CATEGORIES_URL).then(function(resultObj){
         if (resultObj.status === "ok"){
             currentCategoriesArray = resultObj.data
