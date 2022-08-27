@@ -7,6 +7,8 @@ let botonFiltrar = document.getElementById("botonFiltrar");
 let botonLimpiar = document.getElementById("botonLimpiar");
 let botonAsc = document.getElementById("sortAsc");
 let botonDes = document.getElementById("sortDes");
+let buscador = document.getElementById("buscador");
+let buscadorInput = '';
 
 let min = '';
 let max = '';
@@ -16,8 +18,9 @@ function mostrarProductos(array){
     for(let i = 0;i < array.length; i++){
         let prod = array[i];
         let precioProd = parseInt(prod.cost);
-        if((min == '' && max == '') || (precioProd >= parseInt(min) && precioProd <= parseInt(max)) ||
-            (min == '' && precioProd <= parseInt(max)) || (precioProd >= parseInt(min) && max == '')){
+        if(((min == '' && max == '') || (precioProd >= parseInt(min) && precioProd <= parseInt(max)) ||
+            (min == '' && precioProd <= parseInt(max)) || (precioProd >= parseInt(min) && max == '')) &&
+            ((buscadorInput == '') || ((prod.description.toLowerCase()).includes(buscadorInput)) || ((prod.name.toLowerCase()).includes(buscadorInput)))){
             contenidoHTML += `
             <div class="list-group-item list-group-item-action">
                 <div class="row">
@@ -103,4 +106,8 @@ document.addEventListener("DOMContentLoaded",function(e){
         mostrarProductos(data.products);
     })
     
+    buscador.addEventListener("input",function(){
+        buscadorInput = (buscador.value).toLowerCase()
+        mostrarProductos(data.products);
+    })
 })

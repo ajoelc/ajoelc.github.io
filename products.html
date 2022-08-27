@@ -44,9 +44,31 @@
       <p id = "categoria" class="d-flex justify-content-center"></p>
     </div>
     <div class="container">
+      
+    </div>
+    <div class="container mt-5">
       <div class="row">
-        <div class="col text-end">
-          <div class="btn-group btn-group-toggle mb-4" data-bs-toggle="buttons">
+        <div class="col">
+          <input type="search" placeholder="Buscar productos" id="buscador" class="form-control">
+          <label class="form-label" for="buscador" hidden>Buscar</label>
+        </div>
+        <div class="col">
+          <p class="font-weight-normal text-end my-2">Precio</p>
+        </div>
+        <div class="col">
+          <input class="form-control" type="number" placeholder="min." id="priceMin">
+        </div>
+        <div class="col">
+          <input class="form-control" type="number" placeholder="máx." id="priceMax">
+        </div>
+        <div class="col">
+          <div class="btn-group" role="group">
+            <button class="btn btn-dark btn-block" id="botonFiltrar">Filtrar</button>
+            <button class="btn btn-light btn-sm" id="botonLimpiar">Limpiar</button>
+          </div>
+        </div>
+        <div class="col">
+          <div class="btn-group btn-group-toggle mb-2" data-bs-toggle="buttons">
             <input type="radio" class="btn-check" name="options" id="sortAsc">
             <label class="btn btn-light" for="sortAsc"><i class="fa-solid fa-arrow-down-1-9"></i></label>
             <input type="radio" class="btn-check" name="options" id="sortDes">
@@ -55,10 +77,16 @@
             <label class="btn btn-light" for="sortRelevancia"><i class="fa-solid fa-arrow-down-wide-short"></i></label>
           </div>
         </div>
+
       </div>
-      <div class="row">
-        <div class="col-lg-6 offset-lg-6 col-md-12 mb-1 container">
+
+<!--
+        <div id="filtros" class="col-lg-9 mb-1 container-fluid">
           <div class="row container p-0 m-0">
+            <div class="col-4">
+              <input type="search" placeholder="Buscar productos" id="buscador" class="form-control">
+              <label class="form-label" for="buscador" hidden>Buscar</label>
+            </div>
             <div class="col">
               <p class="font-weight-normal text-end my-2">Precio</p>
             </div>
@@ -68,15 +96,26 @@
             <div class="col">
               <input class="form-control" type="number" placeholder="máx." id="priceMax">
             </div>
-            <div class="col-3 p-0">
+
+            <div class="col-2 p-0">
               <div class="btn-group" role="group">
-                <button class="btn btn-light btn-block" id="botonFiltrar">Filtrar</button>
-                <button class="btn btn-link btn-sm" id="botonLimpiar">Limpiar</button>
+                <button class="btn btn-dark btn-block" id="botonFiltrar">Filtrar</button>
+                <button class="btn btn-light btn-sm" id="botonLimpiar">Limpiar</button>
+              </div>
+            </div>
+            <div class="col float-end">
+              <div class="btn-group btn-group-toggle mb-2" data-bs-toggle="buttons">
+                <input type="radio" class="btn-check" name="options" id="sortAsc">
+                <label class="btn btn-light" for="sortAsc"><i class="fa-solid fa-arrow-down-1-9"></i></label>
+                <input type="radio" class="btn-check" name="options" id="sortDes">
+                <label class="btn btn-light" for="sortDes"><i class="fa-solid fa-arrow-up-9-1"></i></label>
+                <input type="radio" class="btn-check" name="options" id="sortRelevancia" checked>
+                <label class="btn btn-light" for="sortRelevancia"><i class="fa-solid fa-arrow-down-wide-short"></i></label>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </div>-->
       <div class="row">
         <div class="list-group" id="cat-list-container">
         </div>

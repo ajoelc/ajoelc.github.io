@@ -244,3 +244,8 @@ h3.inputLogin{
 .tituloSeccion{
   text-transform: uppercase;
 }
+
+#buscador{
+  width: 300px;
+  margin-right: 50px;
+}
