@@ -1,8 +1,8 @@
 function redirect(){
-    window.location.href = "inicio.html";
     localStorage.clear();
     let mail = document.getElementById("emailInicio").value;
     localStorage.setItem('mail', mail);
+    window.location.href = "inicio.html";
     return false;
 }
 
