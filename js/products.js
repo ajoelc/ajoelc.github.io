@@ -7,6 +7,8 @@ let botonFiltrar = document.getElementById("botonFiltrar");
 let botonLimpiar = document.getElementById("botonLimpiar");
 let botonAsc = document.getElementById("sortAsc");
 let botonDes = document.getElementById("sortDes");
+let buscador = document.getElementById("buscador");
+let buscadorInput = '';
 
 let min = '';
 let max = '';
@@ -16,23 +18,23 @@ function mostrarProductos(array){
     for(let i = 0;i < array.length; i++){
         let prod = array[i];
         let precioProd = parseInt(prod.cost);
-        if((min == '' && max == '') || (precioProd >= parseInt(min) && precioProd <= parseInt(max)) ||
-            (min == '' && precioProd <= parseInt(max)) || (precioProd >= parseInt(min) && max == '')){
+        if(((min == '' && max == '') || (precioProd >= parseInt(min) && precioProd <= parseInt(max)) ||
+            (min == '' && precioProd <= parseInt(max)) || (precioProd >= parseInt(min) && max == '')) &&
+            ((buscadorInput == '') || ((prod.description.toLowerCase()).includes(buscadorInput)) || ((prod.name.toLowerCase()).includes(buscadorInput)))){
             contenidoHTML += `
             <div class="list-group-item list-group-item-action">
                 <div class="row">
-                    <div class="col-3">
-                        <img src="` + prod.image + `" alt="product image" class="img-thumbnail">
+                    <div class="col-3 rounded no-border">
+                        <img src="${prod.image}" alt="product image" class="img-thumbnail">
                     </div>
                     <div class="col">
                         <div class="d-flex w-100 justify-content-between">
                             <div class="mb-1">
-                            <h4>`+ prod.name +` - ` + prod.currency + ` ` + prod.cost +`</h4> 
-                            <p> `+ prod.description +`</p> 
+                            <h4> ${prod.name} - ${prod.currency} ${prod.cost}</h4> 
+                            <p> ${prod.description}</p> 
                             </div>
-                            <small class="text-muted">` + prod.soldCount + ` vendidos</small> 
+                            <small class="text-muted">${prod.soldCount} vendidos</small> 
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -103,4 +105,8 @@ document.addEventListener("DOMContentLoaded",function(e){
         mostrarProductos(data.products);
     })
     
+    buscador.addEventListener("input",function(){
+        buscadorInput = (buscador.value).toLowerCase()
+        mostrarProductos(data.products);
+    })
 })
