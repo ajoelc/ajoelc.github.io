@@ -7,7 +7,6 @@ function redirect(){
 
 function redirectGoogle(response){
     const infoUsuario = jwt_decode(response.credential);
-    localStorage.clear()
     localStorage.setItem('nombre',infoUsuario.given_name);
     localStorage.setItem('mail',infoUsuario.email);
     window.location.href = "inicio.html";
