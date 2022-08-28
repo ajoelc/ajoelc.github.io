@@ -1,5 +1,4 @@
 function redirect(){
-    localStorage.clear();
     let mail = document.getElementById("emailInicio").value;
     localStorage.setItem('mail', mail);
     window.location.href = "inicio.html";
@@ -13,3 +12,7 @@ function redirectGoogle(response){
     localStorage.setItem('mail',infoUsuario.email);
     window.location.href = "inicio.html";
 }
+
+document.addEventListener("DOMContentLoaded",function(){
+    localStorage.clear();
+})
