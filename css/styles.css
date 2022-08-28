@@ -243,9 +243,44 @@ h3.inputLogin{
 
 .tituloSeccion{
   text-transform: uppercase;
+  margin-bottom: 10px;
 }
 
 #buscador{
-  width: 300px;
-  margin-right: 50px;
+  width: 600px;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 50px;
+}
+
+#filtros>div{
+  margin-left: 40px;
+  margin-top: 5%;
+  border: 1px solid ;
+  border-radius: 15px;
+  border-color: rgba(0, 0, 0, 0.205);
+  background-color: rgba(19, 118, 118, 0.027);
+  padding: 10px;
+}
+
+#filtros>h3{
+  text-transform: uppercase;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  background-color: rgba(0, 0, 0, 0.128);
+  border-radius: 15px;
+  color: rgb(0, 0, 0);
+  padding: 10px;
+  text-align: center;
+  margin-left: 40px;
+}
+
+
+#filtros .form-control{
+  max-height: 1.5rem;
+  max-width: 5rem;
+}
+
+#filtros .btn-light{
+  background-color: rgba(197, 169, 169, 0.205);
 }

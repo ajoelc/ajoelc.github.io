@@ -24,18 +24,17 @@ function mostrarProductos(array){
             contenidoHTML += `
             <div class="list-group-item list-group-item-action">
                 <div class="row">
-                    <div class="col-3">
-                        <img src="` + prod.image + `" alt="product image" class="img-thumbnail">
+                    <div class="col-3 rounded no-border">
+                        <img src="${prod.image}" alt="product image" class="img-thumbnail">
                     </div>
                     <div class="col">
                         <div class="d-flex w-100 justify-content-between">
                             <div class="mb-1">
-                            <h4>`+ prod.name +` - ` + prod.currency + ` ` + prod.cost +`</h4> 
-                            <p> `+ prod.description +`</p> 
+                            <h4> ${prod.name} - ${prod.currency} ${prod.cost}</h4> 
+                            <p> ${prod.description}</p> 
                             </div>
-                            <small class="text-muted">` + prod.soldCount + ` vendidos</small> 
+                            <small class="text-muted">${prod.soldCount} vendidos</small> 
                         </div>
-
                     </div>
                 </div>
             </div>
