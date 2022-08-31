@@ -102,6 +102,8 @@ document.addEventListener("DOMContentLoaded",function(e){
     botonLimpiar.addEventListener("click",function(){
         min = '';
         max = '';
+        document.getElementById("priceMin").value = min;
+        document.getElementById("priceMax").value = max;
         mostrarProductos(data.products);
     })
     
