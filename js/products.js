@@ -51,15 +51,10 @@ function mostrarProductos(array){
     document.getElementById("productos").innerHTML = contenidoHTML; 
 }
 
-function mostrarSaludo(){
-    let nombre = localStorage.getItem('nombre');
-    if(nombre) return nombre;
-    else return localStorage.getItem('mail')
-}
-
 
 document.addEventListener("DOMContentLoaded",function(e){
     document.getElementById("usuario").innerHTML = 'Hola, ' + mostrarSaludo() + '!';
+    
     getJSONData(url).then(function(resultObj){
         data = resultObj.data;
         if(resultObj.status === "ok"){
