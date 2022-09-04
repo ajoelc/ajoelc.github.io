@@ -12,6 +12,8 @@
   <link href="css/styles.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400&display=swap" rel="stylesheet">
   <link rel="icon" href="img/logo-removebg-preview.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 
 <body>
@@ -22,16 +24,21 @@
         <span class="navbar-toggler-icon"></span>
         <span id="toggler-text">MENU</span>
       </button>
+      
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav w-100 justify-content-between">
           <li class="nav-item">
             <a class="nav-link" href="inicio.html">Inicio</a>
           </li>
+          <div class="dropdown">
+            <li class="nav-item" id="navbar-categories">
+              <a class="nav-link active dropbtn" role="button" href="categories.html">Categorías</a>
+              <div id="categories-menu">
+              </div>
+            </li>
+          </div>
           <li class="nav-item">
-            <a class="nav-link" href="categories.html">Categorías</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="sell.html">Vender</a>
+            <a class="nav-link" href="sell.html" id="vender">Vender</a>
           </li>
           <li class="nav-item">
             <p id="usuario"></p>
@@ -41,9 +48,34 @@
     </div>
   </nav>
   <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+    <div class="container" id="infoProd">
+      <h1 id="nameCat"></h1>
+      <div class="row">
+        <div class="col-2">
+          <div id="allImages">
+
+          </div>
+        </div>
+        <div class="col-7">
+          <div id="contenedorImg" class="carousel-inner">
+          </div>
+        </div>
+        <div class="col-3">
+          <h1 id="nameProd"></h1>
+          <p id="descriptionProd"></p>
+          <h2 id="costProd"></h2>
+          <button class="btn btn-primary">Comprar</button>
+          <p id="soldProd"></p>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <h3>Comentarios</h3>
+        <div class="container">
+          <div id="comentarios" class="container">
+
+          </div>
+        </div>
       </div>
     </div>
   </main>
