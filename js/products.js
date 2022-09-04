@@ -54,7 +54,7 @@ function mostrarProductos(array){
 
 document.addEventListener("DOMContentLoaded",function(e){
     document.getElementById("usuario").innerHTML = 'Hola, ' + mostrarSaludo() + '!';
-    
+
     getJSONData(url).then(function(resultObj){
         data = resultObj.data;
         if(resultObj.status === "ok"){
@@ -68,7 +68,6 @@ document.addEventListener("DOMContentLoaded",function(e){
 
     let categoriesMenu = document.getElementById("categories-menu");
     getShowCategories(categoriesMenu);
-    
     document.getElementById("categories-menu").addEventListener("click",function(e){
         localStorage.setItem("catID",e.target.id)
     })
