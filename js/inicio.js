@@ -1,13 +1,12 @@
 document.addEventListener("DOMContentLoaded", function(){
+    document.getElementById("usuario").innerHTML = 'Hola, ' + mostrarSaludo() + '!';
+
     let categoriesMenu = document.getElementById("categories-menu");
     getShowCategories(categoriesMenu);
-    
     document.getElementById("categories-menu").addEventListener("click",function(e){
         localStorage.setItem("catID",e.target.id)
     })
-    
-    document.getElementById("usuario").innerHTML = 'Hola, ' + mostrarSaludo() + '!';
-    
+
     document.getElementById("autos").addEventListener("click", function() {
         localStorage.setItem("catID", 101);
         window.location = "products.html"
