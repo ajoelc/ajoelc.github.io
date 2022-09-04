@@ -102,6 +102,7 @@ function mostrarSaludo(){
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function(e){
     document.getElementById("usuario").innerHTML = 'Hola, ' + mostrarSaludo() + '!';
+    
     getJSONData(CATEGORIES_URL).then(function(resultObj){
         if (resultObj.status === "ok"){
             currentCategoriesArray = resultObj.data
@@ -109,6 +110,14 @@ document.addEventListener("DOMContentLoaded", function(e){
             //sortAndShowCategories(ORDER_ASC_BY_NAME, resultObj.data);
         }
     });
+
+    let categoriesMenu = document.getElementById("categories-menu");
+    getShowCategories(categoriesMenu);
+    
+    document.getElementById("categories-menu").addEventListener("click",function(e){
+        localStorage.setItem("catID",e.target.id)
+    })
+    
 
     document.getElementById("sortAsc").addEventListener("click", function(){
         sortAndShowCategories(ORDER_ASC_BY_NAME);

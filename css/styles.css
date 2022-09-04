@@ -198,6 +198,59 @@ a.custom-card:hover {
   color: black !important;
 }
 
+.navbar > *{
+  display: flex;
+  padding: 10px;
+}
+
+.dropdown{
+  position: relative;
+  display: inline-block;
+}
+
+#categories-menu {
+  font-family: 'Josefin Sans',sans-serif;
+  font-weight: 100;
+  display: none;
+  position: absolute;
+  background-color: #0b0b0b94;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(9, 94, 80, 0.2);
+  z-index: 1;
+}
+
+#categories-menu a{
+  color: white;
+}
+
+#categories-menu a:hover{
+  background-color: rgb(115, 184, 168);
+}
+
+.dropdown:hover #categories-menu {display: block;}
+
+.navbar img{
+  width: 50px;
+  height: 
+  50px !important;
+}
+a.nav-link { transition: all 0.5s;}
+
+a.nav-link:hover, div.card:hover{
+  transform: scale(1.1);
+}
+
+#vender{
+  border: 1px solid rgb(177, 170, 170);
+  border-radius: 30px;;
+  padding: 5px 20px 5px 20px;
+  max-width: fit-content;
+}
+
+#vender:hover{
+  background-color: rgba(255, 255, 255, 0.249);
+}
+
 .nav-item > a{
   text-transform: uppercase;
 }
@@ -208,6 +261,17 @@ a.custom-card:hover {
 
 .navbar img{
   height: 25px;
+}
+
+#toggler-text{
+  display: inline-block;
+  font-weight: bold;
+  padding-top: 10px;
+  padding-right: 5px;
+}
+
+.jumbotron{
+  max-width: 100%;
 }
 
 /*LOGIN*/
@@ -274,7 +338,18 @@ h3.inputLogin{
   margin-bottom: 50px;
 }
 
+#productos .row img:hover{
+  transform: scale(1.1);
+}
+
+#filtros{
+  margin-bottom: 20px;
+  max-width: 95%;
+
+}
+
 #filtros>div{
+  margin: 0px auto;
   margin-left: 40px;
   margin-top: 5%;
   border: 1px solid ;
@@ -282,6 +357,13 @@ h3.inputLogin{
   border-color: rgba(0, 0, 0, 0.205);
   background-color: rgba(19, 118, 118, 0.027);
   padding: 10px;
+  box-shadow: 10px 10px 5px 0px rgba(222,199,199,0.75);
+-webkit-box-shadow: 10px 10px 5px 0px rgba(222,199,199,0.75);
+-moz-box-shadow: 10px 10px 5px 0px rgba(222,199,199,0.75);
+}
+
+#container-productos{
+  text-align: center;
 }
 
 #filtros>h3{
@@ -294,12 +376,23 @@ h3.inputLogin{
   padding: 10px;
   text-align: center;
   margin-left: 40px;
+  box-shadow: 10px 10px 5px 0px rgba(222,199,199,0.75);
+-webkit-box-shadow: 10px 10px 5px 0px rgba(222,199,199,0.75);
+-moz-box-shadow: 10px 10px 5px 0px rgba(222,199,199,0.75);
 }
 
 
 #filtros .form-control{
   max-height: 1.5rem;
   max-width: 5rem;
+}
+
+#filtros .btn-dark:hover{
+  background-color: rgb(88, 86, 86);
+}
+
+#filtros .btn-light:hover{
+  background-color:#ba9e9e94
 }
 
 #filtros .btn-light{

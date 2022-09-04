@@ -10,15 +10,15 @@ let botonDes = document.getElementById("sortDes");
 let buscador = document.getElementById("buscador");
 let buscadorInput = '';
 
-let min = '';
-let max = '';
+let min = parseInt('');
+let max = parseInt('');
 
 function mostrarProductos(array){
     let contenidoHTML = "";
     for(let i = 0;i < array.length; i++){
         let prod = array[i];
         let precioProd = parseInt(prod.cost);
-        if(!(precioProd >= min || precioProd <= max) &&
+        if(!((precioProd < min) || (precioProd > max)) &&
             ((buscadorInput == '') || ((prod.description.toLowerCase()).includes(buscadorInput)) || ((prod.name.toLowerCase()).includes(buscadorInput)))){
             contenidoHTML += `
             <div class="list-group-item list-group-item-action">
@@ -71,6 +71,13 @@ document.addEventListener("DOMContentLoaded",function(e){
         }
     });
 
+    let categoriesMenu = document.getElementById("categories-menu");
+    getShowCategories(categoriesMenu);
+    
+    document.getElementById("categories-menu").addEventListener("click",function(e){
+        localStorage.setItem("catID",e.target.id)
+    })
+
     botonRelevancia.addEventListener("click",function(){
         (data.products).sort(function(a,b){
             return b.soldCount - a.soldCount;
@@ -93,14 +100,14 @@ document.addEventListener("DOMContentLoaded",function(e){
     });
 
     botonFiltrar.addEventListener("click",function(){
-        min = (document.getElementById("priceMin")).value;
-        max = (document.getElementById("priceMax")).value;
+        min = parseInt((document.getElementById("priceMin")).value);
+        max = parseInt((document.getElementById("priceMax")).value);
         mostrarProductos(data.products);
     });
 
     botonLimpiar.addEventListener("click",function(){
-        min = '';
-        max = '';
+        min = parseInt('');
+        max = parseInt('');
         document.getElementById("priceMin").value = min;
         document.getElementById("priceMax").value = max;
         mostrarProductos(data.products);

@@ -1,10 +1,11 @@
-function mostrarSaludo(){
-    let nombre = localStorage.getItem('nombre');
-    if(nombre) return nombre;
-    else return localStorage.getItem('mail')
-}
-
 document.addEventListener("DOMContentLoaded", function(){
+    let categoriesMenu = document.getElementById("categories-menu");
+    getShowCategories(categoriesMenu);
+    
+    document.getElementById("categories-menu").addEventListener("click",function(e){
+        localStorage.setItem("catID",e.target.id)
+    })
+    
     document.getElementById("usuario").innerHTML = 'Hola, ' + mostrarSaludo() + '!';
     
     document.getElementById("autos").addEventListener("click", function() {
@@ -19,4 +20,5 @@ document.addEventListener("DOMContentLoaded", function(){
         localStorage.setItem("catID", 103);
         window.location = "products.html"
     });
+
 });
