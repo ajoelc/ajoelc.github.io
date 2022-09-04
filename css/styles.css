@@ -189,6 +189,27 @@ a.custom-card:hover {
   color: orange;
 }
 
+.navbar{
+  box-shadow: 1px 4px 5px 0px rgba(202,175,175,0.75);
+  -webkit-box-shadow: 1px 4px 5px 0px rgba(202,175,175,0.75);
+  -moz-box-shadow: 1px 4px 5px 0px rgba(202,175,175,0.75);
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 600;
+  color: black !important;
+}
+
+.nav-item > a{
+  text-transform: uppercase;
+}
+
+.navbar ul{
+  margin-left: 100px;
+}
+
+.navbar img{
+  height: 25px;
+}
+
 /*LOGIN*/
 h3.inputLogin{
   text-align: center;
