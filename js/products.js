@@ -18,8 +18,7 @@ function mostrarProductos(array){
     for(let i = 0;i < array.length; i++){
         let prod = array[i];
         let precioProd = parseInt(prod.cost);
-        if(((min == '' && max == '') || (precioProd >= parseInt(min) && precioProd <= parseInt(max)) ||
-            (min == '' && precioProd <= parseInt(max)) || (precioProd >= parseInt(min) && max == '')) &&
+        if(!(precioProd >= min || precioProd <= max) &&
             ((buscadorInput == '') || ((prod.description.toLowerCase()).includes(buscadorInput)) || ((prod.name.toLowerCase()).includes(buscadorInput)))){
             contenidoHTML += `
             <div class="list-group-item list-group-item-action">
