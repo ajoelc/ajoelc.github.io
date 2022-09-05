@@ -448,7 +448,7 @@ h3.inputLogin{
 }
 
 #comentarios hr{
-  max-width: 50%;
+  max-width: 70%;
   margin: 0 auto;
 }
 
@@ -461,7 +461,7 @@ h3.inputLogin{
 .containerComentario{
   padding: 5px;
   margin: 0 auto;
-  width: 60%;
+  width: 80%;
 }
 
 .comentUser{
@@ -470,6 +470,7 @@ h3.inputLogin{
 
 .comentDate{
   color: #7297b6; 
+  font-size: smaller;
 }
 
 #containerNewComent{
