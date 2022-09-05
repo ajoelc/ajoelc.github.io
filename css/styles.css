@@ -458,6 +458,10 @@ h3.inputLogin{
   width: 100%;
 }
 
+.datosComentario > *{
+  height: 10px;
+}
+
 .containerComentario{
   padding: 5px;
   margin: 0 auto;
@@ -472,6 +476,8 @@ h3.inputLogin{
   color: #7297b6; 
   font-size: smaller;
 }
+
+
 
 #containerNewComent{
   width: 50%;

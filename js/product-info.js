@@ -64,12 +64,13 @@ function mostrarComentarios(){
                             <p>
                                 <span class="comentUser">${coments[i].user}</span>
                                 •
-                                <span>${estrellasHTML}</span>
+                                
                             </p>
                             <p class="comentDate">${coments[i].dateTime}</p>
                         </div>
                         <p class="comentario">
                             ${coments[i].description}
+                            <span class="starsComent">${estrellasHTML}</span>
                         </p>
                     </div>
                     <hr>
@@ -143,12 +144,13 @@ document.addEventListener("DOMContentLoaded",function(){
                                 <p>
                                     <span class="comentUser">${mostrarSaludo()}</span>
                                     •
-                                    <span>${estrellasHTML}</span>
                                 </p>
                                 <p class="comentDate">${fechaString}</p>
                             </div>
+                            
                             <p class="comentario">
                                 ${newComent}
+                                <span>${estrellasHTML}</span>
                             </p>
                         </div>
                         <hr>
