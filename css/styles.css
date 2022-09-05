@@ -414,8 +414,16 @@ h3.inputLogin{
   text-transform: uppercase;
 }
 
+#infoAbtProd{
+  display: flex;
+  justify-content: space-between;
+}
+
+#infoAbtProd > *{
+  margin-right: 20px!important;
+}
+
 #nameProd{
-  
   font-size: 40px;
 }
 
@@ -432,4 +440,44 @@ h3.inputLogin{
 
 #imagenPrincipal{
   max-width: 100%;
+}
+
+#comentarios h3{
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+#comentarios hr{
+  max-width: 50%;
+  margin: 0 auto;
+}
+
+.datosComentario{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.containerComentario{
+  padding: 5px;
+  margin: 0 auto;
+  width: 60%;
+}
+
+.comentUser{
+  font-weight: bold;
+}
+
+.comentDate{
+  color: #7297b6; 
+}
+
+#containerNewComent{
+  width: 50%;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+#containerNewComent > * {
+  margin-bottom: 5px;
 }

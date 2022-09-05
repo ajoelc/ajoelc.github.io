@@ -4,6 +4,7 @@ const urlComents = `https://japceibal.github.io/emercado-api/products_comments/$
 let infoProd = []
 let imagenPrincipal;
 
+
 function mostrarInfoProducto(prod){
     document.getElementById("nameCat").innerHTML = prod.category
     document.getElementById("nameProd").innerHTML = prod.name;
@@ -42,8 +43,7 @@ function mostrarComentarios(){
     getJSONData(urlComents).then(function(resultObj){
         if(resultObj.status === "ok"){
             let coments = resultObj.data;
-            let contenido = document.getElementById("comentarios");
-            if(!coments.length) contenido.innerHTML = 'Todavía no hay comentarios';
+            if(!coments.length) comentarios.innerHTML = 'Todavía no hay comentarios';
             else 
                 for(let i = 0;i<coments.length;i++){
                     let puntaje = coments[i].score;
@@ -57,19 +57,22 @@ function mostrarComentarios(){
                     }
                     
                     
-                    contenido.innerHTML+=`
+                    comentarios.innerHTML+=`
                     
-                    <div>
-                        <p class="datosComentario">
-                            <span class="user">${coments[i].user}</span>
-                            •
-                            <span class="date">${coments[i].dateTime}
-                        
+                    <div class=containerComentario>
+                        <div class='datosComentario'>
+                            <p>
+                                <span class="comentUser">${coments[i].user}</span>
+                                •
+                                <span>${estrellasHTML}</span>
                             </p>
+                            <p class="comentDate">${coments[i].dateTime}</p>
+                        </div>
                         <p class="comentario">
                             ${coments[i].description}
                         </p>
                     </div>
+                    <hr>
                     `;
 
             }
@@ -77,7 +80,30 @@ function mostrarComentarios(){
     })
 }
 
+function fechaToString(fecha){
+    let fechaString='';
+    let anio = fecha.getFullYear();
+    let mes = fecha.getMonth()+1;
+    let dia = fecha.getDate();
+    let horas = fecha.getHours();
+    let min = fecha.getMinutes();
+    let sec = fecha.getSeconds();
+    fechaString = `${anio}-`;
+    if(mes < 10) fechaString+=`0`
+    fechaString += `${fecha.getMonth()+1}-`;
+    if(dia < 10) fechaString+=`0`;
+    fechaString += `${fecha.getDate()} `;
+    if(horas < 10) fechaString+=`0`;
+    fechaString+=`${horas}:`;
+    if(min<10) fechaString+=`0`;
+    fechaString+=`${min}:`;
+    if(sec<10) fechaString+=`0`;
+    fechaString+=`${sec}`;
+    return fechaString;
+}
+
 document.addEventListener("DOMContentLoaded",function(){
+    let comentarios = document.getElementById("comentarios");
     document.getElementById("usuario").innerHTML = 'Hola, ' + mostrarSaludo() + '!';
 
     let categoriesMenu = document.getElementById("categories-menu");
@@ -93,4 +119,40 @@ document.addEventListener("DOMContentLoaded",function(){
             mostrarComentarios();
         }
     }); 
+
+    document.getElementById("sendComent").addEventListener("click",function(){
+        let newComent = document.getElementById("newComent").value;
+        if(newComent != ''){
+            let fecha = new Date();
+            let fechaString = fechaToString(fecha);
+
+            document.getElementById("sendComent").setAttribute("disabled","true");
+            
+            let puntaje = document.getElementById("scoreComent").value;
+            let estrellasHTML =``;
+            for(let j = 0;j<5;j++){
+                if(puntaje>0)
+                    estrellasHTML+=`<span class="fa fa-star checked"></span>`;
+                else
+                    estrellasHTML+=`<span class="fa fa-star"></span>`;
+                puntaje--;
+            }
+            comentarios.innerHTML+=`
+                        <div class=containerComentario>
+                            <div class='datosComentario'>
+                                <p>
+                                    <span class="comentUser">${mostrarSaludo()}</span>
+                                    •
+                                    <span>${estrellasHTML}</span>
+                                </p>
+                                <p class="comentDate">${fechaString}</p>
+                            </div>
+                            <p class="comentario">
+                                ${newComent}
+                            </p>
+                        </div>
+                        <hr>
+                        `;
+        }
+    })
 })

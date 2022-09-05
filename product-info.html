@@ -50,30 +50,39 @@
   <main>
     <div class="container" id="infoProd">
       <h1 id="nameCat"></h1>
-      <div class="row">
-        <div class="col-2">
+      <div id="infoAbtProd">
           <div id="allImages">
 
           </div>
-        </div>
-        <div class="col-7">
-          <div id="contenedorImg" class="carousel-inner">
+          <div id="contenedorImg">
           </div>
-        </div>
-        <div class="col-3">
-          <h1 id="nameProd"></h1>
-          <p id="descriptionProd"></p>
-          <h2 id="costProd"></h2>
-          <button class="btn btn-primary">Comprar</button>
-          <p id="soldProd"></p>
-        </div>
+          <div>
+            <h1 id="nameProd"></h1>
+            <p id="descriptionProd"></p>
+            <h2 id="costProd"></h2>
+            <button class="btn btn-primary">Comprar</button>
+            <p id="soldProd"></p>
+          </div>
+          
       </div>
       <hr>
       <div class="row">
-        <h3>Comentarios</h3>
         <div class="container">
           <div id="comentarios" class="container">
+            <h3>Comentarios</h3>
 
+          </div>
+          <div id="containerNewComent" class="form-group">
+            <label for="newComent">Añadir un comentario</label>
+            <textarea placeholder="Escribe algo..." class="form-control" id="newComent" name="" id=""  rows="3"></textarea>
+            <div style="display: flex; align-items:center;justify-content:space-between">
+              <div>
+              <label for="scoreComent">PUNTUACIÓN</label>
+              <input id="scoreComent" type="range" step="1" min="0" max="5">
+              </div>
+              <button id="sendComent" class="btn btn-secondary" type="submit">Enviar</button>
+            </div>
+            
           </div>
         </div>
       </div>
