@@ -156,5 +156,6 @@ document.addEventListener("DOMContentLoaded",function(){
                         <hr>
                         `;
         }
+        document.getElementById("newComent").value = '';
     })
 })
