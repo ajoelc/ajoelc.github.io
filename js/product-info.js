@@ -105,11 +105,22 @@ function fechaToString(fecha){
 
 document.addEventListener("DOMContentLoaded",function(){
     let comentarios = document.getElementById("comentarios");
-    if(mostrarSaludo()=='Anónimo')
-        document.getElementById("containerNewComent").setAttribute("style","display:none;");
-    else
-        document.getElementById("needToLogin").setAttribute("style","display:none;");
-    document.getElementById("usuario").innerHTML = 'Hola, ' + mostrarSaludo() + '!';
+
+    if(mostrarUsuario()=='Anónimo'){
+        let botonLogin = document.getElementById("botonLogin");
+        document.getElementById("containerNewComent").style.display = "none";
+        botonLogin.style.display = "block";
+        botonLogin.addEventListener("click",function(){
+            localStorage.setItem("pagAnt",window.location.pathname.slice(1));
+        });
+        document.getElementById("loguearse").addEventListener("click",function(){
+            localStorage.setItem("pagAnt",window.location.pathname.slice(1));
+        });
+    }
+    else{
+        document.getElementById("needToLogin").style.display = "none";
+        document.getElementById("saludoUsuario").innerHTML += `Hola, ${mostrarUsuario()}!`;
+    }
 
     let categoriesMenu = document.getElementById("categories-menu");
     getShowCategories(categoriesMenu);

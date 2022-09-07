@@ -94,7 +94,16 @@ function sortAndShowCategories(sortCriteria, categoriesArray){
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function(e){
-    document.getElementById("usuario").innerHTML = 'Hola, ' + mostrarSaludo() + '!';
+    if(mostrarUsuario()=='Anónimo'){
+        let botonLogin = document.getElementById("botonLogin");
+        botonLogin.style.display = "block";
+        botonLogin.addEventListener("click",function(){
+            localStorage.setItem("pagAnt",window.location.pathname.slice(1));
+        })
+    }
+    else{
+        document.getElementById("saludoUsuario").innerHTML += `Hola, ${mostrarUsuario()}!`;
+    }
     
     getJSONData(CATEGORIES_URL).then(function(resultObj){
         if (resultObj.status === "ok"){

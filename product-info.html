@@ -28,11 +28,11 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav w-100 justify-content-between">
           <li class="nav-item">
-            <a class="nav-link" href="inicio.html">Inicio</a>
+            <a class="nav-link active" href="index.html">Inicio</a>
           </li>
           <div class="dropdown">
             <li class="nav-item" id="navbar-categories">
-              <a class="nav-link active dropbtn" role="button" href="categories.html">Categorías</a>
+              <a class="nav-link dropbtn" role="button" href="categories.html">Categorías</a>
               <div id="categories-menu">
               </div>
             </li>
@@ -40,8 +40,9 @@
           <li class="nav-item">
             <a class="nav-link" href="sell.html" id="vender">Vender</a>
           </li>
-          <li class="nav-item">
-            <p id="usuario"></p>
+          <li id="usuario" class="nav-item">
+            <a style="display: none;" id="botonLogin" class="nav-link" href="login.html">Iniciar Sesión</a>
+            <p id="saludoUsuario"></p>
           </li>
         </ul>
       </div>
@@ -73,7 +74,7 @@
             <p id="noComent">Todavía no hay comentarios</p>
           </div>
           <div>
-            <p id="needToLogin">Debes <a id="loguearse" href="index.html">loguearte</a> para realizar un comentario</p>
+            <p id="needToLogin">Debes <a id="loguearse" href="login.html">loguearte</a> para realizar un comentario</p>
           </div>
           <div id="containerNewComent" class="form-group">
             <label for="newComent">Añadir un comentario</label>

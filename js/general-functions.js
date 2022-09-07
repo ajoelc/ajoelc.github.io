@@ -14,7 +14,7 @@ function getShowCategories(catMenu){
     });
 }
 
-function mostrarSaludo(){
+function mostrarUsuario(){
     let nombre = localStorage.getItem('nombre');
     let mail = localStorage.getItem('mail')
     if(nombre) return nombre;

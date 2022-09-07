@@ -1,5 +1,14 @@
 document.addEventListener("DOMContentLoaded", function(){
-    document.getElementById("usuario").innerHTML = 'Hola, ' + mostrarSaludo() + '!';
+    if(mostrarUsuario()=='Anónimo'){
+        let botonLogin = document.getElementById("botonLogin");
+        botonLogin.style.display = "block";
+        botonLogin.addEventListener("click",function(){
+            localStorage.setItem("pagAnt",window.location.pathname.slice(1));
+        })
+    }
+    else{
+        document.getElementById("saludoUsuario").innerHTML += `Hola, ${mostrarUsuario()}!`;
+    }
 
     let categoriesMenu = document.getElementById("categories-menu");
     getShowCategories(categoriesMenu);
