@@ -43,8 +43,8 @@ function mostrarComentarios(){
     getJSONData(urlComents).then(function(resultObj){
         if(resultObj.status === "ok"){
             let coments = resultObj.data;
-            if(!coments.length) comentarios.innerHTML = 'Todavía no hay comentarios';
-            else 
+            if(coments.length){
+                document.getElementById("noComent").setAttribute("style","display:none;");
                 for(let i = 0;i<coments.length;i++){
                     let puntaje = coments[i].score;
                     let estrellasHTML =``;
@@ -75,7 +75,7 @@ function mostrarComentarios(){
                     </div>
                     <hr>
                     `;
-
+                }
             }
         }
     })
@@ -105,6 +105,10 @@ function fechaToString(fecha){
 
 document.addEventListener("DOMContentLoaded",function(){
     let comentarios = document.getElementById("comentarios");
+    if(mostrarSaludo()=='Anónimo')
+        document.getElementById("containerNewComent").setAttribute("style","display:none;");
+    else
+        document.getElementById("needToLogin").setAttribute("style","display:none;");
     document.getElementById("usuario").innerHTML = 'Hola, ' + mostrarSaludo() + '!';
 
     let categoriesMenu = document.getElementById("categories-menu");
@@ -124,6 +128,7 @@ document.addEventListener("DOMContentLoaded",function(){
     document.getElementById("sendComent").addEventListener("click",function(){
         let newComent = document.getElementById("newComent").value;
         if(newComent != ''){
+            document.getElementById("noComent").setAttribute("style","display:none;");
             let fecha = new Date();
             let fechaString = fechaToString(fecha);
 

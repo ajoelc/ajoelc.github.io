@@ -502,3 +502,9 @@ h3.inputLogin{
 #containerNewComent > * {
   margin-bottom: 5px;
 }
+
+#needToLogin{
+  text-align: center;
+  margin-top: 15px;
+  font-size: 1.3rem;
+}

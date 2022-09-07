@@ -70,7 +70,10 @@
         <div class="container">
           <h3 id="comentTitle">Comentarios</h3>
           <div id="comentarios" class="container">
-
+            <p id="noComent">Todavía no hay comentarios</p>
+          </div>
+          <div>
+            <p id="needToLogin">Debes <a id="loguearse" href="index.html">loguearte</a> para realizar un comentario</p>
           </div>
           <div id="containerNewComent" class="form-group">
             <label for="newComent">Añadir un comentario</label>
@@ -78,7 +81,7 @@
             <div style="display: flex; align-items:center;justify-content:space-between">
               <div>
               <label for="scoreComent">PUNTUACIÓN</label>
-              <input id="scoreComent" type="range" step="1" min="0" max="5">
+              <input id="scoreComent" type="range" step="1" min="1" max="5">
               </div>
               <button id="sendComent" class="btn btn-secondary" type="submit">Enviar</button>
             </div>
