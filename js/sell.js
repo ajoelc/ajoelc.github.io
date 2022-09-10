@@ -36,7 +36,6 @@ document.addEventListener("DOMContentLoaded", function(e){
         })
     }
     else{
-        document.getElementById("needToLogin").style.display = "none";
         document.getElementById("usuario").innerHTML = `
             <p id="saludoUsuario">Hola, ${mostrarUsuario()}!</p>
         `

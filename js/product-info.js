@@ -158,7 +158,7 @@ document.addEventListener("DOMContentLoaded",function(){
                         <div class=containerComentario>
                             <div class='datosComentario'>
                                 <p>
-                                    <span class="comentUser">${mostrarSaludo()}</span>
+                                    <span class="comentUser">${mostrarUsuario()}</span>
                                     •
                                 </p>
                                 <p class="comentDate">${fechaString}</p>
