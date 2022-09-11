@@ -240,14 +240,14 @@ a.nav-link:hover, div.card:hover{
   transform: scale(1.1);
 }
 
-#vender{
+#botonLogin{
   border: 1px solid rgb(177, 170, 170);
-  border-radius: 30px;;
+  border-radius: 30px;
   padding: 5px 20px 5px 20px;
-  max-width: fit-content;
+  max-width: max-content;
 }
 
-#vender:hover{
+#botonLogin:hover, #botonLogout:hover{
   background-color: rgba(255, 255, 255, 0.249);
 }
 
@@ -308,7 +308,7 @@ h3.inputLogin{
   text-align: center;
 }
 
-#usuario{
+#saludoUsuario{
   text-decoration: none;
   color: rgba(249, 235, 209, 0.655);
   margin: 6px auto;
@@ -508,3 +508,17 @@ h3.inputLogin{
   margin-top: 15px;
   font-size: 1.3rem;
 }
+
+#usuario{
+  display: flex;
+}
+
+#botonLogout{
+  border: solid 1px white;
+  border-radius: 20px;
+  margin-left: 20px;
+  font-size: 0.7em;
+  width: auto;
+  height: 3em;
+}
+

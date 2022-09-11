@@ -56,9 +56,7 @@ function mostrarComentarios(){
                         puntaje--;
                     }
                     
-                    
                     comentarios.innerHTML+=`
-                    
                     <div class=containerComentario>
                         <div class='datosComentario'>
                             <p>
@@ -78,6 +76,43 @@ function mostrarComentarios(){
                 }
             }
         }
+        let i = 0;
+        while(localStorage.getItem(`miCom${i}`)){
+            let contenido = localStorage.getItem(`miCom${i}`);
+            contenido = contenido.split(',');
+
+            if(contenido[0] == localStorage.getItem(`idProd`)){
+                let puntaje = contenido[3];
+                estrellasHTML ='';
+                for(let j = 0;j<5;j++){
+                    if(puntaje>0)
+                        estrellasHTML+=`<span class="fa fa-star checked"></span>`;
+                    else
+                        estrellasHTML+=`<span class="fa fa-star"></span>`;
+                    puntaje--;
+                }
+                comentarios.innerHTML+=`
+                <div class=containerComentario>
+                    <div class='datosComentario'>
+                        <p>
+                            <span class="comentUser">${contenido[1]}</span>
+                            •
+                        </p>
+                        <p class="comentDate">${contenido[4]}</p>
+                    </div>
+                    
+                    <p class="comentario">
+                        ${contenido[2]}
+                        <span>${estrellasHTML}</span>
+                    </p>
+                </div>
+                <hr>
+                `;
+            }
+            i++;
+        }
+        if(i>0)
+            document.getElementById("noComent").setAttribute("style","display:none;");
     })
 }
 
@@ -105,17 +140,32 @@ function fechaToString(fecha){
 
 document.addEventListener("DOMContentLoaded",function(){
     let comentarios = document.getElementById("comentarios");
-    if(mostrarSaludo()=='Anónimo')
-        document.getElementById("containerNewComent").setAttribute("style","display:none;");
-    else
-        document.getElementById("needToLogin").setAttribute("style","display:none;");
-    document.getElementById("usuario").innerHTML = 'Hola, ' + mostrarSaludo() + '!';
 
-    let categoriesMenu = document.getElementById("categories-menu");
-    getShowCategories(categoriesMenu);
-    document.getElementById("categories-menu").addEventListener("click",function(e){
-        localStorage.setItem("catID",e.target.id)
-    })
+    configurarNavBar();
+
+    if(mostrarUsuario()=='Anónimo'){
+        document.getElementById("containerNewComent").style.display = "none";
+        document.getElementById("loguearse").addEventListener("click",function(){
+            localStorage.setItem("pagAnt",window.location.pathname.slice(1));
+        });
+    }else{
+        document.getElementById("needToLogin").style.display = "none";
+        document.getElementById("sendComent").removeAttribute("disabled");
+        let i = 0;
+        while(localStorage.getItem(`miCom${i}`)){
+            let contenido = localStorage.getItem(`miCom${i}`).split(',');
+            let comentId = contenido[0];
+            let comentUser = contenido[1];
+            
+            if((comentUser == localStorage.getItem("mail") || comentUser == localStorage.getItem("nombre")) && comentId == localStorage.getItem(`idProd`)){
+                document.getElementById("sendComent").setAttribute("disabled","true");
+            }
+            i++;
+        }
+        
+        
+
+    }
     
     getJSONData(urlProd).then(function(resultObj){
         if(resultObj.status === "ok"){
@@ -126,16 +176,22 @@ document.addEventListener("DOMContentLoaded",function(){
     }); 
 
     document.getElementById("sendComent").addEventListener("click",function(){
-        let newComent = document.getElementById("newComent").value;
-        if(newComent != ''){
+        let newComent = document.getElementById("newComent");
+        if(newComent.value != ''){
             document.getElementById("noComent").setAttribute("style","display:none;");
+            document.getElementById("sendComent").setAttribute("disabled","true");
+
             let fecha = new Date();
             let fechaString = fechaToString(fecha);
 
-            document.getElementById("sendComent").setAttribute("disabled","true");
-            
             let puntaje = document.getElementById("scoreComent").value;
             let estrellasHTML =``;
+
+            let i=0;
+            while(localStorage.getItem(`miCom${i}`)) i++;
+            let contenido = [localStorage.getItem("idProd"),mostrarUsuario(),newComent.value,puntaje,fechaString];
+            localStorage.setItem(`miCom${i}`,contenido);
+
             for(let j = 0;j<5;j++){
                 if(puntaje>0)
                     estrellasHTML+=`<span class="fa fa-star checked"></span>`;
@@ -147,20 +203,21 @@ document.addEventListener("DOMContentLoaded",function(){
                         <div class=containerComentario>
                             <div class='datosComentario'>
                                 <p>
-                                    <span class="comentUser">${mostrarSaludo()}</span>
+                                    <span class="comentUser">${mostrarUsuario()}</span>
                                     •
                                 </p>
                                 <p class="comentDate">${fechaString}</p>
                             </div>
                             
                             <p class="comentario">
-                                ${newComent}
+                                ${newComent.value}
                                 <span>${estrellasHTML}</span>
                             </p>
                         </div>
                         <hr>
                         `;
+            
+            newComent.value = '';
         }
-        document.getElementById("newComent").value = '';
     })
 })
