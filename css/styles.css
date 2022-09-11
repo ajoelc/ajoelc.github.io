@@ -240,14 +240,14 @@ a.nav-link:hover, div.card:hover{
   transform: scale(1.1);
 }
 
-#vender{
+#botonLogin{
   border: 1px solid rgb(177, 170, 170);
-  border-radius: 30px;;
+  border-radius: 30px;
   padding: 5px 20px 5px 20px;
-  max-width: fit-content;
+  max-width: max-content;
 }
 
-#vender:hover{
+#botonLogin:hover, #botonLogout:hover{
   background-color: rgba(255, 255, 255, 0.249);
 }
 
@@ -308,7 +308,7 @@ h3.inputLogin{
   text-align: center;
 }
 
-#usuario{
+#saludoUsuario{
   text-decoration: none;
   color: rgba(249, 235, 209, 0.655);
   margin: 6px auto;
@@ -398,3 +398,127 @@ h3.inputLogin{
 #filtros .btn-light{
   background-color: rgba(197, 169, 169, 0.205);
 }
+
+#infoProd{
+  font-family: 'Josefin Sans',sans-serif!important;
+  font-weight: 300;
+  padding: 10px;
+  margin-top: 100px;
+  width: 80%;
+  border-radius: 20px;
+  height: auto;
+  background-color: rgba(239, 232, 232, 0.515);
+}
+
+#nameCat{
+  margin-bottom: 30px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+#infoAbtProd{
+  display: flex;
+  justify-content: space-between;
+}
+
+#infoAbtProd > *{
+  margin-right: 20px!important;
+}
+
+#nameProd{
+  font-size: 40px;
+}
+
+#allImages>*,#allImages img{
+  padding: 1px !important;
+  width: 100px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+#allImages img:hover{
+  transform: scale(1.3);
+}
+
+#imagenPrincipal{
+  max-width: 100%;
+}
+
+#comentarios{
+  background-color: rgba(255, 255, 255, 0.489);
+  border-radius: 20px;
+  width: 90%;
+  padding: 15px;
+  box-shadow: 0px -1px 23px 0px rgba(117,104,104,0.49);
+  -webkit-box-shadow: 0px -1px 23px 0px rgba(117,104,104,0.49);
+  -moz-box-shadow: 0px -1px 23px 0px rgba(117,104,104,0.49);
+}
+
+#comentTitle{
+  text-align: center;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+
+#comentarios hr{
+  max-width: 70%;
+  margin: 0 auto;
+}
+
+.datosComentario{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.datosComentario > *{
+  height: 10px;
+}
+
+.containerComentario{
+  padding: 5px;
+  margin: 0 auto;
+  width: 80%;
+}
+
+.comentUser{
+  font-weight: bold;
+}
+
+.comentDate{
+  color: #7297b6; 
+  font-size: smaller;
+}
+
+
+
+#containerNewComent{
+  width: 50%;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+#containerNewComent > * {
+  margin-bottom: 5px;
+}
+
+#needToLogin{
+  text-align: center;
+  margin-top: 15px;
+  font-size: 1.3rem;
+}
+
+#usuario{
+  display: flex;
+}
+
+#botonLogout{
+  border: solid 1px white;
+  border-radius: 20px;
+  margin-left: 20px;
+  font-size: 0.7em;
+  width: auto;
+  height: 3em;
+}
+

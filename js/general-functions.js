@@ -14,10 +14,37 @@ function getShowCategories(catMenu){
     });
 }
 
-function mostrarSaludo(){
+function mostrarUsuario(){
     let nombre = localStorage.getItem('nombre');
     let mail = localStorage.getItem('mail')
     if(nombre) return nombre;
     else if(mail) return mail;
     else return 'Anónimo'
+}
+
+function configurarNavBar(){
+    let botonLogin = document.getElementById("botonLogin");
+    let botonLogout = document.getElementById("botonLogout");
+    let categoriesMenu = document.getElementById("categories-menu");
+    getShowCategories(categoriesMenu);
+    categoriesMenu.addEventListener("click",function(e){
+        localStorage.setItem("catID",e.target.id)
+    });
+
+    if(mostrarUsuario()=='Anónimo'){
+        botonLogout.style.display = "none";
+        botonLogin.style.display = "block";
+        botonLogin.addEventListener("click",function(){
+            localStorage.setItem("pagAnt",window.location.pathname.slice(1));
+        })
+    }
+    else{
+        botonLogin.style.display = "none";
+        document.getElementById("saludoUsuario").innerHTML += `Hola, ${mostrarUsuario()}!`;
+        botonLogout.addEventListener("click",function(){
+            localStorage.removeItem("mail");
+            localStorage.removeItem("nombre");
+            window.location = `${window.location.href}`
+        })
+    }
 }

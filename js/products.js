@@ -9,9 +9,15 @@ let botonAsc = document.getElementById("sortAsc");
 let botonDes = document.getElementById("sortDes");
 let buscador = document.getElementById("buscador");
 let buscadorInput = '';
+let elems = [];
 
 let min = parseInt('');
 let max = parseInt('');
+
+function guardarRedirigir(id){
+    localStorage.setItem("idProd",id);
+    window.location.href = "product-info.html";
+}
 
 function mostrarProductos(array){
     let contenidoHTML = "";
@@ -21,7 +27,8 @@ function mostrarProductos(array){
         if(!((precioProd < min) || (precioProd > max)) &&
             ((buscadorInput == '') || ((prod.description.toLowerCase()).includes(buscadorInput)) || ((prod.name.toLowerCase()).includes(buscadorInput)))){
             contenidoHTML += `
-            <div class="list-group-item list-group-item-action">
+            <a href="#" style="display:flex; text-decoration:none; color:black">
+            <div onclick="guardarRedirigir(${prod.id});"  class="list-group-item list-group-item-action" id="${prod.id}">
                 <div class="row">
                     <div class="col-3 rounded no-border">
                         <img src="${prod.image}" alt="product image" class="img-thumbnail">
@@ -37,6 +44,7 @@ function mostrarProductos(array){
                     </div>
                 </div>
             </div>
+            </a>
             `
         }
     }
@@ -53,7 +61,7 @@ function mostrarProductos(array){
 
 
 document.addEventListener("DOMContentLoaded",function(e){
-    document.getElementById("usuario").innerHTML = 'Hola, ' + mostrarSaludo() + '!';
+    configurarNavBar();
 
     getJSONData(url).then(function(resultObj){
         data = resultObj.data;
@@ -65,12 +73,6 @@ document.addEventListener("DOMContentLoaded",function(e){
             alert("Ha ocurrido un error ("+arrayProducts+")");
         }
     });
-
-    let categoriesMenu = document.getElementById("categories-menu");
-    getShowCategories(categoriesMenu);
-    document.getElementById("categories-menu").addEventListener("click",function(e){
-        localStorage.setItem("catID",e.target.id)
-    })
 
     botonRelevancia.addEventListener("click",function(){
         (data.products).sort(function(a,b){
@@ -105,10 +107,11 @@ document.addEventListener("DOMContentLoaded",function(e){
         document.getElementById("priceMin").value = min;
         document.getElementById("priceMax").value = max;
         mostrarProductos(data.products);
-    })
+    });
     
     buscador.addEventListener("input",function(){
         buscadorInput = (buscador.value).toLowerCase()
         mostrarProductos(data.products);
-    })
+    });
+    
 })
