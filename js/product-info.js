@@ -40,11 +40,12 @@ function mostrarInfoProducto(prod){
 }
 
 function mostrarComentarios(){
+    let nocoment = true;
     getJSONData(urlComents).then(function(resultObj){
         if(resultObj.status === "ok"){
             let coments = resultObj.data;
             if(coments.length){
-                document.getElementById("noComent").setAttribute("style","display:none;");
+                nocoment = false;
                 for(let i = 0;i<coments.length;i++){
                     let puntaje = coments[i].score;
                     let estrellasHTML =``;
@@ -77,7 +78,6 @@ function mostrarComentarios(){
             }
         }
         let i = 0;
-        let nocoment = true;
         while(localStorage.getItem(`miCom${i}`)){
             let contenido = localStorage.getItem(`miCom${i}`);
             contenido = contenido.split(',');
