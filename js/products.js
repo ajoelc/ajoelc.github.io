@@ -14,6 +14,11 @@ let elems = [];
 let min = parseInt('');
 let max = parseInt('');
 
+function guardarRedirigir(id){
+    localStorage.setItem("idProd",id);
+    window.location.href = "product-info.html";
+}
+
 function mostrarProductos(array){
     let contenidoHTML = "";
     for(let i = 0;i < array.length; i++){
@@ -23,22 +28,20 @@ function mostrarProductos(array){
             ((buscadorInput == '') || ((prod.description.toLowerCase()).includes(buscadorInput)) || ((prod.name.toLowerCase()).includes(buscadorInput)))){
             contenidoHTML += `
             <a href="#" style="display:flex; text-decoration:none; color:black">
-            <div class="list-group-item list-group-item-action" id="${prod.id}">
+            <div onclick="guardarRedirigir(${prod.id});"  class="list-group-item list-group-item-action" id="${prod.id}">
                 <div class="row">
-                    
-                        <div class="col-3 rounded no-border">
-                            <img src="${prod.image}" alt="product image" class="img-thumbnail">
-                        </div>
-                        <div class="col">
-                            <div class="d-flex w-100 justify-content-between">
-                                <div class="mb-1">
-                                <h4> ${prod.name} - ${prod.currency} ${prod.cost}</h4> 
-                                <p> ${prod.description}</p> 
-                                </div>
-                                <small class="text-muted">${prod.soldCount} vendidos</small> 
+                    <div class="col-3 rounded no-border">
+                        <img src="${prod.image}" alt="product image" class="img-thumbnail">
+                    </div>
+                    <div class="col">
+                        <div class="d-flex w-100 justify-content-between">
+                            <div class="mb-1">
+                            <h4> ${prod.name} - ${prod.currency} ${prod.cost}</h4> 
+                            <p> ${prod.description}</p> 
                             </div>
+                            <small class="text-muted">${prod.soldCount} vendidos</small> 
                         </div>
-                    
+                    </div>
                 </div>
             </div>
             </a>
@@ -65,14 +68,6 @@ document.addEventListener("DOMContentLoaded",function(e){
         if(resultObj.status === "ok"){
             document.getElementById("categoria").innerHTML = `Aquí puedes encontrar todos nuestros productos de la categoría ` + data.catName;
             mostrarProductos(data.products);
-
-            elems = document.getElementsByClassName("list-group-item");
-            for(let i=0;i<elems.length;i++){
-                elems[i].addEventListener("click",function(){
-                    localStorage.setItem("idProd",elems[i].id);
-                    window.location.href = "product-info.html";
-                })
-            }
         }
         else{
             alert("Ha ocurrido un error ("+arrayProducts+")");
