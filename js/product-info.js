@@ -76,34 +76,43 @@ function mostrarComentarios(){
                 }
             }
         }
-        if(localStorage.getItem("miCom") && (localStorage.getItem("miComID") == localStorage.getItem("idProd"))){
-            let puntaje = localStorage.getItem("miComScore");
-            estrellasHTML ='';
-            for(let j = 0;j<5;j++){
-                if(puntaje>0)
-                    estrellasHTML+=`<span class="fa fa-star checked"></span>`;
-                else
-                    estrellasHTML+=`<span class="fa fa-star"></span>`;
-                puntaje--;
-            }
-            comentarios.innerHTML+=`
-            <div class=containerComentario>
-                <div class='datosComentario'>
-                    <p>
-                        <span class="comentUser">${localStorage.getItem("miComUser")}</span>
-                        •
+        let i = 0;
+        while(localStorage.getItem(`miCom${i}`)){
+            let contenido = localStorage.getItem(`miCom${i}`);
+            contenido = contenido.split(',');
+
+            if(contenido[0] == localStorage.getItem(`idProd`)){
+                let puntaje = contenido[3];
+                estrellasHTML ='';
+                for(let j = 0;j<5;j++){
+                    if(puntaje>0)
+                        estrellasHTML+=`<span class="fa fa-star checked"></span>`;
+                    else
+                        estrellasHTML+=`<span class="fa fa-star"></span>`;
+                    puntaje--;
+                }
+                comentarios.innerHTML+=`
+                <div class=containerComentario>
+                    <div class='datosComentario'>
+                        <p>
+                            <span class="comentUser">${contenido[1]}</span>
+                            •
+                        </p>
+                        <p class="comentDate">${contenido[4]}</p>
+                    </div>
+                    
+                    <p class="comentario">
+                        ${contenido[2]}
+                        <span>${estrellasHTML}</span>
                     </p>
-                    <p class="comentDate">${localStorage.getItem("miComDate")}</p>
                 </div>
-                
-                <p class="comentario">
-                    ${localStorage.getItem("miCom")}
-                    <span>${estrellasHTML}</span>
-                </p>
-            </div>
-            <hr>
-            `;
+                <hr>
+                `;
+            }
+            i++;
         }
+        if(i>0)
+            document.getElementById("noComent").setAttribute("style","display:none;");
     })
 }
 
@@ -141,6 +150,21 @@ document.addEventListener("DOMContentLoaded",function(){
         });
     }else{
         document.getElementById("needToLogin").style.display = "none";
+        document.getElementById("sendComent").removeAttribute("disabled");
+        let i = 0;
+        while(localStorage.getItem(`miCom${i}`)){
+            let contenido = localStorage.getItem(`miCom${i}`).split(',');
+            let comentId = contenido[0];
+            let comentUser = contenido[1];
+            
+            if((comentUser == localStorage.getItem("mail") || comentUser == localStorage.getItem("nombre")) && comentId == localStorage.getItem(`idProd`)){
+                document.getElementById("sendComent").setAttribute("disabled","true");
+            }
+            i++;
+        }
+        
+        
+
     }
     
     getJSONData(urlProd).then(function(resultObj){
@@ -163,11 +187,10 @@ document.addEventListener("DOMContentLoaded",function(){
             let puntaje = document.getElementById("scoreComent").value;
             let estrellasHTML =``;
 
-            localStorage.setItem("miCom",newComent.value);
-            localStorage.setItem("miComScore",puntaje);
-            localStorage.setItem("miComID",localStorage.getItem("idProd"));
-            localStorage.setItem("miComDate",fechaString);
-            localStorage.setItem("miComUser",mostrarUsuario());
+            let i=0;
+            while(localStorage.getItem(`miCom${i}`)) i++;
+            let contenido = [localStorage.getItem("idProd"),mostrarUsuario(),newComent.value,puntaje,fechaString];
+            localStorage.setItem(`miCom${i}`,contenido);
 
             for(let j = 0;j<5;j++){
                 if(puntaje>0)
