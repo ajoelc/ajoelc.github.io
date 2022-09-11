@@ -61,7 +61,7 @@ function mostrarProductos(array){
 
 
 document.addEventListener("DOMContentLoaded",function(e){
-    document.getElementById("usuario").innerHTML = 'Hola, ' + mostrarSaludo() + '!';
+    configurarNavBar();
 
     getJSONData(url).then(function(resultObj){
         data = resultObj.data;
@@ -73,12 +73,6 @@ document.addEventListener("DOMContentLoaded",function(e){
             alert("Ha ocurrido un error ("+arrayProducts+")");
         }
     });
-
-    let categoriesMenu = document.getElementById("categories-menu");
-    getShowCategories(categoriesMenu);
-    document.getElementById("categories-menu").addEventListener("click",function(e){
-        localStorage.setItem("catID",e.target.id)
-    })
 
     botonRelevancia.addEventListener("click",function(){
         (data.products).sort(function(a,b){
