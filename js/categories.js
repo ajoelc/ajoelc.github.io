@@ -94,16 +94,7 @@ function sortAndShowCategories(sortCriteria, categoriesArray){
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function(e){
-    if(mostrarUsuario()=='Anónimo'){
-        let botonLogin = document.getElementById("botonLogin");
-        botonLogin.style.display = "block";
-        botonLogin.addEventListener("click",function(){
-            localStorage.setItem("pagAnt",window.location.pathname.slice(1));
-        })
-    }
-    else{
-        document.getElementById("saludoUsuario").innerHTML += `Hola, ${mostrarUsuario()}!`;
-    }
+    configurarNavBar();
     
     getJSONData(CATEGORIES_URL).then(function(resultObj){
         if (resultObj.status === "ok"){
@@ -112,14 +103,6 @@ document.addEventListener("DOMContentLoaded", function(e){
             //sortAndShowCategories(ORDER_ASC_BY_NAME, resultObj.data);
         }
     });
-
-    let categoriesMenu = document.getElementById("categories-menu");
-    getShowCategories(categoriesMenu);
-    
-    document.getElementById("categories-menu").addEventListener("click",function(e){
-        localStorage.setItem("catID",e.target.id)
-    })
-    
 
     document.getElementById("sortAsc").addEventListener("click", function(){
         sortAndShowCategories(ORDER_ASC_BY_NAME);

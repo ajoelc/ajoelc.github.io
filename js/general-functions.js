@@ -21,3 +21,22 @@ function mostrarUsuario(){
     else if(mail) return mail;
     else return 'Anónimo'
 }
+
+function configurarNavBar(){
+    let categoriesMenu = document.getElementById("categories-menu");
+    getShowCategories(categoriesMenu);
+    categoriesMenu.addEventListener("click",function(e){
+        localStorage.setItem("catID",e.target.id)
+    });
+
+    if(mostrarUsuario()=='Anónimo'){
+        let botonLogin = document.getElementById("botonLogin");
+        botonLogin.style.display = "block";
+        botonLogin.addEventListener("click",function(){
+            localStorage.setItem("pagAnt",window.location.pathname.slice(1));
+        })
+    }
+    else{
+        document.getElementById("saludoUsuario").innerHTML += `Hola, ${mostrarUsuario()}!`;
+    }
+}

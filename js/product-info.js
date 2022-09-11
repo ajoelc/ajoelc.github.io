@@ -56,9 +56,7 @@ function mostrarComentarios(){
                         puntaje--;
                     }
                     
-                    
                     comentarios.innerHTML+=`
-                    
                     <div class=containerComentario>
                         <div class='datosComentario'>
                             <p>
@@ -77,6 +75,34 @@ function mostrarComentarios(){
                     `;
                 }
             }
+        }
+        if(localStorage.getItem("miCom") && (localStorage.getItem("miComID") == localStorage.getItem("idProd"))){
+            let puntaje = localStorage.getItem("miComScore");
+            estrellasHTML ='';
+            for(let j = 0;j<5;j++){
+                if(puntaje>0)
+                    estrellasHTML+=`<span class="fa fa-star checked"></span>`;
+                else
+                    estrellasHTML+=`<span class="fa fa-star"></span>`;
+                puntaje--;
+            }
+            comentarios.innerHTML+=`
+            <div class=containerComentario>
+                <div class='datosComentario'>
+                    <p>
+                        <span class="comentUser">${localStorage.getItem("miComUser")}</span>
+                        •
+                    </p>
+                    <p class="comentDate">${localStorage.getItem("miComDate")}</p>
+                </div>
+                
+                <p class="comentario">
+                    ${localStorage.getItem("miCom")}
+                    <span>${estrellasHTML}</span>
+                </p>
+            </div>
+            <hr>
+            `;
         }
     })
 }
@@ -106,27 +132,16 @@ function fechaToString(fecha){
 document.addEventListener("DOMContentLoaded",function(){
     let comentarios = document.getElementById("comentarios");
 
+    configurarNavBar();
+
     if(mostrarUsuario()=='Anónimo'){
-        let botonLogin = document.getElementById("botonLogin");
         document.getElementById("containerNewComent").style.display = "none";
-        botonLogin.style.display = "block";
-        botonLogin.addEventListener("click",function(){
-            localStorage.setItem("pagAnt",window.location.pathname.slice(1));
-        });
         document.getElementById("loguearse").addEventListener("click",function(){
             localStorage.setItem("pagAnt",window.location.pathname.slice(1));
         });
-    }
-    else{
+    }else{
         document.getElementById("needToLogin").style.display = "none";
-        document.getElementById("saludoUsuario").innerHTML += `Hola, ${mostrarUsuario()}!`;
     }
-
-    let categoriesMenu = document.getElementById("categories-menu");
-    getShowCategories(categoriesMenu);
-    document.getElementById("categories-menu").addEventListener("click",function(e){
-        localStorage.setItem("catID",e.target.id)
-    })
     
     getJSONData(urlProd).then(function(resultObj){
         if(resultObj.status === "ok"){
@@ -137,16 +152,23 @@ document.addEventListener("DOMContentLoaded",function(){
     }); 
 
     document.getElementById("sendComent").addEventListener("click",function(){
-        let newComent = document.getElementById("newComent").value;
-        if(newComent != ''){
+        let newComent = document.getElementById("newComent");
+        if(newComent.value != ''){
             document.getElementById("noComent").setAttribute("style","display:none;");
+            document.getElementById("sendComent").setAttribute("disabled","true");
+
             let fecha = new Date();
             let fechaString = fechaToString(fecha);
 
-            document.getElementById("sendComent").setAttribute("disabled","true");
-            
             let puntaje = document.getElementById("scoreComent").value;
             let estrellasHTML =``;
+
+            localStorage.setItem("miCom",newComent.value);
+            localStorage.setItem("miComScore",puntaje);
+            localStorage.setItem("miComID",localStorage.getItem("idProd"));
+            localStorage.setItem("miComDate",fechaString);
+            localStorage.setItem("miComUser",mostrarUsuario());
+
             for(let j = 0;j<5;j++){
                 if(puntaje>0)
                     estrellasHTML+=`<span class="fa fa-star checked"></span>`;
@@ -165,13 +187,14 @@ document.addEventListener("DOMContentLoaded",function(){
                             </div>
                             
                             <p class="comentario">
-                                ${newComent}
+                                ${newComent.value}
                                 <span>${estrellasHTML}</span>
                             </p>
                         </div>
                         <hr>
                         `;
+            
+            newComent.value = '';
         }
-        document.getElementById("newComent").value = '';
     })
 })
