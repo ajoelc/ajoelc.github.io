@@ -113,7 +113,5 @@ document.addEventListener("DOMContentLoaded",function(e){
         buscadorInput = (buscador.value).toLowerCase()
         mostrarProductos(data.products);
     });
-
-
     
 })
