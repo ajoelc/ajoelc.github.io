@@ -1,21 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(){
-    if(mostrarUsuario()=='Anónimo'){
-        let botonLogin = document.getElementById("botonLogin");
-        botonLogin.style.display = "block";
-        botonLogin.addEventListener("click",function(){
-            localStorage.setItem("pagAnt",window.location.pathname.slice(1));
-        })
-    }
-    else{
-        document.getElementById("saludoUsuario").innerHTML += `Hola, ${mostrarUsuario()}!`;
-    }
-
-    let categoriesMenu = document.getElementById("categories-menu");
-    getShowCategories(categoriesMenu);
-
-    categoriesMenu.addEventListener("click",function(e){
-        localStorage.setItem("catID",e.target.id)
-    });
+    configurarNavBar();
 
     document.getElementById("autos").addEventListener("click", function() {
         localStorage.setItem("catID", 101);
@@ -30,6 +14,10 @@ document.addEventListener("DOMContentLoaded", function(){
     document.getElementById("muebles").addEventListener("click", function() {
         localStorage.setItem("catID", 103);
         window.location = "products.html"
+    });
+
+    document.getElementById("botonLogout").addEventListener("click",function(){
+        
     });
 
 });

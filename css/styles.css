@@ -247,7 +247,7 @@ a.nav-link:hover, div.card:hover{
   max-width: max-content;
 }
 
-#botonLogin:hover{
+#botonLogin:hover, #botonLogout:hover{
   background-color: rgba(255, 255, 255, 0.249);
 }
 
@@ -508,3 +508,17 @@ h3.inputLogin{
   margin-top: 15px;
   font-size: 1.3rem;
 }
+
+#usuario{
+  display: flex;
+}
+
+#botonLogout{
+  border: solid 1px white;
+  border-radius: 20px;
+  margin-left: 20px;
+  font-size: 0.7em;
+  width: auto;
+  height: 3em;
+}
+
