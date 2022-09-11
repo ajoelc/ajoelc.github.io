@@ -77,11 +77,13 @@ function mostrarComentarios(){
             }
         }
         let i = 0;
+        let nocoment = true;
         while(localStorage.getItem(`miCom${i}`)){
             let contenido = localStorage.getItem(`miCom${i}`);
             contenido = contenido.split(',');
 
             if(contenido[0] == localStorage.getItem(`idProd`)){
+                nocoment = false;
                 let puntaje = contenido[3];
                 estrellasHTML ='';
                 for(let j = 0;j<5;j++){
@@ -111,8 +113,11 @@ function mostrarComentarios(){
             }
             i++;
         }
-        if(i>0)
-            document.getElementById("noComent").setAttribute("style","display:none;");
+        if(!nocoment)
+            document.getElementById("noComent").style.display = 'none';
+        else
+            document.getElementById("noComent").style.display = 'block';
+
     })
 }
 
