@@ -24,21 +24,24 @@ function mostrarUsuario(){
 
 function configurarNavBar(){
     let botonLogin = document.getElementById("botonLogin");
-    let botonLogout = document.getElementById("botonLogout");
+    let optionsUser = document.getElementById("optionsUser");
     let categoriesMenu = document.getElementById("categories-menu");
+    let optionsUserDrp = document.getElementById("optionsUserDrp");
     getShowCategories(categoriesMenu);
     categoriesMenu.addEventListener("click",function(e){
         localStorage.setItem("catID",e.target.id)
     });
 
     if(mostrarUsuario()=='Anónimo'){
-        botonLogout.style.display = "none";
+        optionsUserDrp.style.display = "none";
         botonLogin.style.display = "block";
         botonLogin.addEventListener("click",function(){
             localStorage.setItem("pagAnt",window.location.pathname.slice(1));
         })
+        
     }
     else{
+        optionsUserDrp.style.display = "block";
         botonLogin.style.display = "none";
         document.getElementById("saludoUsuario").innerHTML += `Hola, ${mostrarUsuario()}!`;
         botonLogout.addEventListener("click",function(){

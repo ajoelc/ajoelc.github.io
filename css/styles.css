@@ -198,7 +198,7 @@ a.custom-card:hover {
   color: black !important;
 }
 
-.navbar > *{
+.navbar > * >*{
   display: flex;
   padding: 10px;
 }
@@ -208,7 +208,7 @@ a.custom-card:hover {
   display: inline-block;
 }
 
-#categories-menu {
+#categories-menu, #optionsUser {
   font-family: 'Josefin Sans',sans-serif;
   font-weight: 100;
   display: none;
@@ -219,15 +219,26 @@ a.custom-card:hover {
   z-index: 1;
 }
 
-#categories-menu a{
+#categories-menu a,#optionsUser a{
   color: white;
 }
 
-#categories-menu a:hover{
+#conjuntoUsuario{
+  display: flex;
+  text-align: center !important;
+  vertical-align: middle !important;
+}
+
+#saludoUsuario{
+  padding-top:8px;
+  margin-top: 0px !important;
+}
+
+#categories-menu a:hover, #optionsUser a:hover{
   background-color: rgb(115, 184, 168);
 }
 
-.dropdown:hover #categories-menu {display: block;}
+.dropdown:hover #categories-menu, .dropdown:hover #optionsUser {display: block;}
 
 .navbar img{
   width: 50px;
@@ -240,6 +251,7 @@ a.nav-link:hover, div.card:hover{
   transform: scale(1.1);
 }
 
+
 #botonLogin{
   border: 1px solid rgb(177, 170, 170);
   border-radius: 30px;
@@ -247,7 +259,7 @@ a.nav-link:hover, div.card:hover{
   max-width: max-content;
 }
 
-#botonLogin:hover, #botonLogout:hover{
+#botonLogin:hover{
   background-color: rgba(255, 255, 255, 0.249);
 }
 
@@ -511,14 +523,5 @@ h3.inputLogin{
 
 #usuario{
   display: flex;
-}
-
-#botonLogout{
-  border: solid 1px white;
-  border-radius: 20px;
-  margin-left: 20px;
-  font-size: 0.7em;
-  width: auto;
-  height: 3em;
 }
 
