@@ -12,6 +12,7 @@ function mostrarInfoProducto(prod){
     document.getElementById("contenedorImg").innerHTML =`
     <img id="imagenPrincipal" src="" alt="Imagen principal"></img>
     `;
+    let contenedorRelated = document.getElementById("relatedProducts");
     imagenPrincipal = document.getElementById("imagenPrincipal");
     imagenPrincipal.setAttribute("src",prod.images[0]);
 
@@ -37,6 +38,21 @@ function mostrarInfoProducto(prod){
         document.getElementById("soldProd").innerHTML = `¡ya se han vendido ${infoProd.soldCount}!`;
     else
     document.getElementById("soldProd").innerHTML = `Sé la primera en comprarlo`;   
+
+    let relatedProducts = infoProd.relatedProducts;
+    contenidoHTML = '';
+    relatedProducts.forEach(prod => {
+        contenidoHTML+=`
+            <div class="card" role="button" onclick="guardarRedirigir(${prod.id});">
+                <img class="card-img-top" src="${prod.image}" alt="Card image cap">
+                <hr>
+                <div class="card-body">
+                <h5 class="card-title">${prod.name}</h5>
+                </div>
+            </div>
+        `
+    });
+    contenedorRelated.innerHTML = contenidoHTML;
 }
 
 function mostrarComentarios(){

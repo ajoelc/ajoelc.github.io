@@ -14,6 +14,11 @@ function getShowCategories(catMenu){
     });
 }
 
+function guardarRedirigir(id){
+    localStorage.setItem("idProd",id);
+    window.location.href = "product-info.html";
+}
+
 function mostrarUsuario(){
     let nombre = localStorage.getItem('nombre');
     let mail = localStorage.getItem('mail')

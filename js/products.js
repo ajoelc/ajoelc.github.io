@@ -14,11 +14,6 @@ let elems = [];
 let min = parseInt('');
 let max = parseInt('');
 
-function guardarRedirigir(id){
-    localStorage.setItem("idProd",id);
-    window.location.href = "product-info.html";
-}
-
 function mostrarProductos(array){
     let contenidoHTML = "";
     for(let i = 0;i < array.length; i++){
