@@ -10,7 +10,7 @@ function mostrarInfoProducto(prod){
     document.getElementById("nameProd").innerHTML = prod.name;
     document.getElementById("descriptionProd").innerHTML = prod.description;
     document.getElementById("contenedorImg").innerHTML =`
-    <img id="imagenPrincipal" src="" alt="Imagen principal"></img>
+    <img id="imagenPrincipal" class="mb-2" src="" alt="Imagen principal"></img>
     `;
     let contenedorRelated = document.getElementById("relatedProducts");
     imagenPrincipal = document.getElementById("imagenPrincipal");
@@ -166,9 +166,7 @@ document.addEventListener("DOMContentLoaded",function(){
 
     if(mostrarUsuario()=='Anónimo'){
         document.getElementById("containerNewComent").style.display = "none";
-        document.getElementById("loguearse").addEventListener("click",function(){
-            localStorage.setItem("pagAnt",window.location.pathname.slice(1));
-        });
+        
     }else{
         document.getElementById("needToLogin").style.display = "none";
         document.getElementById("sendComent").removeAttribute("disabled");

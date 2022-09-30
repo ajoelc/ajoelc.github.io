@@ -40,9 +40,6 @@ function configurarNavBar(){
     if(mostrarUsuario()=='Anónimo'){
         optionsUserDrp.style.display = "none";
         botonLogin.style.display = "block";
-        botonLogin.addEventListener("click",function(){
-            localStorage.setItem("pagAnt",window.location.pathname.slice(1));
-        })
         
     }
     else{
