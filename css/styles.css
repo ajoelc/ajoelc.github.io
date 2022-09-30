@@ -419,6 +419,7 @@ h3.inputLogin{
   width: 80px;
   margin: 0 auto;
   margin-bottom: 5px;
+  margin-left: 5px !important;
 }
 
 #allImages img:hover{
