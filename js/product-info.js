@@ -9,7 +9,6 @@ function mostrarInfoProducto(prod){
     document.getElementById("nameCat").innerHTML = prod.category
     document.getElementById("nameProd").innerHTML = prod.name;
     document.getElementById("descriptionProd").innerHTML = prod.description;
-    
     let contenedorRelated = document.getElementById("relatedProducts");
 
     for(let i = 0;i < prod.images.length;i++){
@@ -24,16 +23,16 @@ function mostrarInfoProducto(prod){
             </div>
         `;
     }
-    document.getElementById("img0").setAttribute('class','carousel-item active'); 
+    document.getElementById("img0").classList.add('active'); 
 
     let imagenes = document.getElementsByClassName("img-thumbnail")
     let imagenesCarousel = document.getElementsByClassName("carousel-item");
     for(let i = 0;i < imagenes.length;i++){
         imagenes[i].addEventListener("mouseover",function(){
             for (let imgC of imagenesCarousel) {
-                imgC.setAttribute('class','carousel-item');
+                imgC.classList.remove('active');
             }
-            imagenesCarousel[i].setAttribute('class','carousel-item active');
+            imagenesCarousel[i].classList.add('active');
         });
     }
 
@@ -59,6 +58,48 @@ function mostrarInfoProducto(prod){
     contenedorRelated.innerHTML = contenidoHTML;
 }
 
+function plantillaComentario(user,desc,score,dateTime){
+    let comentario = '';
+    let estrellasHTML =``;
+    for(let j = 0;j<5;j++){
+        if(score>0)
+            estrellasHTML+=`<span class="fa fa-star checked"></span>`;
+        else
+            estrellasHTML+=`<span class="fa fa-star"></span>`;
+        score--;
+    }
+
+    comentario = `
+    <div class=containerComentario>
+        <div class='row datosComentario'>
+            <div class="col-md-7 col-sm-6">
+                <p class="mb-1"><span class="comentUser">${user}•</span>
+                    
+                </p>
+            </div>
+            
+        </div>
+        <div class='row comentario'>
+            <div class='col'>
+                <p class="comentario">
+                    ${desc}
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-7 col-md-8 col-xl-9">
+                <p class="mb-0 starsComent">${estrellasHTML}</p>
+            </div>
+            <div class="col-12 col-sm-5 col-md-4 col-xl-3">
+                <p class="comentDate">${dateTime}</p>
+            </div>
+        </div>
+    </div>
+    <hr>
+    `;
+    return comentario;
+}
+
 function mostrarComentarios(){
     let nocoment = true;
     getJSONData(urlComents).then(function(resultObj){
@@ -66,46 +107,8 @@ function mostrarComentarios(){
             let coments = resultObj.data;
             if(coments.length){
                 nocoment = false;
-                for(let i = 0;i<coments.length;i++){
-                    let puntaje = coments[i].score;
-                    let estrellasHTML =``;
-                    for(let j = 0;j<5;j++){
-                        if(puntaje>0)
-                            estrellasHTML+=`<span class="fa fa-star checked"></span>`;
-                        else
-                            estrellasHTML+=`<span class="fa fa-star"></span>`;
-                        puntaje--;
-                    }
-                    
-                    comentarios.innerHTML+=`
-                    <div class=containerComentario>
-                        <div class='row datosComentario'>
-                            <div class="col-md-7 col-sm-6">
-                                <p class="mb-1"><span class="comentUser">${coments[i].user}•</span>
-                                    
-                                </p>
-                            </div>
-                            
-                        </div>
-                        <div class='row comentario'>
-                            <div class='col'>
-                                <p class="comentario">
-                                    ${coments[i].description}
-                                </p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 col-sm-7 col-md-8 col-xl-9">
-                                <p class="mb-0 starsComent">${estrellasHTML}</p>
-                            </div>
-                            <div class="col-12 col-sm-5 col-md-4 col-xl-3">
-                                <p class="comentDate">${coments[i].dateTime}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    `;
-                }
+                for(let i = 0;i<coments.length;i++)                 
+                    comentarios.innerHTML+=plantillaComentario(coments[i].user,coments[i].description,coments[i].score,coments[i].dateTime);
             }
         }
         let i = 0;
@@ -115,46 +118,11 @@ function mostrarComentarios(){
 
             if(contenido[0] == localStorage.getItem(`idProd`)){
                 nocoment = false;
-                let puntaje = contenido[3];
-                estrellasHTML ='';
-                for(let j = 0;j<5;j++){
-                    if(puntaje>0)
-                        estrellasHTML+=`<span class="fa fa-star checked"></span>`;
-                    else
-                        estrellasHTML+=`<span class="fa fa-star"></span>`;
-                    puntaje--;
-                }
-                comentarios.innerHTML+=`
-                <div class=containerComentario>
-                    <div class='row datosComentario'>
-                        <div class="col-md-7 col-sm-6">
-                            <p class="mb-1"><span class="comentUser">${contenido[1]}•</span>
-                                
-                            </p>
-                        </div>
-                        
-                    </div>
-                    <div class='row comentario'>
-                        <div class='col'>
-                            <p class="comentario">
-                            ${contenido[2]}
-                            </p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-sm-7 col-md-8 col-xl-9">
-                            <p class="mb-0 starsComent">${estrellasHTML}</p>
-                        </div>
-                        <div class="col-12 col-sm-5 col-md-4 col-xl-3">
-                            <p class="comentDate">${contenido[4]}</p>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                `;
+                comentarios.innerHTML+=plantillaComentario(contenido[1],contenido[2],contenido[3],contenido[4]);
             }
             i++;
         }
+
         if(!nocoment)
             document.getElementById("noComent").style.display = 'none';
         else
@@ -227,39 +195,14 @@ document.addEventListener("DOMContentLoaded",function(){
             let fechaString = fechaToString(fecha);
 
             let puntaje = document.getElementById("scoreComent").value;
-            let estrellasHTML =``;
 
             let i=0;
             while(localStorage.getItem(`miCom${i}`)) i++;
+
             let contenido = [localStorage.getItem("idProd"),mostrarUsuario(),newComent.value,puntaje,fechaString];
             localStorage.setItem(`miCom${i}`,contenido);
-
-            for(let j = 0;j<5;j++){
-                if(puntaje>0)
-                    estrellasHTML+=`<span class="fa fa-star checked"></span>`;
-                else
-                    estrellasHTML+=`<span class="fa fa-star"></span>`;
-                puntaje--;
-            }
-            comentarios.innerHTML+=`
-                        <div class=containerComentario>
-                            <div class='datosComentario'>
-                                <p>
-                                    <span class="comentUser">${mostrarUsuario()}</span>
-                                    •
-                                </p>
-                                <p class="comentDate">${fechaString}</p>
-                            </div>
-                            
-                            <p class="comentario">
-                                ${newComent.value}
-                                <span>${estrellasHTML}</span>
-                            </p>
-                        </div>
-                        <hr>
-                        `;
-            
+            comentarios.innerHTML+=plantillaComentario(contenido[1],contenido[2],contenido[3],contenido[4]);          
             newComent.value = '';
         }
     })
-})
+});

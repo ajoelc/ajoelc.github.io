@@ -2,6 +2,7 @@ let categorias = [];
 const urlRed = 'https://japceibal.github.io/emercado-api/cats_products/'
 
 function getShowCategories(catMenu){
+    catMenu.innerHTML = '';
     getJSONData(CATEGORIES_URL).then(function(resultObj){
         if (resultObj.status === "ok"){
             categorias = resultObj.data
@@ -29,9 +30,9 @@ function mostrarUsuario(){
 
 function configurarNavBar(){
     let botonLogin = document.getElementById("botonLogin");
-    let optionsUser = document.getElementById("optionsUser");
     let categoriesMenu = document.getElementById("categories-menu");
     let optionsUserDrp = document.getElementById("optionsUserDrp");
+    let mensajeSaludo = document.getElementById("saludoUsuario");
     getShowCategories(categoriesMenu);
     categoriesMenu.addEventListener("click",function(e){
         localStorage.setItem("catID",e.target.id)
@@ -40,16 +41,17 @@ function configurarNavBar(){
     if(mostrarUsuario()=='Anónimo'){
         optionsUserDrp.style.display = "none";
         botonLogin.style.display = "block";
-        
+        mensajeSaludo.innerHTML = '';
     }
     else{
         optionsUserDrp.style.display = "block";
         botonLogin.style.display = "none";
-        document.getElementById("saludoUsuario").innerHTML += `Hola, ${mostrarUsuario()}!`;
+        mensajeSaludo.innerHTML += `Hola, ${mostrarUsuario()}!`;
         botonLogout.addEventListener("click",function(){
             localStorage.removeItem("mail");
             localStorage.removeItem("nombre");
-            window.location = `${window.location.href}`
+            document.getElementById('navbarNav').classList.remove('show');
+            configurarNavBar();
         })
     }
 }
