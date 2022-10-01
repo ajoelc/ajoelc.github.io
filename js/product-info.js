@@ -126,18 +126,29 @@ function mostrarComentarios(){
                 }
                 comentarios.innerHTML+=`
                 <div class=containerComentario>
-                    <div class='datosComentario'>
-                        <p>
-                            <span class="comentUser">${contenido[1]}</span>
-                            •
-                        </p>
-                        <p class="comentDate">${contenido[4]}</p>
+                    <div class='row datosComentario'>
+                        <div class="col-md-7 col-sm-6">
+                            <p class="mb-1"><span class="comentUser">${contenido[1]}•</span>
+                                
+                            </p>
+                        </div>
+                        
                     </div>
-                    
-                    <p class="comentario">
-                        ${contenido[2]}
-                        <span>${estrellasHTML}</span>
-                    </p>
+                    <div class='row comentario'>
+                        <div class='col'>
+                            <p class="comentario">
+                            ${contenido[2]}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-sm-7 col-md-8 col-xl-9">
+                            <p class="mb-0 starsComent">${estrellasHTML}</p>
+                        </div>
+                        <div class="col-12 col-sm-5 col-md-4 col-xl-3">
+                            <p class="comentDate">${contenido[4]}</p>
+                        </div>
+                    </div>
                 </div>
                 <hr>
                 `;
