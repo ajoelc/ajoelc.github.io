@@ -207,9 +207,6 @@ document.addEventListener("DOMContentLoaded",function(){
             }
             i++;
         }
-        
-        
-
     }
     
     getJSONData(urlProd).then(function(resultObj){
