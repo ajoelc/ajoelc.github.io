@@ -451,15 +451,7 @@ h3.inputLogin{
   margin: 0 auto;
 }
 
-.datosComentario{
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
 
-.datosComentario > *{
-  height: 10px;
-}
 
 .containerComentario{
   padding: 5px;
@@ -509,12 +501,14 @@ h3.inputLogin{
   margin-bottom: 5px;
 }
 
-#relatedProducts  .card-body{
+#relatedProducts .card-body{
   padding:2px;
 }
 
 #relatedProducts .card-title{
   text-align: center;
   text-transform: uppercase;
+  font-weight: 100;
+  font-size: 110%;
 }
 
