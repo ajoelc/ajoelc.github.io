@@ -122,22 +122,26 @@
     </div>
 
     <div class="container mt-5">
-        <h2 id="nameCat"></h2>
+        <h2 id="nameCat" class="center"></h2>
     </div>
    
     <div class="container" id="infoProd">
       
       <div id="infoAbtProd">
         <div class="row">
-          <div class="ml-2 col-12 col-lg-2 col-xl-1">
+          <div class="col ml-2 col-12 col-lg-1">
             <div class="row" id="allImages">
             </div>
           </div>
-          <div class="col-12 col-md-6 col-xl-7">
-            <div id="contenedorImg">
+
+          <div class="col col-12 col-md-6 col-lg-7">
+            <div id="contenedorImg" class="carousel slide" data-bs-interval="5000" data-bs-ride="carousel">
+              <div id="carouselImg" class="carousel-inner">
+
+              </div>
             </div>
           </div>
-          <div class="col col-lg-4 col-xl-3">
+          <div class="col col-lg-4">
             <h1 id="nameProd"></h1>
             <p id="descriptionProd"></p>
             <h2 id="costProd"></h2>

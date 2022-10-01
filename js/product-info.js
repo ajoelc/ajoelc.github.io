@@ -9,28 +9,32 @@ function mostrarInfoProducto(prod){
     document.getElementById("nameCat").innerHTML = prod.category
     document.getElementById("nameProd").innerHTML = prod.name;
     document.getElementById("descriptionProd").innerHTML = prod.description;
-    document.getElementById("contenedorImg").innerHTML =`
-    <img id="imagenPrincipal" class="mb-2" src="" alt="Imagen principal"></img>
-    `;
+    
     let contenedorRelated = document.getElementById("relatedProducts");
-    imagenPrincipal = document.getElementById("imagenPrincipal");
-    imagenPrincipal.setAttribute("src",prod.images[0]);
 
     for(let i = 0;i < prod.images.length;i++){
         document.getElementById("allImages").innerHTML+=`
             <div>
-                <a href="#">
-                <img class="img-thumbnail" src="${prod.images[i]}"></img>        
-                </a>
+                <img type="button" class="img-thumbnail" src="${prod.images[i]}"></img> 
+            </div>
+        `;
+        document.getElementById("carouselImg").innerHTML+=`
+            <div id="img${i}" class="carousel-item">
+                <img id="imagenPrincipal" src="${prod.images[i]}"></img>
             </div>
         `;
     }
-    
-    let imagenes = document.getElementsByClassName("img-thumbnail");
+    document.getElementById("img0").setAttribute('class','carousel-item active'); 
+
+    let imagenes = document.getElementsByClassName("img-thumbnail")
+    let imagenesCarousel = document.getElementsByClassName("carousel-item");
     for(let i = 0;i < imagenes.length;i++){
         imagenes[i].addEventListener("mouseover",function(){
-            imagenPrincipal.setAttribute("src",imagenes[i].src);
-        })
+            for (let imgC of imagenesCarousel) {
+                imgC.setAttribute('class','carousel-item');
+            }
+            imagenesCarousel[i].setAttribute('class','carousel-item active');
+        });
     }
 
     document.getElementById("costProd").innerHTML = `${infoProd.currency} ${infoProd.cost}`
@@ -75,18 +79,29 @@ function mostrarComentarios(){
                     
                     comentarios.innerHTML+=`
                     <div class=containerComentario>
-                        <div class='datosComentario'>
-                            <p>
-                                <span class="comentUser">${coments[i].user}</span>
-                                •
-                                
-                            </p>
-                            <p class="comentDate">${coments[i].dateTime}</p>
+                        <div class='row datosComentario'>
+                            <div class="col-md-7 col-sm-6">
+                                <p class="mb-1"><span class="comentUser">${coments[i].user}•</span>
+                                    
+                                </p>
+                            </div>
+                            
                         </div>
-                        <p class="comentario">
-                            ${coments[i].description}
-                            <span class="starsComent">${estrellasHTML}</span>
-                        </p>
+                        <div class='row comentario'>
+                            <div class='col'>
+                                <p class="comentario">
+                                    ${coments[i].description}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-7 col-md-8 col-xl-9">
+                                <p class="mb-0 starsComent">${estrellasHTML}</p>
+                            </div>
+                            <div class="col-12 col-sm-5 col-md-4 col-xl-3">
+                                <p class="comentDate">${coments[i].dateTime}</p>
+                            </div>
+                        </div>
                     </div>
                     <hr>
                     `;
