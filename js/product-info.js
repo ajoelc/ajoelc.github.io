@@ -1,9 +1,34 @@
+configurarNavBar();
+
 let prodID = localStorage.getItem("idProd");
 const urlProd = `https://japceibal.github.io/emercado-api/products/${prodID}.json`
 const urlComents = `https://japceibal.github.io/emercado-api/products_comments/${prodID}.json`;
 let infoProd = []
 let imagenPrincipal;
+let comentarios = document.getElementById("comentarios");
+let botonComprar = document.getElementById("botonComprar");
 
+function estaEnCarrito(id){
+    let i=0;
+    let actual = localStorage.getItem(`miProd${i}`);
+    while(actual && actual != id){
+        i++;
+        actual = localStorage.getItem(`miProd${i}`);
+    }
+    return actual
+}
+
+function agregarAlCarrito(id){
+
+    if (!estaEnCarrito(id)){
+        let i=0;
+        while(localStorage.getItem(`miProd${i}`)) i++;
+
+    let producto = [id,1];
+    localStorage.setItem(`miCom${i}`,contenido);
+    }
+    
+}
 
 function mostrarInfoProducto(prod){
     document.getElementById("nameCat").innerHTML = prod.category
@@ -24,6 +49,9 @@ function mostrarInfoProducto(prod){
         `;
     }
     document.getElementById("img0").classList.add('active'); 
+
+    botonComprar.setAttribute('onclick',agregarAlCarrito(prod.id));
+
 
     let imagenes = document.getElementsByClassName("img-thumbnail")
     let imagenesCarousel = document.getElementsByClassName("carousel-item");
@@ -153,14 +181,14 @@ function fechaToString(fecha){
     return fechaString;
 }
 
-document.addEventListener("DOMContentLoaded",function(){
-    let comentarios = document.getElementById("comentarios");
 
-    configurarNavBar();
+
+document.addEventListener("DOMContentLoaded",function(){
 
     if(mostrarUsuario()=='Anónimo'){
         document.getElementById("containerNewComent").style.display = "none";
-        
+        botonComprar.setAttribute('data-toggle',"modal");
+        botonComprar.setAttribute('data-target',"#modalLogin");
     }else{
         document.getElementById("needToLogin").style.display = "none";
         document.getElementById("sendComent").removeAttribute("disabled");
@@ -169,6 +197,8 @@ document.addEventListener("DOMContentLoaded",function(){
             let contenido = localStorage.getItem(`miCom${i}`).split(',');
             let comentId = contenido[0];
             let comentUser = contenido[1];
+
+            
             
             if((comentUser == localStorage.getItem("mail") || comentUser == localStorage.getItem("nombre")) && comentId == localStorage.getItem(`idProd`)){
                 document.getElementById("sendComent").setAttribute("disabled","true");
