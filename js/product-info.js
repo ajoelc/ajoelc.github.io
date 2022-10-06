@@ -1,34 +1,12 @@
-configurarNavBar();
-
 let prodID = localStorage.getItem("idProd");
-const urlProd = `https://japceibal.github.io/emercado-api/products/${prodID}.json`
+const urlProd = `https://japceibal.github.io/emercado-api/products/${prodID}.json`;
 const urlComents = `https://japceibal.github.io/emercado-api/products_comments/${prodID}.json`;
 let infoProd = []
 let imagenPrincipal;
 let comentarios = document.getElementById("comentarios");
 let botonComprar = document.getElementById("botonComprar");
 
-function estaEnCarrito(id){
-    let i=0;
-    let actual = localStorage.getItem(`miProd${i}`);
-    while(actual && actual != id){
-        i++;
-        actual = localStorage.getItem(`miProd${i}`);
-    }
-    return actual
-}
 
-function agregarAlCarrito(id){
-
-    if (!estaEnCarrito(id)){
-        let i=0;
-        while(localStorage.getItem(`miProd${i}`)) i++;
-
-    let producto = [id,1];
-    localStorage.setItem(`miCom${i}`,contenido);
-    }
-    
-}
 
 function mostrarInfoProducto(prod){
     document.getElementById("nameCat").innerHTML = prod.category
@@ -50,7 +28,8 @@ function mostrarInfoProducto(prod){
     }
     document.getElementById("img0").classList.add('active'); 
 
-    botonComprar.setAttribute('onclick',agregarAlCarrito(prod.id));
+    if(mostrarUsuario() != 'Anónimo')
+        botonComprar.setAttribute('onclick',`agregarAlCarrito(${prod.id})`);
 
 
     let imagenes = document.getElementsByClassName("img-thumbnail")
@@ -184,7 +163,6 @@ function fechaToString(fecha){
 
 
 document.addEventListener("DOMContentLoaded",function(){
-
     if(mostrarUsuario()=='Anónimo'){
         document.getElementById("containerNewComent").style.display = "none";
         botonComprar.setAttribute('data-toggle',"modal");

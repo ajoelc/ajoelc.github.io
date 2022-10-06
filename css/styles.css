@@ -516,3 +516,13 @@ h3.inputLogin{
   border-radius: 5px;
 }
 
+.cantCart{
+  width: 4rem;
+  text-align: center;
+}
+
+.img-cart{
+  width: 60px;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+}
