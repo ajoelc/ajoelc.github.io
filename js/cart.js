@@ -2,11 +2,21 @@ const userID = 25801;
 const urlProdN = `https://japceibal.github.io/emercado-api/user_cart/${userID}.json`;
 let cartContent = document.getElementById('tableCart');
 
-
+/**
+ * Cambia en la pagina del carrito el subtotal y pone costo*cant
+ * @param {int} id 
+ * @param {int} costo 
+ * @param {int} cant 
+ */
 function actualizarSubtotal(id,costo,cant){
     document.getElementById(`subt_${id}`).innerHTML = costo*cant;
 }
 
+/**
+ * Cambia en el carrito (LS) la cantidad del producto id segun cant
+ * @param {int} id 
+ * @param {int} cant 
+ */
 function actualizarCantCarrito(id,cant){
     esta = estaEnCarrito(id);
     if(esta[0]){
@@ -14,11 +24,14 @@ function actualizarCantCarrito(id,cant){
         prod = prod.split(',')
         prod[2] = cant
         localStorage.setItem(`miProd${esta[1]}`,prod);
-        
-        
     }
 }
 
+/**
+ * Elimina del carrito (LS) al elemento id y reorganiza los nombres.
+ ** Si se borra prod(i), ahora prod(i+1) = prod(i) y asi hacia adelante
+ * @param {int} id 
+ */
 function eliminarDeCarrito(id){
     esta = estaEnCarrito(id);
     localStorage.removeItem(`miProd${esta[1]}`);
@@ -35,6 +48,11 @@ function eliminarDeCarrito(id){
     cargarCarrito();
 }
 
+
+/**
+ * Añade a la tabla del carrito al elemento prod
+ * @param {Array} prod 
+ */
 function addToTable(prod){
     let contenidoHTML = `
         <tr class='align-middle'>
@@ -55,14 +73,15 @@ function addToTable(prod){
     cartContent.innerHTML += contenidoHTML;
 }
 
+/**
+ * Carga todos los elementos del LS en el carrito que cumplan ser del usuario logueado
+ */
 function cargarCarrito(){
     getJSONData(urlProdN).then(result=>{
         if(result.status == 'ok'){
-        
             result = result.data['articles'];
             result.forEach(prod => {
                 addToTable((Object.values(prod)));
-
             });
     
             let i = 0;
@@ -99,6 +118,5 @@ function cargarCarrito(){
 
 document.addEventListener("DOMContentLoaded", function(){
     cargarCarrito();
-    
     configurarNavBar();
 });

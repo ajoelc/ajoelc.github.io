@@ -57,20 +57,29 @@ function configurarNavBar(){
     }
 }
 
+/**
+ ** Si un producto con el id pasado por parametro se encuentra en el LS con key miProd(i) entonces lo devuelve en actual junto con el i.
+ ** Si no se encuentra actual = null e i es el proximo indice de nombre libre
+ * @param {int} id representa el id del producto
+ * @return {Array} (actual,i)
+ */
 function estaEnCarrito(id){
     let i=0;
     let actual = localStorage.getItem(`miProd${i}`);
-    
-    while(actual && actual.split(',')[0] != id){
+    while(actual && (actual.split(',')[0] != id || actual.split(',')[6] != localStorage.getItem('mail'))){
         i++;
         actual = localStorage.getItem(`miProd${i}`);
     }
     return [actual,i]
 }
 
+/**
+ * Agrega el texto correspondiente según si ya estaba o no el objeto
+ * @param {string} esta
+ */
 function agregarTextoCarrito(esta){
     let texto = document.getElementById('textoBtnComprar');
-    console.log(esta);
+    
     if (esta == 'null'){
         texto.innerHTML = '¡Producto agregado correctamente!';
         texto.classList += 'text-danger';
@@ -83,6 +92,10 @@ function agregarTextoCarrito(esta){
     document.getElementById('botonComprar').disabled = 'true';
 }
 
+/**
+ * Si prod no se encuentra en el LS lo agrega junto al mail del usuario
+ * @param {string} prod 
+ */
 function agregarAlCarrito(prod){
     prod = prod.split(',');
     esta = estaEnCarrito(prod[0]);
@@ -92,6 +105,4 @@ function agregarAlCarrito(prod){
         prod = [prod,localStorage.getItem('mail')];
         localStorage.setItem(`miProd${i}`,prod);
     }
-
-    
 }
