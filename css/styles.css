@@ -526,3 +526,25 @@ h3.inputLogin{
   border: 1px solid lightgray;
   border-radius: 10px;
 }
+
+.deleteProd{
+  transition: all 0.5s;
+}
+.deleteProd:hover{
+  color: black;
+  background-color: rgba(199, 179, 179, 0.683);
+  border-radius: 10px;
+  padding: 2px;
+}
+
+#textoBtnComprar{
+  font-size: 1rem;
+}
+
+#datosCompra{
+  margin-top: 5vh;
+  border-left: solid 4px rgb(46, 128, 84);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: rgba(133, 195, 158, 0.068);
+}

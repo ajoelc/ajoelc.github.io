@@ -1,6 +1,7 @@
 let categorias = [];
 const urlRed = 'https://japceibal.github.io/emercado-api/cats_products/'
 
+
 function getShowCategories(catMenu){
     catMenu.innerHTML = '';
     getJSONData(CATEGORIES_URL).then(function(resultObj){
@@ -54,4 +55,43 @@ function configurarNavBar(){
             configurarNavBar();
         })
     }
+}
+
+function estaEnCarrito(id){
+    let i=0;
+    let actual = localStorage.getItem(`miProd${i}`);
+    
+    while(actual && actual.split(',')[0] != id){
+        i++;
+        actual = localStorage.getItem(`miProd${i}`);
+    }
+    return [actual,i]
+}
+
+function agregarTextoCarrito(esta){
+    let texto = document.getElementById('textoBtnComprar');
+    console.log(esta);
+    if (esta == 'null'){
+        texto.innerHTML = '¡Producto agregado correctamente!';
+        texto.classList += 'text-danger';
+    }
+    else{
+        texto.innerHTML = '¡El producto ya estaba en el carrito!';
+        texto.classList += 'text-success';
+        
+    }
+    document.getElementById('botonComprar').disabled = 'true';
+}
+
+function agregarAlCarrito(prod){
+    prod = prod.split(',');
+    esta = estaEnCarrito(prod[0]);
+    
+    if (!esta[0]){
+        let i = esta[1];
+        prod = [prod,localStorage.getItem('mail')];
+        localStorage.setItem(`miProd${i}`,prod);
+    }
+
+    
 }

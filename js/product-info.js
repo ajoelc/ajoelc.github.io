@@ -4,7 +4,7 @@ const urlComents = `https://japceibal.github.io/emercado-api/products_comments/$
 let infoProd = []
 let imagenPrincipal;
 let comentarios = document.getElementById("comentarios");
-let botonComprar = document.getElementById("botonComprar");
+
 
 
 
@@ -28,9 +28,14 @@ function mostrarInfoProducto(prod){
     }
     document.getElementById("img0").classList.add('active'); 
 
-    if(mostrarUsuario() != 'Anónimo')
-        botonComprar.setAttribute('onclick',`agregarAlCarrito(${prod.id})`);
-
+    if(mostrarUsuario() != 'Anónimo'){
+        let botonComprar = document.getElementById("botonComprar");
+        cant = 1;
+        subtotal = prod.cost;
+        producto = [prod.id,prod.name,cant,prod.cost,prod.currency,prod.images[0]];
+        botonComprar.setAttribute('onclick',`agregarTextoCarrito('${estaEnCarrito(prod.id)[0]}');agregarAlCarrito('${producto}');`);
+        
+    }
 
     let imagenes = document.getElementsByClassName("img-thumbnail")
     let imagenesCarousel = document.getElementsByClassName("carousel-item");
@@ -43,13 +48,13 @@ function mostrarInfoProducto(prod){
         });
     }
 
-    document.getElementById("costProd").innerHTML = `${infoProd.currency} ${infoProd.cost}`
-    if(infoProd.soldCount > 0)
-        document.getElementById("soldProd").innerHTML = `¡ya se han vendido ${infoProd.soldCount}!`;
+    document.getElementById("costProd").innerHTML = `${prod.currency} ${prod.cost}`
+    if(prod.soldCount > 0)
+        document.getElementById("soldProd").innerHTML = `¡ya se han vendido ${prod.soldCount}!`;
     else
     document.getElementById("soldProd").innerHTML = `Sé la primera en comprarlo`;   
 
-    let relatedProducts = infoProd.relatedProducts;
+    let relatedProducts = prod.relatedProducts;
     contenidoHTML = '';
     relatedProducts.forEach(prod => {
         contenidoHTML+=`
@@ -163,6 +168,7 @@ function fechaToString(fecha){
 
 
 document.addEventListener("DOMContentLoaded",function(){
+    configurarNavBar();
     if(mostrarUsuario()=='Anónimo'){
         document.getElementById("containerNewComent").style.display = "none";
         botonComprar.setAttribute('data-toggle',"modal");

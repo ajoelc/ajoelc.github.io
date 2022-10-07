@@ -1,94 +1,104 @@
-const urlProdN = `https://japceibal.github.io/emercado-api/products/`;
+const userID = 25801;
+const urlProdN = `https://japceibal.github.io/emercado-api/user_cart/${userID}.json`;
 let cartContent = document.getElementById('tableCart');
 
-function estaEnCarrito(id){
-    let i=0;
-    let actual = localStorage.getItem(`miProd${i}`);
-    while(actual && actual.split(',')[0] != id){
-        i++;
-        actual = localStorage.getItem(`miProd${i}`);
-    }
-    return [actual,i]
-}
 
-function agregarAlCarrito(id){
-    esta = estaEnCarrito(id)
-    if (!esta[0]){
-        let i = esta[1];
-        let producto = [id,1];
-        localStorage.setItem(`miProd${i}`,producto);
-    }
-    else{
-        alert('EL PRODUCTO YA ESTA EN EL CARRITO!');
-    }
+function actualizarSubtotal(id,costo,cant){
+    document.getElementById(`subt_${id}`).innerHTML = costo*cant;
 }
 
 function actualizarCantCarrito(id,cant){
     esta = estaEnCarrito(id);
     if(esta[0]){
-        producto = [id,cant]
-        localStorage.setItem(`miProd${esta[1]}`,producto);
+        prod = esta[0]
+        prod = prod.split(',')
+        prod[2] = cant
+        localStorage.setItem(`miProd${esta[1]}`,prod);
+        
+        
     }
 }
 
-function addToTable(infoProd,prod,i){
-    let elem = document.createElement('tr');
+function eliminarDeCarrito(id){
+    esta = estaEnCarrito(id);
+    localStorage.removeItem(`miProd${esta[1]}`);
 
-    contenidoHTML = `
+    let i = esta[1]+1;
+    let actual = localStorage.getItem(`miProd${i}`);
+    while(actual && actual.split(',')[0] != id){
+        localStorage.removeItem(`miProd${i}`);
+        localStorage.setItem(`miProd${i-1}`,actual)
+        i++;
+        actual = localStorage.getItem(`miProd${i}`);
+    }
+    cartContent.innerHTML = '';
+    cargarCarrito();
+}
+
+function addToTable(prod){
+    let contenidoHTML = `
         <tr class='align-middle'>
             <th scope="row">
-                <img src="${infoProd.images[0]}" class='img-cart'></img>
+                <img src="${prod[5]}" class='img-cart'></img>
             </th>
-            <td>${infoProd.name}</td>
-            <td>${infoProd.currency} ${infoProd.cost}</td>
+            <td>${prod[1]}</td>
+            <td id="precio_${prod[0]}">${prod[4]} ${prod[3]}</td>
             <td>
-                <input class="cantCart" id='cantCart${i}' min='1' type="number" value="${prod[1]}">
+                <input id='input_${prod[0]}' class="cantCart" min='1' type="number" value="${prod[2]}">
             </td>
-            <th>${infoProd.currency} <span id='costCart${i}'>${prod[1]*infoProd.cost}</span></th>
+            <th>${prod[4]} <span id='subt_${prod[0]}'>${prod[2]*prod[3]}</span></th>
+            <th><svg class='deleteProd' onclick='eliminarDeCarrito(${prod[0]})' type='button' xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+            </svg></th>
         </tr>
     `;
-    elem.innerHTML = contenidoHTML
-    cartContent.appendChild(elem);
-
-    cantCart = document.getElementById(`cantCart${i}`);
-    costCartContainer = document.getElementById(`costCart${i}`);
-    
-    cantCart.addEventListener('input',function(){
-        actualizarCantCarrito(prod[0],cantCart.value);
-        costCartContainer.innerHTML = cantCart.value*infoProd.cost
-    });
+    cartContent.innerHTML += contenidoHTML;
 }
 
 function cargarCarrito(){
-    let i = 0;
-    let arrayCarrito = []
-    let contenidoHTML = '';
-    while(localStorage.getItem(`miProd${i}`)){
-        arrayCarrito.push(localStorage.getItem(`miProd${i}`));
-        i++;
-    }
-    i = 1
-    arrayCarrito.forEach(prod => {
-        prod = prod.split(',');
-        let urlProducto = urlProdN + prod[0] +'.json';
-        let cantCart;
-        let costCartContainer;
-        getJSONData(urlProducto).then(function(resultObj){
-            if(resultObj.status === "ok"){
-                infoProd = resultObj.data;
-                addToTable(infoProd,prod,i);
+    getJSONData(urlProdN).then(result=>{
+        if(result.status == 'ok'){
+        
+            result = result.data['articles'];
+            result.forEach(prod => {
+                addToTable((Object.values(prod)));
+
+            });
+    
+            let i = 0;
+            let arrayCarrito = [];
+    
+            while(localStorage.getItem(`miProd${i}`)){
+                arrayCarrito.push(localStorage.getItem(`miProd${i}`));
                 i++;
             }
-        });
-    });
-        
-        
+            
+            arrayCarrito.forEach(producto => {
+                producto = producto.split(',');
+                if(producto[producto.length-1] == localStorage.getItem('mail'))
+                addToTable(producto);
+            });
     
+            let inputsArray = document.getElementsByClassName('cantCart');
+            
+            for (let j = 0; j< inputsArray.length; j++){
+                inputsArray[j].addEventListener('input',function(){
+                    id = inputsArray[j].id.split('_')[1];
+                    cant = document.getElementById(`input_${id}`).value;
+                    precio = document.getElementById(`precio_${id}`).innerHTML.split(' ');
+                    precio[1] = parseInt(precio[1])
+                    actualizarCantCarrito(id,inputsArray[j].value)
+                    actualizarSubtotal(id,precio[1],cant)
+                })
+            } 
+        }
+    });
 }
 
-cargarCarrito();
+
 
 document.addEventListener("DOMContentLoaded", function(){
+    cargarCarrito();
+    
     configurarNavBar();
-
 });
