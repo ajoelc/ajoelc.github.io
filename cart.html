@@ -85,7 +85,7 @@
         <div class="row">
           
           <div class="col-sm-12 col-md-6 container p-3 ">
-            <h4>Tipo de envío</h4>
+            <h3>Tipo de envío</h3>
             <div class="form-check mb-4">
               <input class="form-check-input" type="radio" name="envio" id="premium" checked>
               <label class="form-check-label" for="premium">Premium 2 a 5 días (15%)</label>
@@ -101,7 +101,7 @@
           </div>
           <hr class="d-sm-block d-md-none text-muted center" style="width: 90%;">
           <div class="col-sm-12 col-md-6 container p-3 border-start">
-            <h4>Dirección de envío</h4>
+            <h3>Dirección de envío</h3>
             <form>
               <div class="form-group">
                 <label class="form-label" for="calle">Calle</label>
@@ -120,9 +120,102 @@
           </div>
           
         </div>
-        
-        
       </div>
+      <hr>
+      <div id="containerCostos" class="container">
+        <div class="row">
+          <h3>Costos</h3>
+          <div class="container">
+            <ul class="list-group">
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col-9 col-md-10">
+                    <h5>Subtotal</h5>
+                    <p class="text-muted">Costo unitario del producto por cantidad</p>
+                  </div>
+                  <div class="col-3 col-md-2">
+                    PRECIO
+                  </div>
+                </div>           
+              </li>
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col-9 col-md-10">
+                    <h5>Costo de envío</h5>
+                    <p class="text-muted">Según el tipo de envío</p>
+                  </div>
+                  <div class="col-3 col-md-2">
+                    PRECIO
+                  </div>
+                </div>           
+              </li>
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col-9 col-md-10">
+                    <h5>Total ($)</h5>
+                  </div>
+                  <div class="col-3 col-md-2">
+                    PRECIO
+                  </div>
+                </div>           
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="containerPago container">
+        <div class="row">
+          <h3>Forma de pago</h3>
+          <span>No ha seleccionado <span id="seleccionarPago" class="nav-link" role="button" data-toggle="modal" data-target="#modalPago">Seleccionar</span></span>
+        </div>
+      </div>
+
+      <button class="btn btn-primary w-100">Finalizar compra</button>
+
+      <div class="modal fade" id="modalPago" tabindex="-1" role="dialog">
+        <div role="document" class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Forma de pago</h5>
+            </div>
+            <div class="modal-body">
+              <div class="container">
+                <div class="form-check">
+                  <input class="form-check-input" name="formaPago" id="tarjCredito" type="radio" value="">
+                  <label class="form-check-label" for="tarjCredito">Tarjeta de crédito</label>
+                </div>
+                <hr>
+                <div class="row form-group">
+                  <div class="col-6">
+                    <label class="col-form-label" for="nroTarj">Número de tarjeta</label>
+                    <input disabled class="form-control" name="formaPago" id="nroTarj" type="number">
+                  </div>
+                  <div class="col-6">
+                    <label class="col-form-label" for="codSeg">Código de seg.</label>
+                    <input disabled class="form-control" name="formaPago" id="codSeg" type="number">
+                  </div>
+                  <div class="col-12">
+                    <label class="col-form-label" for="vencimiento">Vencimiento (MM/AA)</label>
+                    <input disabled class="form-control" name="formaPago" type="month" id="vencimiento">
+                  </div>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" name="formaPago" id="transferencia" type="radio" value="">
+                  <label class="form-check-label" for="transferencia">Transferencia bancaria</label>
+                </div>
+                <hr>
+                <div class="row">
+                  <label class="col-form-label" name="formaPago" for="nroCuenta">Número de cuenta</label>
+                  <input disabled class="form-control" id="nroCuenta" type="number">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
   </main>
   <footer class="text-muted">
     <div class="container">
