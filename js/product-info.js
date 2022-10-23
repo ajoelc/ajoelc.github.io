@@ -181,8 +181,6 @@ document.addEventListener("DOMContentLoaded",function(){
             let comentId = contenido[0];
             let comentUser = contenido[1];
 
-            
-            
             if((comentUser == localStorage.getItem("mail") || comentUser == localStorage.getItem("nombre")) && comentId == localStorage.getItem(`idProd`)){
                 document.getElementById("sendComent").setAttribute("disabled","true");
             }

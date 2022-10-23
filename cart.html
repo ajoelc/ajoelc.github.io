@@ -81,143 +81,170 @@
           </table>
         </div>
       </div>
-      <div class="container" id="datosCompra">
-        <div class="row">
-          
-          <div class="col-sm-12 col-md-6 container p-3 ">
-            <h3>Tipo de envío</h3>
-            <div class="form-check mb-4">
-              <input class="form-check-input" type="radio" name="envio" id="premium" checked>
-              <label class="form-check-label" for="premium">Premium 2 a 5 días (15%)</label>
+      
+      <div class="container mb-3" id="datosCompra">
+        <form id="formularioEnvio" class="needs-validation row mt-4" novalidate>
+          <div class="row">
+            <div class="col-sm-12 col-md-6 container p-3 ">
+              <h3>Tipo de envío</h3>
+              <div class="form-check mb-4">
+                <input class="form-check-input" type="radio" name="envio" id="premium" checked>
+                <label class="form-check-label" for="premium">Premium 2 a 5 días (15%)</label>
+              </div>
+              <div class="form-check mb-4">
+                <input class="form-check-input" type="radio" name="envio" id="express">
+                <label class="form-check-label" for="express">Express 5 a 8 días (7%)</label>  
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="envio" id="standard">
+                <label class="form-check-label" for="standard">Standard 12 a 15 días (5%)</label>
+              </div>
             </div>
-            <div class="form-check mb-4">
-              <input class="form-check-input" type="radio" name="envio" id="express">
-              <label class="form-check-label" for="express">Express 5 a 8 días (7%)</label>  
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="envio" id="standard">
-              <label class="form-check-label" for="standard">Standard 12 a 15 días (5%)</label>
-            </div>
-          </div>
-          <hr class="d-sm-block d-md-none text-muted center" style="width: 90%;">
-          <div class="col-sm-12 col-md-6 container p-3 border-start">
-            <h3>Dirección de envío</h3>
-            <form>
+            <hr class="d-sm-block d-md-none text-muted center" style="width: 90%;">
+            <div class="col-sm-12 col-md-6 container p-3 border-start">
+              <h3>Dirección de envío</h3>
               <div class="form-group">
                 <label class="form-label" for="calle">Calle</label>
-                <input id="calle" class="form-control" type="text">
+                <input required id="calle" class="form-control iptValidar" type="text">
+                <div class="invalid-feedback">
+                  Debe ingresar una calle.
+                </div>
               </div>
-              <div class="form-group">
-                <label class="form-label" for="numero">Numero</label>
-                <input id="numero" class="form-control" type="text">
+              
+              <div class="form-group mt-2">
+                <label class="form-label" for="numero">Número</label>
+                <input required id="numero" class="form-control iptValidar" type="text">
+                <div class="invalid-feedback">
+                  Debe ingresar un número.
+                </div>
               </div>
-              <div class="form-group">
+              
+              <div class="form-group mt-2">
                 <label class="form-label" for="esquina">Esquina</label>
-                <input id="esquina" class="form-control" type="text">
+                <input required id="esquina" class="form-control iptValidar" type="text">
+                <div class="invalid-feedback">
+                  Debe ingresar una esquina.
+                </div>
               </div>
-              <button type="submit" class="mt-3 btn btn-secondary">Enviar</button>
-            </form>
+            </div>
+            <hr class="d-sm-block d-md-none text-muted center" style="width: 90%;">
+            <div class="containerPago p-3 container">
+              <div class="row">
+                <h3>Forma de pago</h3>
+                <p><span id="textoSeleccionPago">No ha seleccionado</span> <span id="seleccionarPago" class="ml-5 link-primary" role="button" data-toggle="modal" data-target="#modalPago">Seleccionar</span></p>
+                <div id="invalid-Pago" class="text-danger" style="display: none;">
+                  Debe ingresar un método de pago válido.
+                </div>
+              </div>
+            </div>
           </div>
           
-        </div>
-      </div>
-      <hr>
-      <div id="containerCostos" class="container">
-        <div class="row">
-          <h3>Costos</h3>
-          <div class="container">
-            <ul class="list-group">
-              <li class="list-group-item">
-                <div class="row">
-                  <div class="col-9 col-md-10">
-                    <h5>Subtotal</h5>
-                    <p class="text-muted">Costo unitario del producto por cantidad</p>
-                  </div>
-                  <div class="col-3 col-md-2">
-                    PRECIO
-                  </div>
-                </div>           
-              </li>
-              <li class="list-group-item">
-                <div class="row">
-                  <div class="col-9 col-md-10">
-                    <h5>Costo de envío</h5>
-                    <p class="text-muted">Según el tipo de envío</p>
-                  </div>
-                  <div class="col-3 col-md-2">
-                    PRECIO
-                  </div>
-                </div>           
-              </li>
-              <li class="list-group-item">
-                <div class="row">
-                  <div class="col-9 col-md-10">
-                    <h5>Total ($)</h5>
-                  </div>
-                  <div class="col-3 col-md-2">
-                    PRECIO
-                  </div>
-                </div>           
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <hr>
-      <div class="containerPago container">
-        <div class="row">
-          <h3>Forma de pago</h3>
-          <span>No ha seleccionado <span id="seleccionarPago" class="nav-link" role="button" data-toggle="modal" data-target="#modalPago">Seleccionar</span></span>
-        </div>
-      </div>
-
-      <button class="btn btn-primary w-100">Finalizar compra</button>
-
-      <div class="modal fade" id="modalPago" tabindex="-1" role="dialog">
-        <div role="document" class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Forma de pago</h5>
-            </div>
-            <div class="modal-body">
-              <div class="container">
-                <div class="form-check">
-                  <input class="form-check-input" name="formaPago" id="tarjCredito" type="radio" value="">
-                  <label class="form-check-label" for="tarjCredito">Tarjeta de crédito</label>
+          <div class="modal fade h-100 w-100" id="modalPago" tabindex="-1" role="dialog">
+            <div role="document" class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Forma de pago</h5>
+                  <a class="btn btn-secondary" data-toggle="modal" data-target="#modalPago">Cerrar</a>
                 </div>
-                <hr>
-                <div class="row form-group">
-                  <div class="col-6">
-                    <label class="col-form-label" for="nroTarj">Número de tarjeta</label>
-                    <input disabled class="form-control" name="formaPago" id="nroTarj" type="number">
+                <div class="modal-body">
+                  <div class="container">
+                    <div class="form-check">
+                      <input required class="form-check-input" name="formaPago" id="opCredito" type="radio" value="credito">
+                      <label class="form-check-label" for="opCredito">Tarjeta de crédito</label>
+                    </div>
+                    <hr>
+                    <div class="row form-group">
+                      <div class="col-8">
+                        <label class="col-form-label" for="nroTarj">Número de tarjeta</label>
+                        <input required disabled class="form-control iptPagoTarjeta iptValidar" name="formaPago" id="nroTarj" type="number">
+                        <div class="invalid-feedback">
+                          Ingrese un número de tarjeta válido.
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <label class="col-form-label" for="codSeg">Código de seg.</label>
+                        <input required disabled class="form-control iptPagoTarjeta iptValidar" name="formaPago" id="codSeg" type="number">
+                        <div class="invalid-feedback">
+                          Ingrese un código de seguridad válido.
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <label class="col-form-label" for="vencimiento">Vencimiento (MM/AA)</label>
+                        <input required disabled class="form-control iptPagoTarjeta iptValidar" name="formaPago" type="month" id="vencimiento">
+                        <div class="invalid-feedback">
+                          Ingrese una fecha de vencimiento.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-check mt-5">
+                      <input required class="form-check-input" name="formaPago" id="opTransferencia" type="radio" value="transferencia">
+                      <label class="form-check-label iptPagoBanco" for="opTransferencia">Transferencia bancaria</label>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <label class="col-form-label" name="formaPago" for="nroCuenta">Número de cuenta</label>
+                      <input required disabled class="form-control iptPagoBanco iptValidar" id="nroCuenta" type="number">
+                      <div class="invalid-feedback">
+                        Ingrese un número de cuenta válido.
+                      </div>
+                    </div>
                   </div>
-                  <div class="col-6">
-                    <label class="col-form-label" for="codSeg">Código de seg.</label>
-                    <input disabled class="form-control" name="formaPago" id="codSeg" type="number">
-                  </div>
-                  <div class="col-12">
-                    <label class="col-form-label" for="vencimiento">Vencimiento (MM/AA)</label>
-                    <input disabled class="form-control" name="formaPago" type="month" id="vencimiento">
-                  </div>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" name="formaPago" id="transferencia" type="radio" value="">
-                  <label class="form-check-label" for="transferencia">Transferencia bancaria</label>
-                </div>
-                <hr>
-                <div class="row">
-                  <label class="col-form-label" name="formaPago" for="nroCuenta">Número de cuenta</label>
-                  <input disabled class="form-control" id="nroCuenta" type="number">
                 </div>
               </div>
             </div>
-            <div class="modal-footer">
-              <button class="btn btn-secondary" data-toggle="modal" data-target="#modalPago">Cerrar</button>
-            </div>
           </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="containerCostos" class="mt-1 mb-5 container">
+      <div class="row">
+        <h3>Costos</h3>
+        <div class="container">
+          <ul class="list-group">
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col-9 col-md-10">
+                  <h5>Subtotal</h5>
+                  <p class="text-muted">Costo unitario del producto por cantidad</p>
+                </div>
+                <div class="col-3 col-md-2">
+                  <p class="text-end" id="precioTotalProductos"></p>
+                </div>
+              </div>           
+            </li>
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col-9 col-md-10">
+                  <h5>Costo de envío</h5>
+                  <p class="text-muted">Según el tipo de envío</p>
+                </div>
+                <div class="col-3 col-md-2">
+                  <p class="text-end" id="precioEnvio"></p>
+                </div>
+              </div>           
+            </li>
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col-9 col-md-10">
+                  <h5>Total ($)</h5>
+                </div>
+                <div class="col-3 col-md-2">
+                  <p class="text-end fw-bold" id="precioTotal"></p>
+                </div>
+              </div>           
+            </li>
+          </ul>
         </div>
       </div>
+    </div>
 
+    <input type="submit" form="formularioEnvio" value="Finalizar compra" class="mt-3 mb-3 btn btn-primary center w-75">
+    
+    <div id="alertaComprado" class="alert alert-primary alert-dismissible fade w-75" role="alert">
+      ¡Has comprado con éxito!
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
 
   </main>
   <footer class="text-muted">
