@@ -25,6 +25,13 @@ let total = 0;
 let porc = 0.15;
 let totalEnvio = 0;
 let totalProds = 0;
+
+carrito = JSON.parse(localStorage.getItem('carrito'));
+if (!carrito){
+    carrito = {}
+    carrito[mail] = {}
+}
+
 /**
  * Cambia en la pagina del carrito el subtotal y pone costo*cant
  * @param {int} id 
@@ -43,12 +50,12 @@ function actualizarSubtotal(id,costo,cant){
  * @param {int} cant 
  */
 function actualizarCantCarrito(id,cant){
-    esta = estaEnCarrito(id);
-    if(esta[0]){
-        prod = esta[0]
-        prod = prod.split(',')
-        prod[2] = cant
-        localStorage.setItem(`miProd${esta[1]}`,prod);
+    
+    //console.log(carrito)
+    if(estaEnCarrito(id)){
+        carrito[mail][id].cant = cant;
+        console.log(carrito)
+        localStorage.setItem('carrito',JSON.stringify(carrito));
     }
 }
 
@@ -57,22 +64,15 @@ function actualizarCantCarrito(id,cant){
  */
  function cargarCarritoLS(){
     let i = 0;
-    arrayCarrito = [];
-    while(localStorage.getItem(`miProd${i}`)){
-        arrayCarrito.push(localStorage.getItem(`miProd${i}`));
-        i++;
-    }
-    
-    arrayCarrito.forEach(producto => {
-        producto = producto.split(',');
-        if(producto[producto.length-1] == localStorage.getItem('mail'))
-        addToTable(producto);
-    });
+    let carritoMail = carrito[mail]
+    for (const property in carritoMail) {
+        addToTable(carritoMail[property])
+      }
 
     let inputsArray = document.getElementsByClassName('cantCart');
     
     for (let j = 0; j< inputsArray.length; j++){
-        inputsArray[j].addEventListener('input',function(){
+        inputsArray[j].addEventListener('change',function(){
             let num = inputsArray[j].value;
             if (num % 1 > 0)
                 inputsArray[j].value = Math.round(inputsArray[j].value)
@@ -100,19 +100,19 @@ function actualizarCantCarrito(id,cant){
  * @param {int} id 
  */
 function eliminarDeCarrito(id){
-    esta = estaEnCarrito(id);
-    localStorage.removeItem(`miProd${esta[1]}`);
-
-    let i = esta[1]+1;
-    let actual = localStorage.getItem(`miProd${i}`);
-    while(actual && actual.split(',')[0] != id){
-        localStorage.removeItem(`miProd${i}`);
-        localStorage.setItem(`miProd${i-1}`,actual)
-        i++;
-        actual = localStorage.getItem(`miProd${i}`);
-    }
-    cartContent.innerHTML = '';
+    delete carrito[mail][id];
+    localStorage.setItem('carrito',JSON.stringify(carrito));
+    
     window.location = window.location.href
+}
+
+function vaciarCarrito(){
+    delete carrito[mail];
+    carrito = JSON.stringify(carrito)
+    if (carrito!={})
+        localStorage.setItem('carrito',carrito);
+    else
+        localStorage.removeItem('carrito');
 }
 
 
@@ -124,15 +124,15 @@ function addToTable(prod){
     let contenidoHTML = `
         <tr class='align-middle'>
             <th scope="row">
-                <img src="${prod[5]}" class='img-cart'></img>
+                <img src="${prod.img}" class='img-cart'></img>
             </th>
-            <td>${prod[1]}</td>
-            <td id="precio_${prod[0]}">${prod[4]} ${prod[3]}</td>
+            <td>${prod.name}</td>
+            <td id="precio_${prod.id}">${prod.currency} ${prod.cost}</td>
             <td>
-                <input id='input_${prod[0]}' class="cantCart" min='1' type="number" value="${prod[2]}">
+                <input id='input_${prod.id}' class="cantCart" min='1' type="number" value="${prod.cant}">
             </td>
-            <th>${prod[4]} <span id='subt_${prod[0]}' data-current='${prod[4]}' class="subtotal">${prod[2]*prod[3]}</span></th>
-            <th><svg class='deleteProd' onclick='eliminarDeCarrito(${prod[0]})' type='button' xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <th>${prod.currency} <span id='subt_${prod.id}' data-current='${prod.currency}' class="subtotal">${prod.cant*prod.cost}</span></th>
+            <th><svg class='deleteProd' onclick='eliminarDeCarrito("${prod.id}")' type='button' xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
             <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
             </svg></th>
         </tr>
@@ -160,7 +160,7 @@ function cargarSubtotalProductos(){
             precio /= 40;
         totalProds+=precio;
     }
-    totalProductos.innerHTML = `USD ${totalProds}`;
+    totalProductos.innerHTML = `USD ${totalProds.toFixed(2)}`;
 }
 
 
@@ -174,14 +174,15 @@ function validaciones(form,event){
         document.getElementById('invalid-Pago').style.display = 'block';
         res = false;
     }
+    
     form.classList.add('was-validated');
     return res;
 }
 
 function actualizarTotales(){
     totalEnvio = porc*totalProds
-    costoEnvio.innerHTML = `USD ${totalEnvio}` 
-    precioTotal.innerHTML = `USD ${totalProds+totalEnvio}`
+    costoEnvio.innerHTML = `USD ${totalEnvio.toFixed(2)}` 
+    precioTotal.innerHTML = `USD ${(totalProds+totalEnvio).toFixed(2)}`
 }
 
 
@@ -191,6 +192,11 @@ document.addEventListener("DOMContentLoaded", function(){
     cargarCarritoLS();
     cargarSubtotalProductos();
     actualizarTotales();
+
+    if(Object.keys(carrito[mail]).length == 0){
+        document.getElementById("botonFinalizarCompra").disabled = true;
+        document.getElementById("mensajeCarritoVacio").style.display = '';
+    }
 
     radios.forEach(radio => {
         radio.addEventListener("change",function(){
@@ -235,7 +241,6 @@ document.addEventListener("DOMContentLoaded", function(){
         if(validaciones(formEnvio,event1)){
             event1.preventDefault()
             event1.stopPropagation()
-            console.log()
             document.getElementById('alertaComprado').classList+=' show';
         }
         for (let ipt of iptValidar) {

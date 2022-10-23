@@ -42,7 +42,7 @@ function mostrarInfoProducto(prod){
         cant = 1;
         subtotal = prod.cost;
         producto = [prod.id,prod.name,cant,prod.cost,prod.currency,prod.images[0]];
-        botonComprar.setAttribute('onclick',`agregarTextoCarrito('${estaEnCarrito(prod.id)[0]}');agregarAlCarrito('${producto}');`);
+        botonComprar.setAttribute('onclick',`agregarAlCarrito('${producto}');`);
     }
 
     

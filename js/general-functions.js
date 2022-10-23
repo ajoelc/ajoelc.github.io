@@ -1,6 +1,6 @@
 let categorias = [];
 const urlRed = 'https://japceibal.github.io/emercado-api/cats_products/'
-
+let carrito = {}
 
 function getShowCategories(catMenu){
     catMenu.innerHTML = '';
@@ -64,13 +64,10 @@ function configurarNavBar(){
  * @return {Array} (actual,i)
  */
 function estaEnCarrito(id){
-    let i=0;
-    let actual = localStorage.getItem(`miProd${i}`);
-    while(actual && (actual.split(',')[0] != id || actual.split(',')[6] != localStorage.getItem('mail'))){
-        i++;
-        actual = localStorage.getItem(`miProd${i}`);
+    if(!carrito[mail]){
+        carrito[mail] = {}
     }
-    return [actual,i]
+    return carrito[mail][id]
 }
 
 /**
@@ -79,8 +76,8 @@ function estaEnCarrito(id){
  */
 function agregarTextoCarrito(esta){
     let texto = document.getElementById('textoBtnComprar');
-    
-    if (esta == 'null'){
+
+    if (!esta){
         texto.innerHTML = '¡Producto agregado correctamente!';
         texto.classList += 'text-danger';
     }
@@ -98,11 +95,26 @@ function agregarTextoCarrito(esta){
  */
 function agregarAlCarrito(prod){
     prod = prod.split(',');
-    esta = estaEnCarrito(prod[0]);
+    carrito = JSON.parse(localStorage.getItem('carrito'));
+    if(!carrito)
+        carrito = {}
+
+    let esta = estaEnCarrito(prod[0])
     
-    if (!esta[0]){
-        let i = esta[1];
-        prod = [prod,localStorage.getItem('mail')];
-        localStorage.setItem(`miProd${i}`,prod);
+    agregarTextoCarrito(esta);
+
+    if (!esta){
+        carrito[mail][prod[0]] = {
+            id : prod[0],
+            name : prod[1],
+            cant : prod[2],
+            cost : prod[3],
+            currency : prod[4],
+            img : prod[5]
+        };
+        localStorage.setItem(`carrito`,JSON.stringify(carrito));
+        
     }
+    
+    
 }
