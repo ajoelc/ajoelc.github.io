@@ -168,10 +168,18 @@ function validaciones(form,event){
     // Condiciones para que NO se envíe el formulario:
     // -a or -b o
     let res = true;
-    if (!form.checkValidity() || textoSeleccionPago.innerHTML == 'No ha seleccionado'){
+    if (!form.checkValidity()){
         event.preventDefault();
         event.stopPropagation();
-        document.getElementById('invalid-Pago').style.display = 'block';
+        if(tarjeta.checked && (iptValidar.nroTarj.value == '' || iptValidar.vencimiento.value == '' || iptValidar.codSeg.value == '')){
+            document.getElementById('invalid-Pago').style.display = 'block';
+        }
+        else if((transferencia.checked && iptValidar.nroCuenta.value == '') || !(tarjeta.checked || transferencia.checked)){
+            document.getElementById('invalid-Pago').style.display = 'block';
+        }
+        else {
+            document.getElementById('invalid-Pago').style.display = 'none';
+        }
         res = false;
     }
     
@@ -193,6 +201,15 @@ document.addEventListener("DOMContentLoaded", function(){
     cargarSubtotalProductos();
     actualizarTotales();
 
+    let fecha = new Date();
+
+    let anioMin = fecha.getFullYear().toString()
+    let anioMax = (fecha.getFullYear() + 100).toString()
+    let mes  = (fecha.getMonth() + 1).toString()
+    document.getElementById('vencimiento').setAttribute('min',anioMin+'-'+mes);
+    document.getElementById('vencimiento').setAttribute('max',anioMax+'-'+mes);
+
+    console.log(fecha);
     if(Object.keys(carrito[mail]).length == 0){
         document.getElementById("botonFinalizarCompra").disabled = true;
         document.getElementById("mensajeCarritoVacio").style.display = '';
