@@ -28,8 +28,10 @@ let totalProds = 0;
 
 carrito = JSON.parse(localStorage.getItem('carrito'));
 if (!carrito){
-    carrito = {}
-    carrito[mail] = {}
+    carrito = {};
+    carrito[mail] = {
+        cantidad : 0
+    };
 }
 
 /**
@@ -66,7 +68,8 @@ function actualizarCantCarrito(id,cant){
     let i = 0;
     let carritoMail = carrito[mail]
     for (const property in carritoMail) {
-        addToTable(carritoMail[property])
+        if(property != 'cantidad')
+            addToTable(carritoMail[property])
       }
 
     let inputsArray = document.getElementsByClassName('cantCart');
@@ -101,6 +104,7 @@ function actualizarCantCarrito(id,cant){
  */
 function eliminarDeCarrito(id){
     delete carrito[mail][id];
+    carrito[mail].cantidad -= 1;
     localStorage.setItem('carrito',JSON.stringify(carrito));
     
     window.location = window.location.href
@@ -201,16 +205,17 @@ document.addEventListener("DOMContentLoaded", function(){
     cargarSubtotalProductos();
     actualizarTotales();
 
+    //Para que la fecha de vencimiento sea la actual
     let fecha = new Date();
-
     let anioMin = fecha.getFullYear().toString()
     let anioMax = (fecha.getFullYear() + 100).toString()
     let mes  = (fecha.getMonth() + 1).toString()
     document.getElementById('vencimiento').setAttribute('min',anioMin+'-'+mes);
     document.getElementById('vencimiento').setAttribute('max',anioMax+'-'+mes);
+    /////////////////////////////////////////////////
 
-    console.log(fecha);
-    if(Object.keys(carrito[mail]).length == 0){
+    //Si no hay elementos en el carrito
+    if(!carrito[mail].cantidad){
         document.getElementById("botonFinalizarCompra").disabled = true;
         document.getElementById("mensajeCarritoVacio").style.display = '';
     }

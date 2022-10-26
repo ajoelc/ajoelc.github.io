@@ -9,6 +9,7 @@ const EXT_TYPE = ".json";
 
 let mail = localStorage.getItem('mail');
 
+
 let showSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "block";
 }

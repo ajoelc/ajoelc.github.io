@@ -104,6 +104,8 @@ function agregarAlCarrito(prod){
     agregarTextoCarrito(esta);
 
     if (!esta){
+        carrito[mail].cantidad++;
+
         carrito[mail][prod[0]] = {
             id : prod[0],
             name : prod[1],
