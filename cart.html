@@ -83,14 +83,14 @@
             </tbody>
           </table>
           <div class="container" style="display: none;" id="mensajeCarritoVacio">
-            <p class="fs-4 text-center">No tienes ningun elemento en el carrito </p>
+            <p class="fs-3 text-center">No tienes ningún elemento en el carrito </p>
             <a class="center link-dark fs-5" href="categories.html" style="text-decoration: none;">COMPRAR AHORA</a>
           </div>
         </div>
       </div>
       
       <div class="container mb-3" id="datosCompra">
-        <form id="formularioEnvio" class="needs-validation row mt-4" novalidate>
+        <form id="formularioEnvio" class="row mt-4" novalidate>
           <div class="row">
             <div class="col-sm-12 col-md-6 container p-3 ">
               <h3>Tipo de envío</h3>
@@ -138,10 +138,17 @@
             <div class="containerPago p-3 container">
               <div class="row">
                 <h3>Forma de pago</h3>
-                <p><span id="textoSeleccionPago">No ha seleccionado</span> <span id="seleccionarPago" class="ml-5 link-primary" role="button" data-toggle="modal" data-target="#modalPago">Seleccionar</span></p>
-                <div id="invalid-Pago" class="text-danger" style="display: none;">
-                  Debe ingresar un método de pago válido.
-                </div>
+                <p>
+                  <span id="textoSeleccionPago">
+                    No ha seleccionado
+                  </span> 
+                  <span id="seleccionarPago" class="link-primary" role="button" data-toggle="modal" data-target="#modalPago">
+                    Seleccionar
+                  </span>
+                  <p id="invalid-Pago" class="invalid-feedback" style="display: none;">
+                    Debe ingresar un método de pago válido.
+                  </p>
+                </p>
               </div>
             </div>
           </div>
@@ -156,7 +163,7 @@
                 <div class="modal-body">
                   <div class="container">
                     <div class="form-check">
-                      <input required class="form-check-input" name="formaPago" id="opCredito" type="radio" value="credito">
+                      <input required class="iptValidar form-check-input" name="formaPago" id="opCredito" type="radio" value="credito">
                       <label class="form-check-label" for="opCredito">Tarjeta de crédito</label>
                     </div>
                     <hr>
@@ -170,7 +177,7 @@
                       </div>
                       <div class="col-4">
                         <label class="col-form-label" for="codSeg">Código de seg.</label>
-                        <input required disabled class="form-control iptPagoTarjeta iptValidar" name="formaPago" id="codSeg" type="number">
+                        <input required disabled min="100" max="999" class="form-control iptPagoTarjeta iptValidar" name="formaPago" id="codSeg" type="number">
                         <div class="invalid-feedback">
                           Ingrese un código de seguridad válido.
                         </div>
@@ -184,13 +191,13 @@
                       </div>
                     </div>
                     <div class="form-check mt-5">
-                      <input required class="form-check-input" name="formaPago" id="opTransferencia" type="radio" value="transferencia">
-                      <label class="form-check-label iptPagoBanco" for="opTransferencia">Transferencia bancaria</label>
+                      <input required class="iptValidar form-check-input" name="formaPago" id="opTransferencia" type="radio" value="transferencia">
+                      <label class="form-check-label" for="opTransferencia">Transferencia bancaria</label>
                     </div>
                     <hr>
                     <div class="row">
                       <label class="col-form-label" name="formaPago" for="nroCuenta">Número de cuenta</label>
-                      <input required disabled class="form-control iptPagoBanco iptValidar" id="nroCuenta" type="number">
+                      <input required disabled class="form-control iptPagoBanco iptValidar" min="0" id="nroCuenta" type="number">
                       <div class="invalid-feedback">
                         Ingrese un número de cuenta válido.
                       </div>
@@ -248,8 +255,8 @@
 
     <input id="botonFinalizarCompra" type="submit" form="formularioEnvio" value="Finalizar compra" class="mt-3 mb-3 btn btn-primary center w-75">
     
-    <div id="alertaComprado" class="alert alert-success alert-dismissible fade w-75" role="alert">
-      ¡Has comprado con éxito!
+    <div id="alertaComprado" class="alert alert-success alert-dismissible fade w-75" >
+      <p class="text-center fs-2 m-0">¡Has comprado con éxito!</p>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 

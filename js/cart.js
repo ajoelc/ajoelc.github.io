@@ -56,7 +56,6 @@ function actualizarCantCarrito(id,cant){
     //console.log(carrito)
     if(estaEnCarrito(id)){
         carrito[mail][id].cant = cant;
-        console.log(carrito)
         localStorage.setItem('carrito',JSON.stringify(carrito));
     }
 }
@@ -112,6 +111,7 @@ function eliminarDeCarrito(id){
 
 function vaciarCarrito(){
     delete carrito[mail];
+    carrito[mail] ={cantidad:0};
     carrito = JSON.stringify(carrito)
     if (carrito!={})
         localStorage.setItem('carrito',carrito);
@@ -168,27 +168,51 @@ function cargarSubtotalProductos(){
 }
 
 
-function validaciones(form,event){
-    // Condiciones para que NO se envíe el formulario:
-    // -a or -b o
-    let res = true;
+function validaciones(form,event,fromSubmit = true){
+    let inputVencimiento = document.getElementById('vencimiento');
+
+    //Para que la fecha de vencimiento mínima sea hoy
+    let fecha = new Date();
+    let anioMin = fecha.getFullYear().toString();
+    let anioMax = (fecha.getFullYear() + 100).toString();
+    let mes  = (fecha.getMonth() + 1).toString();
+    inputVencimiento.setAttribute('min',anioMin+'-'+mes);
+    inputVencimiento.setAttribute('max',anioMax+'-'+mes);
+    /////////////////////////////////////////////////
+
+    let noMostrar = true;
+
+    if(transferencia.checked)
+        for (let i = 0;i<iptBanco.length;i++){
+            iptBanco[i].disabled = false;
+            noMostrar = noMostrar && iptBanco[i].checkValidity();
+            
+        }
+    else if(tarjeta.checked)
+        for(let i = 0;i<iptCredito.length;i++){
+            iptCredito[i].disabled = false;
+            noMostrar = noMostrar && iptCredito[i].checkValidity();
+        }
+    else
+        noMostrar = false;
+        
     if (!form.checkValidity()){
         event.preventDefault();
         event.stopPropagation();
-        if(tarjeta.checked && (iptValidar.nroTarj.value == '' || iptValidar.vencimiento.value == '' || iptValidar.codSeg.value == '')){
-            document.getElementById('invalid-Pago').style.display = 'block';
-        }
-        else if((transferencia.checked && iptValidar.nroCuenta.value == '') || !(tarjeta.checked || transferencia.checked)){
-            document.getElementById('invalid-Pago').style.display = 'block';
-        }
-        else {
-            document.getElementById('invalid-Pago').style.display = 'none';
-        }
-        res = false;
     }
+    else if(fromSubmit){
+        sessionStorage.setItem('comprado',1);
+        vaciarCarrito();
+    }
+
+    if(noMostrar)
+        document.getElementById('invalid-Pago').style.display = 'none';
+    
+    else    
+        document.getElementById('invalid-Pago').style.display = 'inline';
+
     
     form.classList.add('was-validated');
-    return res;
 }
 
 function actualizarTotales(){
@@ -205,17 +229,13 @@ document.addEventListener("DOMContentLoaded", function(){
     cargarSubtotalProductos();
     actualizarTotales();
 
-    //Para que la fecha de vencimiento sea la actual
-    let fecha = new Date();
-    let anioMin = fecha.getFullYear().toString()
-    let anioMax = (fecha.getFullYear() + 100).toString()
-    let mes  = (fecha.getMonth() + 1).toString()
-    document.getElementById('vencimiento').setAttribute('min',anioMin+'-'+mes);
-    document.getElementById('vencimiento').setAttribute('max',anioMax+'-'+mes);
-    /////////////////////////////////////////////////
+   if(sessionStorage.getItem('comprado')){
+        sessionStorage.removeItem('comprado');
+        document.getElementById('alertaComprado').classList.add('show');
+   }
 
     //Si no hay elementos en el carrito
-    if(!carrito[mail].cantidad){
+    if(carrito[mail].cantidad == 0){
         document.getElementById("botonFinalizarCompra").disabled = true;
         document.getElementById("mensajeCarritoVacio").style.display = '';
     }
@@ -244,7 +264,9 @@ document.addEventListener("DOMContentLoaded", function(){
         for (const ipt of iptCredito) {
             ipt.disabled = true;
         }
-        textoSeleccionPago.innerHTML = 'Transferencia Bancaria';
+
+        textoSeleccionPago.innerHTML = 'Transferencia bancaria';
+        
     });
 
     tarjeta.addEventListener("change",function(){
@@ -260,16 +282,13 @@ document.addEventListener("DOMContentLoaded", function(){
     });
 
     formEnvio.addEventListener("submit",function(event1){
-        if(validaciones(formEnvio,event1)){
-            event1.preventDefault()
-            event1.stopPropagation()
-            document.getElementById('alertaComprado').classList+=' show';
-        }
+        validaciones(formEnvio,event1);
+        
         for (let ipt of iptValidar) {
             ipt.addEventListener("input",function(event2){
-                validaciones(formEnvio,event2);
+                validaciones(formEnvio,event2,false);
             });
         }
         
-    },false);
+    });
 });
