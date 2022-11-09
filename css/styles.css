@@ -548,3 +548,12 @@ h3.inputLogin{
   border-bottom-right-radius: 10px;
   background-color: rgba(133, 195, 158, 0.068);
 }
+
+#textoPerfil{
+  font-size: 3rem;
+  align-items: center;
+}
+
+#imagenPerfil{
+  width: 20%;
+}

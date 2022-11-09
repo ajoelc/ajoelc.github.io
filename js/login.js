@@ -15,6 +15,11 @@ function redirect(url = window.location.href){
         localStorage.setItem('carrito',JSON.stringify(carritoLog));
     }
     
+    if(!infoPersonal[mail]){
+        infoPersonal[mail] = {}
+        localStorage.setItem('infoPersonal',JSON.stringify(infoPersonal))
+    }
+    
     window.location.href = url;
     return false;
 }

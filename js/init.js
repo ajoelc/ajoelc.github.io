@@ -8,7 +8,9 @@ const CART_BUY_URL = "https://japceibal.github.io/emercado-api/cart/buy.json";
 const EXT_TYPE = ".json";
 
 let mail = localStorage.getItem('mail');
-
+let infoPersonal = JSON.parse(localStorage.getItem('infoPersonal'));
+if(!infoPersonal)
+  infoPersonal = {}
 
 let showSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "block";
