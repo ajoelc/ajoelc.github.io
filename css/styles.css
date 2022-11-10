@@ -555,5 +555,15 @@ h3.inputLogin{
 }
 
 #imagenPerfil{
-  width: 20%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  width: 100%;
+  height: 100%;
+  object-fit: contain
+}
+
+#container-imgPerfil{
+  border: 1px solid rgba(0, 0, 0, 0.228);
+  width: 150px;
+  height: 150px;
 }

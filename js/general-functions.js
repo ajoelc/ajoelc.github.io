@@ -1,6 +1,5 @@
 let categorias = [];
 const urlRed = 'https://japceibal.github.io/emercado-api/cats_products/'
-let carrito = {}
 
 function getShowCategories(catMenu){
     catMenu.innerHTML = '';
@@ -22,11 +21,11 @@ function guardarRedirigir(id){
 }
 
 function mostrarUsuario(){
-    let nombre = localStorage.getItem('nombre');
-    let mail = localStorage.getItem('mail')
+    if(!mail) return 'Anónimo';
+    let nombre = infoPersonal[mail].nombre1;
+    let email = infoPersonal[mail].mail;
     if(nombre) return nombre;
-    else if(mail) return mail;
-    else return 'Anónimo'
+    else if(mail) return email;
 }
 
 function configurarNavBar(){
@@ -52,9 +51,14 @@ function configurarNavBar(){
             localStorage.removeItem("mail");
             localStorage.removeItem("nombre");
             document.getElementById('navbarNav').classList.remove('show');
+            mail = '';
             configurarNavBar();
         })
     }
+}
+
+function inicializarCarrito(){
+
 }
 
 /**

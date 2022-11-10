@@ -9,8 +9,14 @@ const EXT_TYPE = ".json";
 
 let mail = localStorage.getItem('mail');
 let infoPersonal = JSON.parse(localStorage.getItem('infoPersonal'));
+let carrito = JSON.parse(localStorage.getItem('carrito'));
+
+
+if (!carrito)
+  carrito = {};
+
 if(!infoPersonal)
-  infoPersonal = {}
+  infoPersonal = {};
 
 let showSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "block";

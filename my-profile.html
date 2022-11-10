@@ -40,7 +40,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav w-100 justify-content-between">
           <li class="nav-item">
-            <a class="nav-link active" href="index.html">Inicio</a>
+            <a class="nav-link" href="index.html">Inicio</a>
           </li>
           <div class="dropdown">
             <li class="nav-item" id="navbar-categories">
@@ -72,48 +72,58 @@
   <main>
     <div class="container mt-5">
       <div class="row d-flex align-items-center">
-        <img id="imagenPerfil" class="col-6 img-thumbnail" src="img/img_perfil.png" alt="">
+        <div id="container-imgPerfil" class="d-flex flex-wrap align-items-center m-0 col-6 container">
+          <img id="imagenPerfil" class=" col-6" src="img/img_perfil.png" alt="">
+        </div>
         <h1 id="textoPerfil" class="col-6 text-uppercase">Perfil</h1>
       </div>
       <div class= "container mt-5">
-        <form id="formPerfil" novalidate>
+        <form id="formPerfil">
           <div class="form-group d-flex align-items-center row w-75">
-            <div class="col-6 mb-3">
-              <label class="input-label" for="primerNombre">Primer nombre</label>
-              <input placeholder="Ingrese su nombre" class="form-control" id="primerNombre" type="text" required>
-              <div class="invalid-feedback">
-                Ingrese un nombre válido
+            <div class="row">
+              <div class="col-6 mb-4">
+                <label class="input-label" for="primerNombre">Primer nombre</label>
+                <input placeholder="Ingrese su nombre" class="noNumbers form-control" id="primerNombre" type="text" required>
+                <div class="invalid-feedback">
+                  Ingrese un nombre válido
+                </div>
+              </div>
+              <div class="col-6">
+                <label for="segundoNombre">Segundo nombre</label>
+                <input class="noNumbers form-control" id="segundoNombre" type="text">
               </div>
             </div>
-            <div class="col-6 mb-3">
-              <label for="segundoNombre">Segundo nombre</label>
-              <input class="form-control" id="segundoNombre" type="text">
-            </div>
-            <div class="col-6 mb-3">
-              <label for="primerApellido">Primer apellido</label>
-              <input placeholder="Ingrese su apellido" class="form-control" id="primerApellido" type="text" required>
-              <div class="invalid-feedback">
-                Ingrese un apellido válido
+            <div class="row mb-4">
+              <div class="col-6">
+                <label for="primerApellido">Primer apellido</label>
+                <input placeholder="Ingrese su apellido" class="noNumbers form-control" id="primerApellido" type="text" required>
+                <div class="invalid-feedback">
+                  Ingrese un apellido válido
+                </div>
+              </div>
+              <div class="col-6 ">
+                <label for="segundoApellido">Segundo apellido</label>
+                <input class="noNumbers form-control" id="segundoApellido" type="text">
               </div>
             </div>
-            <div class="col-6 mb-3 ">
-              <label for="segundoApellido">Segundo apellido</label>
-              <input class="form-control" id="segundoApellido" type="text">
-            </div>
-            <div class="col-6 mb-3">
-              <label for="emailPerfil">Email</label>
-              <input placeholder="ejemplo@dominio.com" class="form-control" id="emailPerfil" type="email" required>
-              <div class="invalid-feedback">
-                Ingrese un email válido
+            <div class="row mb-4">
+              <div class="col-6">
+                <label for="emailPerfil">Email</label>
+                <input placeholder="ejemplo@dominio.com" class="form-control" id="emailPerfil" type="email" required>
+                <div class="invalid-feedback">
+                  Ingrese un email válido
+                </div>
+              </div>
+              <div class="col-6 ">
+                <label for="telefono">Teléfono de contacto</label>
+                <input class="form-control" id="telefono" type="number">
               </div>
             </div>
-            <div class="col-6 mb-3">
-              <label for="telefono">Teléfono de contacto</label>
-              <input class="form-control" id="telefono" type="number">
-            </div>
+            
+            
             <div class="col-12">
               <label for="iptImagenPerfil">Imagen de perfil</label>
-              <input class="form-control" id="iptImagenPerfil" type="file">
+              <input class="form-control" accept="image/png, image/jpeg" id="iptImagenPerfil" type="file">
             </div>
             <input id="guardarCambiosPerfil" type="submit" form="formPerfil" value="Guardar cambios" class="mt-3 mb-3 btn btn-primary">
           </div>
