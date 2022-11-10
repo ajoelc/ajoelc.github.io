@@ -43,11 +43,11 @@ function redirectGoogle(response){
         infoPersonal[mail]={
             nombre1 : infoUsuario.given_name,
             nombre2: '',
-            apellido1: infoUsuario.get,
+            apellido1: infoUsuario.family_name,
             apellido2: '',
             mail : infoUsuario.email,
             telefono: '',
-            img:''
+            img: infoUsuario.picture
         }
         localStorage.setItem('infoPersonal',JSON.stringify(infoPersonal))
     }
