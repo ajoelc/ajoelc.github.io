@@ -17,70 +17,13 @@
 </head>
 
 <body>
-  <nav id="navbar"></nav>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1" id="navbar">
+    
+  </nav>
   
   <main>
     <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-body">
-            <div class="container">
-              <div class="row">
-                <img id="logoLogin" src="img/login.png" alt="Logo de la página">
-              </div>
-              <div class="row">
-                <div class="container" id="contenedorLogin">
-                  <h3 class="inputLogin">Inicio de sesión</h3>
-                  
-                  <form action="#" onsubmit="return redirect();">
-                    <div class="form-floating inputLogin">
-                      <input placeholder="email@dominio.com" type="email" class="form-control" name="emailInicio" id="emailInicio" required>
-                      <label for="emailInicio">Email</label>
-                    </div>
-                    
-                    <div class="form-floating inputLogin">
-                      <input placeholder="contraseña" type="password" class="form-control" id="contraInicio" required>
-                      <label class="form-label" for="contraInicio">Contraseña</label>
-                    </div>
-                  
-                    <button type="submit" class="btn btn-dark center mt-2" id="botonLogin">Ingresar</button>
-                  </form>  
-          
-                  <hr id="sepLogin">
-                  <h3 class="center">ó</h3>
-                  
-                  <div class="center">
-                    <div id="g_id_onload"
-                      data-client_id="962699925016-rc80qcj05auboi3vr4rif6iba6hvpqj4.apps.googleusercontent.com"
-                      data-context="signin"
-                      data-ux_mode="popup"
-                      data-callback="redirectGoogle"
-                      data-auto_prompt="false">
-                    </div>
-          
-                    <div class="g_id_signin inputLogin"
-                      data-type="standard"
-                      data-shape="pill"
-                      data-theme="filled_black"
-                      data-text="$ {button.text}"
-                      data-size="large"
-                      data-logo_alignment="left"
-                      data-width="252px">
-                    </div>
-                  </div>
-                  
-                </div>
-              </div>
-              <div class="row">
-                <button id="modalCancel" type="button" class="close btn btn-dark center" data-dismiss="modal">
-                  Cancelar
-                </button>
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      
     </div>
 
     <div class="container mt-5">

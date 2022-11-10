@@ -50,10 +50,7 @@ function configurarNavBar(pagina){
         mensajeSaludo.innerHTML += `Hola, ${mostrarUsuario()}!`;
         botonLogout.addEventListener("click",function(){
             localStorage.removeItem("mail");
-            localStorage.removeItem("nombre");
-            document.getElementById('navbarNav').classList.remove('show');
-            mail = '';
-            configurarNavBar();
+            window.location = 'index.html';
         })
     }
     switch(pagina){

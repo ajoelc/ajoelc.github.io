@@ -28,7 +28,7 @@ function mostrarProductos(array){
                     <div class="col-3 rounded no-border">
                         <img src="${prod.image}" alt="product image" class="img-thumbnail">
                     </div>
-                    <div class="col">
+                    <div class="col-9">
                         <div class="d-flex w-100 justify-content-between">
                             <div class="mb-1">
                             <h4> ${prod.name} - ${prod.currency} ${prod.cost}</h4> 
