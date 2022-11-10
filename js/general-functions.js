@@ -28,7 +28,7 @@ function mostrarUsuario(){
     else if(mail) return email;
 }
 
-function configurarNavBar(){
+function configurarNavBar(pagina){
     let botonLogin = document.getElementById("botonLogin");
     let categoriesMenu = document.getElementById("categories-menu");
     let optionsUserDrp = document.getElementById("optionsUserDrp");
@@ -54,6 +54,19 @@ function configurarNavBar(){
             mail = '';
             configurarNavBar();
         })
+    }
+    switch(pagina){
+        case 'inicio':
+            document.getElementById('nav-btn-inicio').classList.add('active');
+            break;        
+        case 'categories':
+            document.getElementById('nav-btn-categories').classList.add('active');
+            break;
+        case 'sell':
+            document.getElementById('nav-btn-vender').classList.add('active');
+            break;
+    
+    
     }
 }
 

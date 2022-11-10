@@ -26,13 +26,6 @@ let porc = 0.15;
 let totalEnvio = 0;
 let totalProds = 0;
 
-carrito = JSON.parse(localStorage.getItem('carrito'));
-if (!carrito){
-    carrito = {};
-    carrito[mail] = {
-        cantidad : 0
-    };
-}
 
 /**
  * Cambia en la pagina del carrito el subtotal y pone costo*cant

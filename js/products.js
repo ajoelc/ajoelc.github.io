@@ -56,7 +56,7 @@ function mostrarProductos(array){
 
 
 document.addEventListener("DOMContentLoaded",function(e){
-    configurarNavBar();
+    configurarNavBar('categories');
 
     getJSONData(url).then(function(resultObj){
         data = resultObj.data;
