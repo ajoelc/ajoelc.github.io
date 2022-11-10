@@ -55,7 +55,3 @@ function redirectGoogle(response){
 
     window.location.href = window.location.href;
 }
-
-document.addEventListener("DOMContentLoaded",function(){
-    
-})
