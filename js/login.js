@@ -29,9 +29,10 @@ function redirect(url = window.location.href){
 
 function redirectGoogle(response){
     const infoUsuario = jwt_decode(response.credential);
-    localStorage.setItem('nombre',infoUsuario.given_name);
-    localStorage.setItem('mail',infoUsuario.email);
-
+    mail = infoUsuario.email
+    
+    localStorage.setItem('mail',mail);
+    
     if(!carrito[mail]){
         carrito[mail] = {
             cantidad : 0
