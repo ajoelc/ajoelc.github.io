@@ -14,6 +14,10 @@ let modalLogin = document.getElementById('modalLogin');
 let mail = localStorage.getItem('mail');
 let infoPersonal = JSON.parse(localStorage.getItem('infoPersonal'));
 let carrito = JSON.parse(localStorage.getItem('carrito'));
+let comentariosLS = JSON.parse(localStorage.getItem('comentarios'));
+
+if(!comentariosLS)
+  comentariosLS = {};
 
 if (!carrito)
   carrito = {};

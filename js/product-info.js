@@ -1,6 +1,6 @@
 let prodID = localStorage.getItem("idProd");
 const urlProd = `https://japceibal.github.io/emercado-api/products/${prodID}.json`;
-const urlComents = `https://japceibal.github.io/emercado-api/products_comments/${prodID}.json`;
+const urlComents = PRODUCT_INFO_COMMENTS_URL + prodID + '.json';
 let infoProd = []
 let imagenPrincipal;
 let comentarios = document.getElementById("comentarios");
@@ -122,18 +122,12 @@ function mostrarComentarios(){
                     comentarios.innerHTML+=plantillaComentario(coments[i].user,coments[i].description,coments[i].score,coments[i].dateTime);
             }
         }
-        let i = 0;
-        while(localStorage.getItem(`miCom${i}`)){
-            let contenido = localStorage.getItem(`miCom${i}`);
-            contenido = contenido.split(',');
-
-            if(contenido[0] == localStorage.getItem(`idProd`)){
+        if(comentariosLS[prodID]){
+            comentariosLS[prodID].forEach(comment => {
                 nocoment = false;
-                comentarios.innerHTML+=plantillaComentario(contenido[1],contenido[2],contenido[3],contenido[4]);
-            }
-            i++;
+                comentarios.innerHTML += plantillaComentario(comment.user,comment.description,comment.score,comment.dateTime);
+            });
         }
-
         if(!nocoment)
             document.getElementById("noComent").style.display = 'none';
         else
@@ -175,16 +169,15 @@ document.addEventListener("DOMContentLoaded",function(){
     }else{
         document.getElementById("needToLogin").style.display = "none";
         document.getElementById("sendComent").removeAttribute("disabled");
-        let i = 0;
-        while(localStorage.getItem(`miCom${i}`)){
-            let contenido = localStorage.getItem(`miCom${i}`).split(',');
-            let comentId = contenido[0];
-            let comentUser = contenido[1];
-
-            if((comentUser == localStorage.getItem("mail") || comentUser == localStorage.getItem("nombre")) && comentId == localStorage.getItem(`idProd`)){
-                document.getElementById("sendComent").setAttribute("disabled","true");
+        if(comentariosLS[prodID]){
+            let hayComentario = false;
+            let i = 0;
+            while(!hayComentario && i < comentariosLS[prodID].length){
+                hayComentario = comentariosLS[prodID][i].user == mail;
+                i+=1;
             }
-            i++;
+            if(hayComentario)
+                document.getElementById("sendComent").setAttribute("disabled","true");
         }
     }
     
@@ -206,13 +199,23 @@ document.addEventListener("DOMContentLoaded",function(){
             let fechaString = fechaToString(fecha);
 
             let puntaje = document.getElementById("scoreComent").value;
+            
+            if(!comentariosLS[prodID])
+                comentariosLS[prodID] = [];
 
-            let i=0;
-            while(localStorage.getItem(`miCom${i}`)) i++;
+            comentarioActual = {
+                product : prodID,
+                score: puntaje,
+                description: newComent.value,
+                user: mail,
+                dateTime: fechaString
+            }
 
-            let contenido = [localStorage.getItem("idProd"),mostrarUsuario(),newComent.value,puntaje,fechaString];
-            localStorage.setItem(`miCom${i}`,contenido);
-            comentarios.innerHTML+=plantillaComentario(contenido[1],contenido[2],contenido[3],contenido[4]);          
+            comentariosLS[prodID].push(comentarioActual);
+
+            localStorage.setItem('comentarios',JSON.stringify(comentariosLS));
+
+            comentarios.innerHTML += plantillaComentario(mail,newComent.value,puntaje,fechaString);          
             newComent.value = '';
         }
     })
