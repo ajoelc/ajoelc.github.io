@@ -11,6 +11,9 @@ function getShowCategories(catMenu){
                 <a id="${elem.id}" class="dropdown-item" href="products.html">${elem.name}</a>
                 `;
             });
+            catMenu.addEventListener("click",function(e){
+                localStorage.setItem("catID",e.target.id)
+            });
         }
     });
 }
@@ -34,9 +37,7 @@ function configurarNavBar(pagina){
     let optionsUserDrp = document.getElementById("optionsUserDrp");
     let mensajeSaludo = document.getElementById("saludoUsuario");
     getShowCategories(categoriesMenu);
-    categoriesMenu.addEventListener("click",function(e){
-        localStorage.setItem("catID",e.target.id)
-    });
+    
 
     if(mostrarUsuario()=='Anónimo'){
         optionsUserDrp.style.display = "none";
