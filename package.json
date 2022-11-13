@@ -1,0 +1,23 @@
+{
+  "name": "jap",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ajoelc/ajoelc.github.io.git"
+  },
+  "author": "Joel Cabrera",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ajoelc/ajoelc.github.io/issues"
+  },
+  "homepage": "https://github.com/ajoelc/ajoelc.github.io#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "require-all": "^3.0.0"
+  }
+}

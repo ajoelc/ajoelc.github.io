@@ -1,5 +1,5 @@
 let catID = localStorage.getItem('catID');
-const url = 'https://japceibal.github.io/emercado-api/cats_products/'+catID+'.json'
+const url = PRODUCTS_URL + catID+'.json'
 
 let data;
 let botonRelevancia = document.getElementById("sortRelevancia");

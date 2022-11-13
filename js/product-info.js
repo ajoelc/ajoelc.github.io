@@ -1,5 +1,5 @@
 let prodID = localStorage.getItem("idProd");
-const urlProd = `https://japceibal.github.io/emercado-api/products/${prodID}.json`;
+const urlProd = PRODUCT_INFO_URL+ `${prodID}.json`;
 const urlComents = PRODUCT_INFO_COMMENTS_URL + prodID + '.json';
 let infoProd = []
 let imagenPrincipal;
