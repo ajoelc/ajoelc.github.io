@@ -1,12 +1,20 @@
-.jumbotron,
+@font-face {
+  font-family: AntipastoRegular;
+  src: url('../webfonts/Antipasto-Pro-Regular-trial.ttf');
+}
+@font-face {
+  font-family: AntipastoLight;
+  src: url('../webfonts/Antipasto-Pro-ExtraLight-trial.ttf');
+}
+@font-face {
+  font-family: AntipastoBold;
+  src: url('../webfonts/Antipasto-Pro-ExtraBold-trial.ttf');
+}
+
 .card-body,
 .container,
 .site-header {
   font-family: 'Raleway', serif !important;
-}
-
-.jumbotron .display-4 {
-  font-weight: bold;
 }
 
 nav a {
@@ -28,43 +36,8 @@ nav a {
   }
 }
 
-.jumbotron {
-  height: 50vh;
-  padding: 5em inherit;
-  margin-bottom: 0;
-  background-color: #53C0FB;
-  background: url('../img/cover_back.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  color: black;
-  font-weight: bold;
-}
-
-@media (min-width: 768px) {
-  .jumbotron {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
-  }
-}
-
-.jumbotron p:last-child {
-  margin-bottom: 0;
-}
-
-.jumbotron-heading {
-  font-weight: 300;
-}
-
-.jumbotron .container {
-  max-width: 40rem;
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 10px;
-  text-shadow: 1px 1px 2px grey;
-}
-
-.jumbotron .lead {
-  font-size: 38px;
+.jrow{
+  height: 100%;
 }
 
 footer {
@@ -198,7 +171,7 @@ a.custom-card:hover {
   color: black !important;
 }
 
-.navbar > *{
+.navbar > * >*{
   display: flex;
   padding: 10px;
 }
@@ -208,7 +181,7 @@ a.custom-card:hover {
   display: inline-block;
 }
 
-#categories-menu {
+#categories-menu, #optionsUser {
   font-family: 'Josefin Sans',sans-serif;
   font-weight: 100;
   display: none;
@@ -219,26 +192,39 @@ a.custom-card:hover {
   z-index: 1;
 }
 
-#categories-menu a{
+#categories-menu a,#optionsUser a{
   color: white;
 }
 
-#categories-menu a:hover{
+#conjuntoUsuario{
+  display: flex;
+  text-align: center !important;
+  vertical-align: middle !important;
+}
+
+#saludoUsuario{
+  padding-top:8px;
+  margin-top: 0px !important;
+}
+
+#categories-menu a:hover, #optionsUser a:hover{
   background-color: rgb(115, 184, 168);
 }
 
-.dropdown:hover #categories-menu {display: block;}
+.dropdown:hover #categories-menu, .dropdown:hover #optionsUser {display: block;}
 
 .navbar img{
   width: 50px;
   height: 
   50px !important;
 }
-a.nav-link { transition: all 0.5s;}
+a.nav-link,div.card { transition: all 0.5s;}
+
 
 a.nav-link:hover, div.card:hover{
   transform: scale(1.1);
 }
+
 
 #botonLogin{
   border: 1px solid rgb(177, 170, 170);
@@ -247,8 +233,21 @@ a.nav-link:hover, div.card:hover{
   max-width: max-content;
 }
 
-#botonLogin:hover, #botonLogout:hover{
-  background-color: rgba(255, 255, 255, 0.249);
+#botonLogin:hover, #modalCancel:hover{
+  background-color: rgba(125, 116, 116, 0.249);
+  color: black;
+}
+
+.modal-content {
+  border-radius: 5%;
+  height: 600px;
+}
+
+#modalCancel{
+  border:none;
+  border-radius: 30px; 
+  background-color: rgba(0, 0, 0, 0.455);
+  margin-top: 40px;
 }
 
 .nav-item > a{
@@ -270,28 +269,26 @@ a.nav-link:hover, div.card:hover{
   padding-right: 5px;
 }
 
-.jumbotron{
-  max-width: 100%;
-}
 
 /*LOGIN*/
 h3.inputLogin{
   text-align: center;
   margin-bottom: 1rem;
   text-transform: uppercase;
+  font-size: 100%;
+  margin: 0px auto;
 }
 
 .inputLogin{
   display: block;
   margin: 5px auto;
-  min-width: 200px;
-  max-width: 300px;
+  width: 70%;
 }
 
 #logoLogin{
   display: block;
   margin: 0px auto;
-  height: 150px;
+  height: 100%;
   width: auto;
 }
 
@@ -338,6 +335,14 @@ h3.inputLogin{
   margin-bottom: 50px;
 }
 
+body{
+  background-color: #bcb9b948;
+}
+
+#productos{
+  background-color: white;
+}
+
 #productos .row img:hover{
   transform: scale(1.1);
 }
@@ -352,19 +357,13 @@ h3.inputLogin{
   margin: 0px auto;
   margin-left: 40px;
   margin-top: 5%;
-  border: 1px solid ;
-  border-radius: 15px;
-  border-color: rgba(0, 0, 0, 0.205);
-  background-color: rgba(19, 118, 118, 0.027);
   padding: 10px;
-  box-shadow: 10px 10px 5px 0px rgba(222,199,199,0.75);
--webkit-box-shadow: 10px 10px 5px 0px rgba(222,199,199,0.75);
--moz-box-shadow: 10px 10px 5px 0px rgba(222,199,199,0.75);
 }
 
 #container-productos{
   text-align: center;
 }
+
 
 #filtros>h3{
   text-transform: uppercase;
@@ -403,7 +402,6 @@ h3.inputLogin{
   font-family: 'Josefin Sans',sans-serif!important;
   font-weight: 300;
   padding: 10px;
-  margin-top: 100px;
   width: 80%;
   border-radius: 20px;
   height: auto;
@@ -411,29 +409,35 @@ h3.inputLogin{
 }
 
 #nameCat{
+  font-family: AntipastoBold;
   margin-bottom: 30px;
-  font-weight: 600;
   text-transform: uppercase;
+  font-size: 400%;
 }
+
 
 #infoAbtProd{
   display: flex;
   justify-content: space-between;
 }
 
+
 #infoAbtProd > *{
   margin-right: 20px!important;
 }
 
 #nameProd{
+  font-family: AntipastoRegular;
   font-size: 40px;
 }
 
+
 #allImages>*,#allImages img{
   padding: 1px !important;
-  width: 100px;
+  width: 80px;
   margin: 0 auto;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
+  margin-left: 5px !important;
 }
 
 #allImages img:hover{
@@ -454,7 +458,7 @@ h3.inputLogin{
   -moz-box-shadow: 0px -1px 23px 0px rgba(117,104,104,0.49);
 }
 
-#comentTitle{
+.subtitleInfoProducts{
   text-align: center;
   margin-bottom: 10px;
   text-transform: uppercase;
@@ -466,15 +470,7 @@ h3.inputLogin{
   margin: 0 auto;
 }
 
-.datosComentario{
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
 
-.datosComentario > *{
-  height: 10px;
-}
 
 .containerComentario{
   padding: 5px;
@@ -513,12 +509,80 @@ h3.inputLogin{
   display: flex;
 }
 
-#botonLogout{
-  border: solid 1px white;
-  border-radius: 20px;
-  margin-left: 20px;
-  font-size: 0.7em;
-  width: auto;
-  height: 3em;
+#relatedProducts{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
 
+#relatedProducts > *{
+  width: 40%;
+  margin-bottom: 5px;
+}
+
+#relatedProducts .card-body{
+  padding:2px;
+}
+
+#relatedProducts .card-title{
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 100;
+  font-size: 110%;
+}
+
+#carouselImg{
+  border-radius: 5px;
+}
+
+.cantCart{
+  width: 4rem;
+  text-align: center;
+}
+
+.img-cart{
+  width: 60px;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+}
+
+.deleteProd{
+  transition: all 0.5s;
+}
+.deleteProd:hover{
+  color: black;
+  background-color: rgba(199, 179, 179, 0.683);
+  border-radius: 10px;
+  padding: 2px;
+}
+
+#textoBtnComprar{
+  font-size: 1rem;
+}
+
+#datosCompra{
+  margin-top: 5vh;
+  border-left: solid 4px rgb(46, 128, 84);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: rgba(133, 195, 158, 0.068);
+}
+
+#textoPerfil{
+  font-size: 3rem;
+  align-items: center;
+}
+
+#imagenPerfil{
+  padding-top: 5px;
+  padding-bottom: 5px;
+  width: 100%;
+  height: 100%;
+  object-fit: contain
+}
+
+#container-imgPerfil{
+  border: 1px solid rgba(0, 0, 0, 0.228);
+  width: 150px;
+  height: 150px;
+}

@@ -14,11 +14,6 @@ let elems = [];
 let min = parseInt('');
 let max = parseInt('');
 
-function guardarRedirigir(id){
-    localStorage.setItem("idProd",id);
-    window.location.href = "product-info.html";
-}
-
 function mostrarProductos(array){
     let contenidoHTML = "";
     for(let i = 0;i < array.length; i++){
@@ -28,12 +23,12 @@ function mostrarProductos(array){
             ((buscadorInput == '') || ((prod.description.toLowerCase()).includes(buscadorInput)) || ((prod.name.toLowerCase()).includes(buscadorInput)))){
             contenidoHTML += `
             <a href="#" style="display:flex; text-decoration:none; color:black">
-            <div onclick="guardarRedirigir(${prod.id});"  class="list-group-item list-group-item-action" id="${prod.id}">
+            <div onclick="guardarRedirigir(${prod.id});" class=" list-group-item-action" id="${prod.id}">
                 <div class="row">
                     <div class="col-3 rounded no-border">
-                        <img src="${prod.image}" alt="product image" class="img-thumbnail">
+                        <img src="${prod.image}" alt="product image" class="w-100 p-0 m-0">
                     </div>
-                    <div class="col">
+                    <div class="col-9">
                         <div class="d-flex w-100 justify-content-between">
                             <div class="mb-1">
                             <h4> ${prod.name} - ${prod.currency} ${prod.cost}</h4> 
@@ -45,6 +40,7 @@ function mostrarProductos(array){
                 </div>
             </div>
             </a>
+            <hr>
             `
         }
     }
@@ -61,7 +57,7 @@ function mostrarProductos(array){
 
 
 document.addEventListener("DOMContentLoaded",function(e){
-    configurarNavBar();
+    configurarNavBar('categories');
 
     getJSONData(url).then(function(resultObj){
         data = resultObj.data;

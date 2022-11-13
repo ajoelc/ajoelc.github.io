@@ -1,42 +1,120 @@
 let prodID = localStorage.getItem("idProd");
-const urlProd = `https://japceibal.github.io/emercado-api/products/${prodID}.json`
-const urlComents = `https://japceibal.github.io/emercado-api/products_comments/${prodID}.json`;
+const urlProd = `https://japceibal.github.io/emercado-api/products/${prodID}.json`;
+const urlComents = PRODUCT_INFO_COMMENTS_URL + prodID + '.json';
 let infoProd = []
 let imagenPrincipal;
+let comentarios = document.getElementById("comentarios");
+let botonComprar = document.getElementById('botonComprar');
 
 
 function mostrarInfoProducto(prod){
     document.getElementById("nameCat").innerHTML = prod.category
     document.getElementById("nameProd").innerHTML = prod.name;
     document.getElementById("descriptionProd").innerHTML = prod.description;
-    document.getElementById("contenedorImg").innerHTML =`
-    <img id="imagenPrincipal" src="" alt="Imagen principal"></img>
-    `;
-    imagenPrincipal = document.getElementById("imagenPrincipal");
-    imagenPrincipal.setAttribute("src",prod.images[0]);
+    let contenedorRelated = document.getElementById("relatedProducts");
 
     for(let i = 0;i < prod.images.length;i++){
         document.getElementById("allImages").innerHTML+=`
             <div>
-                <a href="#">
-                <img class="img-thumbnail" src="${prod.images[i]}"></img>        
-                </a>
+                <img type="button" class="img-thumbnail" src="${prod.images[i]}"></img> 
+            </div>
+        `;
+        document.getElementById("carouselImg").innerHTML+=`
+            <div id="img${i}" class="carousel-item">
+                <img id="imagenPrincipal" src="${prod.images[i]}"></img>
             </div>
         `;
     }
-    
-    let imagenes = document.getElementsByClassName("img-thumbnail");
+    document.getElementById("img0").classList.add('active'); 
+
+    let imagenes = document.getElementsByClassName("img-thumbnail")
+    let imagenesCarousel = document.getElementsByClassName("carousel-item");
     for(let i = 0;i < imagenes.length;i++){
         imagenes[i].addEventListener("mouseover",function(){
-            imagenPrincipal.setAttribute("src",imagenes[i].src);
-        })
+            for (let imgC of imagenesCarousel) {
+                imgC.classList.remove('active');
+            }
+            imagenesCarousel[i].classList.add('active');
+        });
     }
 
-    document.getElementById("costProd").innerHTML = `${infoProd.currency} ${infoProd.cost}`
-    if(infoProd.soldCount > 0)
-        document.getElementById("soldProd").innerHTML = `¡ya se han vendido ${infoProd.soldCount}!`;
+    if(mostrarUsuario() != 'Anónimo'){
+        cant = 1;
+        subtotal = prod.cost;
+        producto = [prod.id,prod.name,cant,prod.cost,prod.currency,prod.images[0]];
+        botonComprar.setAttribute('onclick',`agregarAlCarrito('${producto}');`);
+    }
+
+    
+
+    document.getElementById("costProd").innerHTML = `${prod.currency} ${prod.cost}`
+    if(prod.soldCount > 0)
+        document.getElementById("soldProd").innerHTML = `¡ya se han vendido ${prod.soldCount}!`;
     else
     document.getElementById("soldProd").innerHTML = `Sé la primera en comprarlo`;   
+
+    let relatedProducts = prod.relatedProducts;
+    contenidoHTML = '';
+    relatedProducts.forEach(prod => {
+        contenidoHTML+=`
+            <div class="card" role="button" onclick="guardarRedirigir(${prod.id});">
+                <img class="card-img-top" src="${prod.image}" alt="Card image cap">
+                <hr>
+                <div class="card-body">
+                <h5 class="card-title">${prod.name}</h5>
+                </div>
+            </div>
+        `
+    });
+    contenedorRelated.innerHTML = contenidoHTML;
+}
+
+function plantillaComentario(user,desc,score,dateTime,img = 'img/img_perfil.png'){
+    let comentario = '';
+    let estrellasHTML =``;
+    for(let j = 0;j<5;j++){
+        if(score>0)
+            estrellasHTML+=`<span class="fa fa-star checked"></span>`;
+        else
+            estrellasHTML+=`<span class="fa fa-star"></span>`;
+        score--;
+    }
+
+    comentario = `
+    <div class="row containerComentario">
+        <div class="col-3 col-sm-2 col-lg-1">
+            <img style='width:40px' class='block' src='${img}'></img>
+        </div>
+        <div class="col-9 col-sm-10 col-lg-11">
+            <div class='row datosComentario'>
+            <div class="col-md-7 col-sm-6">
+                <p class="mb-1"><span class="comentUser">${user}•</span>
+                    
+                </p>
+            </div>
+                
+            </div>
+            <div class='row comentario'>
+                <div class='col'>
+                    <p class="comentario">
+                        ${desc}
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-7 col-md-8 col-xl-9">
+                    <p class="mb-0 starsComent">${estrellasHTML}</p>
+                </div>
+                <div class="col-12 col-sm-5 col-md-4 col-xl-3">
+                    <p class="comentDate">${dateTime}</p>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <hr>
+    `;
+    return comentario;
 }
 
 function mostrarComentarios(){
@@ -46,72 +124,15 @@ function mostrarComentarios(){
             let coments = resultObj.data;
             if(coments.length){
                 nocoment = false;
-                for(let i = 0;i<coments.length;i++){
-                    let puntaje = coments[i].score;
-                    let estrellasHTML =``;
-                    for(let j = 0;j<5;j++){
-                        if(puntaje>0)
-                            estrellasHTML+=`<span class="fa fa-star checked"></span>`;
-                        else
-                            estrellasHTML+=`<span class="fa fa-star"></span>`;
-                        puntaje--;
-                    }
-                    
-                    comentarios.innerHTML+=`
-                    <div class=containerComentario>
-                        <div class='datosComentario'>
-                            <p>
-                                <span class="comentUser">${coments[i].user}</span>
-                                •
-                                
-                            </p>
-                            <p class="comentDate">${coments[i].dateTime}</p>
-                        </div>
-                        <p class="comentario">
-                            ${coments[i].description}
-                            <span class="starsComent">${estrellasHTML}</span>
-                        </p>
-                    </div>
-                    <hr>
-                    `;
-                }
+                for(let i = 0;i<coments.length;i++)                 
+                    comentarios.innerHTML+=plantillaComentario(coments[i].user,coments[i].description,coments[i].score,coments[i].dateTime);
             }
         }
-        let i = 0;
-        while(localStorage.getItem(`miCom${i}`)){
-            let contenido = localStorage.getItem(`miCom${i}`);
-            contenido = contenido.split(',');
-
-            if(contenido[0] == localStorage.getItem(`idProd`)){
+        if(comentariosLS[prodID]){
+            comentariosLS[prodID].forEach(comment => {
                 nocoment = false;
-                let puntaje = contenido[3];
-                estrellasHTML ='';
-                for(let j = 0;j<5;j++){
-                    if(puntaje>0)
-                        estrellasHTML+=`<span class="fa fa-star checked"></span>`;
-                    else
-                        estrellasHTML+=`<span class="fa fa-star"></span>`;
-                    puntaje--;
-                }
-                comentarios.innerHTML+=`
-                <div class=containerComentario>
-                    <div class='datosComentario'>
-                        <p>
-                            <span class="comentUser">${contenido[1]}</span>
-                            •
-                        </p>
-                        <p class="comentDate">${contenido[4]}</p>
-                    </div>
-                    
-                    <p class="comentario">
-                        ${contenido[2]}
-                        <span>${estrellasHTML}</span>
-                    </p>
-                </div>
-                <hr>
-                `;
-            }
-            i++;
+                comentarios.innerHTML += plantillaComentario(comment.user,comment.description,comment.score,comment.dateTime,infoPersonal[comment.user]['img']);
+            });
         }
         if(!nocoment)
             document.getElementById("noComent").style.display = 'none';
@@ -143,33 +164,27 @@ function fechaToString(fecha){
     return fechaString;
 }
 
+
+
 document.addEventListener("DOMContentLoaded",function(){
-    let comentarios = document.getElementById("comentarios");
-
     configurarNavBar();
-
     if(mostrarUsuario()=='Anónimo'){
         document.getElementById("containerNewComent").style.display = "none";
-        document.getElementById("loguearse").addEventListener("click",function(){
-            localStorage.setItem("pagAnt",window.location.pathname.slice(1));
-        });
+        botonComprar.setAttribute('data-toggle',"modal");
+        botonComprar.setAttribute('data-target',"#modalLogin");
     }else{
         document.getElementById("needToLogin").style.display = "none";
         document.getElementById("sendComent").removeAttribute("disabled");
-        let i = 0;
-        while(localStorage.getItem(`miCom${i}`)){
-            let contenido = localStorage.getItem(`miCom${i}`).split(',');
-            let comentId = contenido[0];
-            let comentUser = contenido[1];
-            
-            if((comentUser == localStorage.getItem("mail") || comentUser == localStorage.getItem("nombre")) && comentId == localStorage.getItem(`idProd`)){
-                document.getElementById("sendComent").setAttribute("disabled","true");
+        if(comentariosLS[prodID]){
+            let hayComentario = false;
+            let i = 0;
+            while(!hayComentario && i < comentariosLS[prodID].length){
+                hayComentario = comentariosLS[prodID][i].user == mail;
+                i+=1;
             }
-            i++;
+            if(hayComentario)
+                document.getElementById("sendComent").setAttribute("disabled","true");
         }
-        
-        
-
     }
     
     getJSONData(urlProd).then(function(resultObj){
@@ -190,39 +205,24 @@ document.addEventListener("DOMContentLoaded",function(){
             let fechaString = fechaToString(fecha);
 
             let puntaje = document.getElementById("scoreComent").value;
-            let estrellasHTML =``;
-
-            let i=0;
-            while(localStorage.getItem(`miCom${i}`)) i++;
-            let contenido = [localStorage.getItem("idProd"),mostrarUsuario(),newComent.value,puntaje,fechaString];
-            localStorage.setItem(`miCom${i}`,contenido);
-
-            for(let j = 0;j<5;j++){
-                if(puntaje>0)
-                    estrellasHTML+=`<span class="fa fa-star checked"></span>`;
-                else
-                    estrellasHTML+=`<span class="fa fa-star"></span>`;
-                puntaje--;
-            }
-            comentarios.innerHTML+=`
-                        <div class=containerComentario>
-                            <div class='datosComentario'>
-                                <p>
-                                    <span class="comentUser">${mostrarUsuario()}</span>
-                                    •
-                                </p>
-                                <p class="comentDate">${fechaString}</p>
-                            </div>
-                            
-                            <p class="comentario">
-                                ${newComent.value}
-                                <span>${estrellasHTML}</span>
-                            </p>
-                        </div>
-                        <hr>
-                        `;
             
+            if(!comentariosLS[prodID])
+                comentariosLS[prodID] = [];
+
+            comentarioActual = {
+                product : prodID,
+                score: puntaje,
+                description: newComent.value,
+                user: mail,
+                dateTime: fechaString
+            }
+
+            comentariosLS[prodID].push(comentarioActual);
+
+            localStorage.setItem('comentarios',JSON.stringify(comentariosLS));
+
+            comentarios.innerHTML += plantillaComentario(mail,newComent.value,puntaje,fechaString);          
             newComent.value = '';
         }
     })
-})
+});

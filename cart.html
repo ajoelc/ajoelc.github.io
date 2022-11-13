@@ -11,46 +11,215 @@
   <link href="css/styles.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400&display=swap" rel="stylesheet">
   <link rel="icon" href="img/logo-removebg-preview.ico">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <script>
+    if(!localStorage.getItem('mail'))
+      window.location.href = 'login.html';
+  </script>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
-    <div class="container">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        <span id="toggler-text">MENU</span>
-      </button>
-      
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav w-100 justify-content-between">
-          <li class="nav-item">
-            <a class="nav-link active" href="index.html">Inicio</a>
-          </li>
-          <div class="dropdown">
-            <li class="nav-item" id="navbar-categories">
-              <a class="nav-link dropbtn" role="button" href="categories.html">Categorías</a>
-              <div id="categories-menu">
-              </div>
-            </li>
-          </div>
-          <li class="nav-item">
-            <a class="nav-link" href="sell.html" id="vender">Vender</a>
-          </li>
-          <li id="usuario" class="nav-item">
-            <a style="display: none;" id="botonLogin" class="nav-link" href="login.html">Iniciar Sesión</a>
-            <p id="saludoUsuario"></p>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1" id="navbar"></nav>
   <main>
+
     <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+      <div class="container" id="headerCart">
+        <h3 class="center mt-5">MI CARRITO</h3>
+      </div>
+      <div class="container">
+        <div class="row">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Imagen</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Costo</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Subtotal</th>
+              </tr>
+            </thead>
+            <tbody id="tableCart">
+            </tbody>
+          </table>
+          <div class="container" style="display: none;" id="mensajeCarritoVacio">
+            <p class="fs-3 text-center">No tienes ningún elemento en el carrito </p>
+            <a class="center link-dark fs-5" href="categories.html" style="text-decoration: none;">COMPRAR AHORA</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="container mb-3" id="datosCompra">
+        <form id="formularioEnvio" class="row mt-4" novalidate>
+          <div class="row">
+            <div class="col-sm-12 col-md-6 container p-3 ">
+              <h3>Tipo de envío</h3>
+              <div class="form-check mb-4">
+                <input class="form-check-input" type="radio" name="envio" id="premium" checked>
+                <label class="form-check-label" for="premium">Premium 2 a 5 días (15%)</label>
+              </div>
+              <div class="form-check mb-4">
+                <input class="form-check-input" type="radio" name="envio" id="express">
+                <label class="form-check-label" for="express">Express 5 a 8 días (7%)</label>  
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="envio" id="standard">
+                <label class="form-check-label" for="standard">Standard 12 a 15 días (5%)</label>
+              </div>
+            </div>
+            <hr class="d-sm-block d-md-none text-muted center" style="width: 90%;">
+            <div class="col-sm-12 col-md-6 container p-3 border-start">
+              <h3>Dirección de envío</h3>
+              <div class="form-group">
+                <label class="form-label" for="calle">Calle</label>
+                <input required id="calle" class="form-control iptValidar" type="text">
+                <div class="invalid-feedback">
+                  Debe ingresar una calle.
+                </div>
+              </div>
+              
+              <div class="form-group mt-2">
+                <label class="form-label" for="numero">Número</label>
+                <input required id="numero" class="form-control iptValidar" type="text">
+                <div class="invalid-feedback">
+                  Debe ingresar un número.
+                </div>
+              </div>
+              
+              <div class="form-group mt-2">
+                <label class="form-label" for="esquina">Esquina</label>
+                <input required id="esquina" class="form-control iptValidar" type="text">
+                <div class="invalid-feedback">
+                  Debe ingresar una esquina.
+                </div>
+              </div>
+            </div>
+            <hr class="d-sm-block d-md-none text-muted center" style="width: 90%;">
+            <div class="containerPago p-3 container">
+              <div class="row">
+                <h3>Forma de pago</h3>
+                <p>
+                  <span id="textoSeleccionPago">
+                    No ha seleccionado
+                  </span> 
+                  <span id="seleccionarPago" class="link-primary" role="button" data-toggle="modal" data-target="#modalPago">
+                    Seleccionar
+                  </span>
+                  <p id="invalid-Pago" class="invalid-feedback" style="display: none;">
+                    Debe ingresar un método de pago válido.
+                  </p>
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="modal fade h-100 w-100" id="modalPago" tabindex="-1" role="dialog">
+            <div role="document" class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Forma de pago</h5>
+                  <a class="btn btn-secondary" data-toggle="modal" data-target="#modalPago">Cerrar</a>
+                </div>
+                <div class="modal-body">
+                  <div class="container">
+                    <div class="form-check">
+                      <input required class="iptValidar form-check-input" name="formaPago" id="opCredito" type="radio" value="credito">
+                      <label class="form-check-label" for="opCredito">Tarjeta de crédito</label>
+                    </div>
+                    <hr>
+                    <div class="row form-group">
+                      <div class="col-8">
+                        <label class="col-form-label" for="nroTarj">Número de tarjeta</label>
+                        <input required disabled class="form-control iptPagoTarjeta iptValidar" name="formaPago" id="nroTarj" type="number">
+                        <div class="invalid-feedback">
+                          Ingrese un número de tarjeta válido.
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <label class="col-form-label" for="codSeg">Código de seg.</label>
+                        <input required disabled min="100" max="999" class="form-control iptPagoTarjeta iptValidar" name="formaPago" id="codSeg" type="number">
+                        <div class="invalid-feedback">
+                          Ingrese un código de seguridad válido.
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <label class="col-form-label" for="vencimiento">Vencimiento (MM/AA)</label>
+                        <input required disabled class="form-control iptPagoTarjeta iptValidar" name="formaPago" type="month" id="vencimiento">
+                        <div class="invalid-feedback">
+                          Ingrese una fecha de vencimiento válida.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-check mt-5">
+                      <input required class="iptValidar form-check-input" name="formaPago" id="opTransferencia" type="radio" value="transferencia">
+                      <label class="form-check-label" for="opTransferencia">Transferencia bancaria</label>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <label class="col-form-label" name="formaPago" for="nroCuenta">Número de cuenta</label>
+                      <input required disabled class="form-control iptPagoBanco iptValidar" min="0" id="nroCuenta" type="number">
+                      <div class="invalid-feedback">
+                        Ingrese un número de cuenta válido.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
+
+    <div id="containerCostos" class="mt-1 mb-5 container">
+      <div class="row">
+        <h3>Costos</h3>
+        <div class="container">
+          <ul class="list-group">
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col-9 col-md-10">
+                  <h5>Subtotal</h5>
+                  <p class="text-muted">Costo unitario del producto por cantidad</p>
+                </div>
+                <div class="col-3 col-md-2">
+                  <p class="text-end" id="precioTotalProductos"></p>
+                </div>
+              </div>           
+            </li>
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col-9 col-md-10">
+                  <h5>Costo de envío</h5>
+                  <p class="text-muted">Según el tipo de envío</p>
+                </div>
+                <div class="col-3 col-md-2">
+                  <p class="text-end" id="precioEnvio"></p>
+                </div>
+              </div>           
+            </li>
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col-9 col-md-10">
+                  <h5>Total ($)</h5>
+                </div>
+                <div class="col-3 col-md-2">
+                  <p class="text-end fw-bold" id="precioTotal"></p>
+                </div>
+              </div>           
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <input id="botonFinalizarCompra" type="submit" form="formularioEnvio" value="Finalizar compra" class="mt-3 mb-3 btn btn-primary center w-75">
+    
+    <div id="alertaComprado" class="alert alert-success alert-dismissible fade w-75" >
+      <p class="text-center fs-2 m-0">¡Has comprado con éxito!</p>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
   </main>
   <footer class="text-muted">
     <div class="container">
@@ -70,8 +239,15 @@
       <div></div>
     </div>
   </div>
-  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <script src="js/init.js"></script>
+  <script src="js/general-functions.js"></script>
+  <script src="js/login.js"></script>
+  <script src="js/jwt-decode.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/cart.js"></script>
 </body>
 

@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(){
-    configurarNavBar();
+    configurarNavBar('inicio');
 
     document.getElementById("autos").addEventListener("click", function() {
         localStorage.setItem("catID", 101);
