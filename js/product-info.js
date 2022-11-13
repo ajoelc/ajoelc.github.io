@@ -69,7 +69,7 @@ function mostrarInfoProducto(prod){
     contenedorRelated.innerHTML = contenidoHTML;
 }
 
-function plantillaComentario(user,desc,score,dateTime){
+function plantillaComentario(user,desc,score,dateTime,img = 'img/img_perfil.png'){
     let comentario = '';
     let estrellasHTML =``;
     for(let j = 0;j<5;j++){
@@ -81,30 +81,36 @@ function plantillaComentario(user,desc,score,dateTime){
     }
 
     comentario = `
-    <div class=containerComentario>
-        <div class='row datosComentario'>
+    <div class="row containerComentario">
+        <div class="col-3 col-sm-2 col-lg-1">
+            <img style='width:40px' class='block' src='${img}'></img>
+        </div>
+        <div class="col-9 col-sm-10 col-lg-11">
+            <div class='row datosComentario'>
             <div class="col-md-7 col-sm-6">
                 <p class="mb-1"><span class="comentUser">${user}•</span>
                     
                 </p>
             </div>
-            
-        </div>
-        <div class='row comentario'>
-            <div class='col'>
-                <p class="comentario">
-                    ${desc}
-                </p>
+                
+            </div>
+            <div class='row comentario'>
+                <div class='col'>
+                    <p class="comentario">
+                        ${desc}
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-7 col-md-8 col-xl-9">
+                    <p class="mb-0 starsComent">${estrellasHTML}</p>
+                </div>
+                <div class="col-12 col-sm-5 col-md-4 col-xl-3">
+                    <p class="comentDate">${dateTime}</p>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12 col-sm-7 col-md-8 col-xl-9">
-                <p class="mb-0 starsComent">${estrellasHTML}</p>
-            </div>
-            <div class="col-12 col-sm-5 col-md-4 col-xl-3">
-                <p class="comentDate">${dateTime}</p>
-            </div>
-        </div>
+        
     </div>
     <hr>
     `;
@@ -125,7 +131,7 @@ function mostrarComentarios(){
         if(comentariosLS[prodID]){
             comentariosLS[prodID].forEach(comment => {
                 nocoment = false;
-                comentarios.innerHTML += plantillaComentario(comment.user,comment.description,comment.score,comment.dateTime);
+                comentarios.innerHTML += plantillaComentario(comment.user,comment.description,comment.score,comment.dateTime,infoPersonal[comment.user]['img']);
             });
         }
         if(!nocoment)

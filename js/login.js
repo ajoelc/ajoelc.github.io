@@ -19,7 +19,7 @@ function redirect(url = window.location.href){
             apellido2: '',
             mail : mail,
             telefono: '',
-            img:''
+            img:'img/img_perfil.png'
         }
         localStorage.setItem('infoPersonal',JSON.stringify(infoPersonal))
     }

@@ -12,7 +12,7 @@ let formPerfil = document.getElementById('formPerfil');
 let ipts_noNumbers = document.getElementsByClassName('noNumbers');
 let imagenPerfilActual = document.getElementById('imagenPerfil');
 let ipts_profile = document.getElementsByTagName('input');
-
+let btn_borrarPerfil = document.getElementById('deleteProfilePicture');
 
 
 
@@ -26,9 +26,19 @@ document.addEventListener("DOMContentLoaded", function(){
         i+=1;
     }
 
-    if(infoPersonal[mail].img)
+    if(infoPersonal[mail].img){
         imagenPerfilActual.src = infoPersonal[mail].img;
-    ipt_email.value = mail
+        btn_borrarPerfil.style.display = 'block';
+        btn_borrarPerfil.addEventListener('click',()=>{
+            infoPersonal[mail].img = 'img/img_perfil.png';
+            localStorage.setItem('infoPersonal',JSON.stringify(infoPersonal));
+            window.location = window.location
+        });
+    }
+
+    
+
+    ipt_email.value = mail;
 
     //Hace que no se puedan ingresar números
     for (const ipt of ipts_noNumbers) {
