@@ -83,7 +83,7 @@ function plantillaComentario(user,desc,score,dateTime,img = 'img/img_perfil.png'
     comentario = `
     <div class="row containerComentario">
         <div class="col-3 col-sm-2 col-lg-1">
-            <img style='width:40px' class='block' src='${img}'></img>
+            <img style='width:40px' class='imgComment block' src='${img}'></img>
         </div>
         <div class="col-9 col-sm-10 col-lg-11">
             <div class='row datosComentario'>
