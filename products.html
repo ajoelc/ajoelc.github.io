@@ -27,22 +27,22 @@
       <h1 class="tituloSeccion">Productos</h1>
       <p id = "categoria" class="d-flex justify-content-center"></p>
     </div>
-    <div class="container center">
+    <div class="row container center">
       <input type="search" placeholder="Buscar productos" id="buscador" class="form-control">
       <label class="form-label" for="buscador" hidden>Buscar</label>
     </div>
     <div id="container">
-      <div class="row">
+      <div class="row rowArr">
         <div id="filtros" class="col-12 col-lg-3">
           <h3>Filtros</h3>
           <div class="mt-2">
             <div class="row mb-2">
-              <p class="font-weight-normal my-2">Precio</p>
+              <p class="col-12 font-weight-normal my-2">Precio</p>
               <div class="input-group mb-2">
                 <input class="form-control" type="number" placeholder="min." id="priceMin">
                 <input class="form-control" type="number" placeholder="máx." id="priceMax">
               </div>
-              <div class=" btn-group" role="group">
+              <div class="col-12 btn-group" role="group">
                 <button class="btn btn-dark btn-block" id="botonFiltrar">Filtrar</button>
                 <button class="btn btn-light btn-sm" id="botonLimpiar">Limpiar</button>
               </div>
@@ -61,7 +61,7 @@
         </div>
 
         <div class="col-12 col-lg-9">
-          <div class="container container-productos">
+          <div class="w-100 container container-productos">
             <div id="productos" class="p-3">
       
             </div>

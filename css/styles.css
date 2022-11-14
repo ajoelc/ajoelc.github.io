@@ -360,11 +360,10 @@ body{
   margin-top: 5%;
   padding: 10px;
 }
-
-#container-productos{
-  text-align: center;
+.rowArr{
+  margin-right: auto;
+  margin-left: auto;
 }
-
 
 #filtros>h3{
   text-transform: uppercase;
@@ -583,7 +582,6 @@ body{
 }
 
 #container-imgPerfil{
-  border: 1px solid rgba(0, 0, 0, 0.228);
   width: 150px;
   height: 150px;
 }
