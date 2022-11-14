@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function(){
         i+=1;
     }
 
-    if(infoPersonal[mail].img){
+    if(infoPersonal[mail].img != 'img/img_perfil.png'){
         imagenPerfilActual.src = infoPersonal[mail].img;
         btn_borrarPerfil.style.display = 'block';
         btn_borrarPerfil.addEventListener('click',()=>{
