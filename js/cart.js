@@ -6,6 +6,10 @@ let totalProductos = document.getElementById("precioTotalProductos");
 let costoEnvio = document.getElementById("precioEnvio");
 let precioTotal = document.getElementById("precioTotal");
 
+let iptDirCalle = document.getElementById('calle');
+let iptDirNumero = document.getElementById('numero');
+let iptDirEsquina = document.getElementById('esquina');
+
 let premium = document.getElementById("premium")
 let express = document.getElementById("express")
 let standard = document.getElementById("standard")
@@ -15,6 +19,8 @@ let tarjeta = document.getElementById("opCredito");
 let transferencia = document.getElementById("opTransferencia");
 let iptBanco = document.getElementsByClassName('iptPagoBanco');
 let iptCredito = document.getElementsByClassName('iptPagoTarjeta');
+
+let iptVencimiento = document.getElementById('vencimiento');
 
 let textoSeleccionPago = document.getElementById("textoSeleccionPago");
 
@@ -160,17 +166,39 @@ function cargarSubtotalProductos(){
     totalProductos.innerHTML = `USD ${totalProds.toFixed(2)}`;
 }
 
+function obtenerDatosComprador(){
+    resu = {}
+    resu.mail = mail
+    resu.direccion = {
+        calle : iptDirCalle.value,
+        numero : iptDirNumero.value,
+        esquina : iptDirEsquina.value
+    }
+    pago = {}
+    if(tarjeta.checked){
+        pago.tipo = 'Tarjeta'
+        pago.nroTarjeta = document.getElementById('nroTarj').value
+        pago.codigoSeguridad = document.getElementById('codSeg').value
+        pago.vencimiento = iptVencimiento.value
+    }
+    else{
+        pago.tipo = 'Transferencia'
+        pago.nroCuenta = document.getElementById('nroCuenta').value
+    }
+
+    resu.pago = pago
+    return resu
+}
+
 
 function validaciones(form,event,fromSubmit = true){
-    let inputVencimiento = document.getElementById('vencimiento');
-
     //Para que la fecha de vencimiento mínima sea hoy
     let fecha = new Date();
     let anioMin = fecha.getFullYear().toString();
     let anioMax = (fecha.getFullYear() + 100).toString();
     let mes  = (fecha.getMonth() + 1).toString();
-    inputVencimiento.setAttribute('min',anioMin+'-'+mes);
-    inputVencimiento.setAttribute('max',anioMax+'-'+mes);
+    iptVencimiento.setAttribute('min',anioMin+'-'+mes);
+    iptVencimiento.setAttribute('max',anioMax+'-'+mes);
     /////////////////////////////////////////////////
 
     let noMostrar = true;
@@ -195,12 +223,47 @@ function validaciones(form,event,fromSubmit = true){
     }
     else if(fromSubmit){
         sessionStorage.setItem('comprado',1);
-        vaciarCarrito();
+        compra = {}
+        compra = obtenerDatosComprador();
+        compra.productos = []
+
+        for (const key in carrito[mail]) {
+            if(key != 'cantidad'){
+                compra.productos.push({
+                    id : key,
+                    cantidad:carrito[mail][key].cant
+                })
+            }
+        }
+
+        tipoEnvio = {}
+        if(premium.checked)
+            compra.tipoEnvio = 'premium'
+        else if(express.checked)
+            compra.tipoEnvio = 'express'
+        else
+            compra.tipoEnvio = 'standard'
+        
+        compra.precio = {
+            total : total,
+            envio : totalEnvio,
+            productos : totalProds,
+            moneda : 'USD'
+        }
+
+        fetch('http://127.0.0.1:3000/sendcart/',{
+            method: 'POST',
+            credentials: 'same-origin',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(compra)
+        })
+        .then(vaciarCarrito())
     }
 
     if(noMostrar)
         document.getElementById('invalid-Pago').style.display = 'none';
-    
     else    
         document.getElementById('invalid-Pago').style.display = 'inline';
 
@@ -211,7 +274,9 @@ function validaciones(form,event,fromSubmit = true){
 function actualizarTotales(){
     totalEnvio = porc*totalProds
     costoEnvio.innerHTML = `USD ${totalEnvio.toFixed(2)}` 
-    precioTotal.innerHTML = `USD ${(totalProds+totalEnvio).toFixed(2)}`
+    total = totalEnvio+totalProds
+    precioTotal.innerHTML = `USD ${total.toFixed(2)}`
+    
 }
 
 

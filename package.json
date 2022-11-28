@@ -18,6 +18,6 @@
   "homepage": "https://github.com/ajoelc/ajoelc.github.io#readme",
   "dependencies": {
     "express": "^4.18.2",
-    "require-all": "^3.0.0"
+    "fs": "^0.0.1-security"
   }
 }

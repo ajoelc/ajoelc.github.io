@@ -48,22 +48,22 @@
           </div>
         </div>
       </div>
-      
+      <!--method="post" action="http://127.0.0.1:3000/sendcart"-->
       <div class="container mb-3" id="datosCompra">
         <form id="formularioEnvio" class="row mt-4" novalidate>
           <div class="row">
             <div class="col-sm-12 col-md-6 container p-3 ">
               <h3>Tipo de envío</h3>
               <div class="form-check mb-4">
-                <input class="form-check-input" type="radio" name="envio" id="premium" checked>
+                <input class="form-check-input" type="radio" name="envio" value="premium" id="premium" checked>
                 <label class="form-check-label" for="premium">Premium 2 a 5 días (15%)</label>
               </div>
               <div class="form-check mb-4">
-                <input class="form-check-input" type="radio" name="envio" id="express">
+                <input class="form-check-input" type="radio" name="envio" value="express" id="express">
                 <label class="form-check-label" for="express">Express 5 a 8 días (7%)</label>  
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="envio" id="standard">
+                <input class="form-check-input" type="radio" name="envio" value="standard" id="standard">
                 <label class="form-check-label" for="standard">Standard 12 a 15 días (5%)</label>
               </div>
             </div>
@@ -72,7 +72,7 @@
               <h3>Dirección de envío</h3>
               <div class="form-group">
                 <label class="form-label" for="calle">Calle</label>
-                <input required id="calle" class="form-control iptValidar" type="text">
+                <input required id="calle" name="direccion" class="form-control iptValidar" type="text">
                 <div class="invalid-feedback">
                   Debe ingresar una calle.
                 </div>
@@ -80,7 +80,7 @@
               
               <div class="form-group mt-2">
                 <label class="form-label" for="numero">Número</label>
-                <input required id="numero" class="form-control iptValidar" type="text">
+                <input required id="numero" name="direccion" class="form-control iptValidar" type="text">
                 <div class="invalid-feedback">
                   Debe ingresar un número.
                 </div>
@@ -88,7 +88,7 @@
               
               <div class="form-group mt-2">
                 <label class="form-label" for="esquina">Esquina</label>
-                <input required id="esquina" class="form-control iptValidar" type="text">
+                <input required id="esquina" name="direccion" class="form-control iptValidar" type="text">
                 <div class="invalid-feedback">
                   Debe ingresar una esquina.
                 </div>
@@ -137,7 +137,7 @@
                       </div>
                       <div class="col-4">
                         <label class="col-form-label" for="codSeg">Código de seg.</label>
-                        <input required disabled min="100" max="999" class="form-control iptPagoTarjeta iptValidar" name="formaPago" id="codSeg" type="number">
+                        <input required disabled min="100" max="999" name="formaPago" class="form-control iptPagoTarjeta iptValidar" name="formaPago" id="codSeg" type="number">
                         <div class="invalid-feedback">
                           Ingrese un código de seguridad válido.
                         </div>
